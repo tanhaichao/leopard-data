@@ -49,12 +49,10 @@
 		<dependency>
 			<groupId>io.leopard</groupId>
 			<artifactId>jlang</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>io.leopard</groupId>
 			<artifactId>autounit</artifactId>
-			<version>0.1-SNAPSHOT</version>
 			<scope>provided</scope>
 		</dependency>
 	</dependencies>

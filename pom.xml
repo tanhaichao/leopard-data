@@ -18,7 +18,22 @@
 		<developerConnection>scm:svn:https://github.com/tanhaichao/leopard-data/trunk</developerConnection>
 	</scm>
 
-
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>io.leopard</groupId>
+				<artifactId>jlang</artifactId>
+				<version>0.0.1-SNAPSHOT</version>
+			</dependency>
+			<dependency>
+				<groupId>io.leopard</groupId>
+				<artifactId>autounit</artifactId>
+				<version>0.1-SNAPSHOT</version>
+				<scope>provided</scope>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
+	
 	<modules>
 		<module>leopard-jdbc</module>
 		<module>leopard-redis</module>
