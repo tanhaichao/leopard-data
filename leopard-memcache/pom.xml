@@ -17,7 +17,6 @@
 			<version>3.0.2</version>
 		</dependency>
 
-
 		<dependency>
 			<groupId>io.leopard</groupId>
 			<artifactId>leopard-redis</artifactId>
@@ -26,15 +25,12 @@
 		</dependency>
 
 
-
 		<dependency>
 			<groupId>io.leopard</groupId>
 			<artifactId>autounit</artifactId>
-			<version>0.1-SNAPSHOT</version>
 			<scope>provided</scope>
 		</dependency>
 
-	
 
 		<dependency>
 			<groupId>junit</groupId>

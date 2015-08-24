@@ -1,7 +1,5 @@
 package io.leopard.data4j.mongo;
 
-import io.leopard.burrow.refect.FieldUtil;
-
 import java.lang.reflect.Field;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
@@ -84,7 +82,7 @@ public class MongoImpl implements Mongo {
 
 	@Override
 	public boolean insert(Object bean) {
-		List<Field> fieldList = FieldUtil.listFields(bean);
+		List<Field> fieldList = listFields(bean);
 		DBObject obj = new BasicDBObject();
 		for (Field field : fieldList) {
 			String name = field.getName();
@@ -102,6 +100,22 @@ public class MongoImpl implements Mongo {
 
 		this.collection.insert(obj);
 		return true;
+	}
+
+	public static List<Field> listFields(Object bean) {
+		List<Field> list = new ArrayList<Field>();
+		Class<?> currentClazz = bean.getClass();
+		while (true) {
+			Field[] fields = currentClazz.getDeclaredFields();
+			for (Field field : fields) {
+				list.add(field);
+			}
+			if (currentClazz.getSuperclass() == null) {
+				break;
+			}
+			currentClazz = currentClazz.getSuperclass();
+		}
+		return list;
 	}
 
 	@Override

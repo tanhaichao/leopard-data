@@ -22,13 +22,8 @@
 		<dependencies>
 			<dependency>
 				<groupId>io.leopard</groupId>
-				<artifactId>jlang</artifactId>
-				<version>0.0.1-SNAPSHOT</version>
-			</dependency>
-			<dependency>
-				<groupId>io.leopard</groupId>
 				<artifactId>autounit</artifactId>
-				<version>0.1-SNAPSHOT</version>
+				<version>0.2</version>
 				<scope>provided</scope>
 			</dependency>
 		</dependencies>
