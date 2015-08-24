@@ -15,12 +15,7 @@
 			<scope>provided</scope>
 		</dependency>
 		<!-- 序列化用到json -->
-		<dependency>
-			<groupId>io.leopard</groupId>
-			<artifactId>leopard-lang</artifactId>
-			<version>0.0.2-SNAPSHOT</version>
-			<scope>provided</scope>
-		</dependency>
+
 		<dependency>
 			<groupId>io.leopard</groupId>
 			<artifactId>leopard-redis</artifactId>

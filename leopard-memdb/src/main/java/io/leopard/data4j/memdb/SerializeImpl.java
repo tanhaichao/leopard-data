@@ -1,7 +1,5 @@
 package io.leopard.data4j.memdb;
 
-import io.leopard.burrow.lang.Json;
-
 public class SerializeImpl implements Serialize {
 	private static Serialize instance = new SerializeImpl();
 
@@ -11,12 +9,14 @@ public class SerializeImpl implements Serialize {
 
 	@Override
 	public String serialize(Object obj) {
-		return Json.toJson(obj);
+		// return Json.toJson(obj);
+		throw new UnsupportedOperationException("Not Impl.");
 	}
 
 	@Override
 	public <T> T toObject(String json, Class<T> clazz) {
-		return Json.toObject(json, clazz);
+		// return Json.toObject(json, clazz);
+		throw new UnsupportedOperationException("Not Impl.");
 	}
 
 }
