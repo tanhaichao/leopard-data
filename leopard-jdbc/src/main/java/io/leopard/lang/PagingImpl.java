@@ -1,7 +1,5 @@
 package io.leopard.lang;
 
-import io.leopard.jlang.api.Paging;
-
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;

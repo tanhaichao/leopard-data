@@ -1,7 +1,7 @@
 package io.leopard.jdbc;
 
 import io.leopard.jdbc.test.JdbcFactory;
-import io.leopard.jlang.api.Paging;
+import io.leopard.lang.Paging;
 
 import org.junit.Test;
 

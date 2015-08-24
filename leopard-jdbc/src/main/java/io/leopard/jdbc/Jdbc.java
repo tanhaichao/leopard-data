@@ -3,7 +3,7 @@ package io.leopard.jdbc;
 import io.leopard.jdbc.builder.InsertBuilder;
 import io.leopard.jdbc.builder.ReplaceBuilder;
 import io.leopard.jdbc.builder.SqlBuilder;
-import io.leopard.jlang.api.Paging;
+import io.leopard.lang.Paging;
 
 import java.util.List;
 import java.util.Map;
