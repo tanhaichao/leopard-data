@@ -31,10 +31,6 @@
 			<artifactId>autounit</artifactId>
 			<scope>provided</scope>
 		</dependency>
-		<dependency>
-			<groupId>io.leopard</groupId>
-			<artifactId>leopard-jedis</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>
+
 	</dependencies>
 </project>
