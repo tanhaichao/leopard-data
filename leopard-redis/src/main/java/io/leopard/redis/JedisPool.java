@@ -1,7 +1,6 @@
 package io.leopard.redis;
 
 import org.apache.commons.pool2.impl.AbandonedConfig;
-import org.springframework.util.StringUtils;
 
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPoolConfig;
@@ -24,7 +23,7 @@ public class JedisPool extends io.leopard.jedis.JedisPool {
 
 	protected void initRedisConnectionListener(JedisPoolConfig poolConfig, String host, int port, int timeout) {
 		String className = System.getProperty(RedisConnectionListener.class.getName());
-		if (StringUtils.isEmpty(className)) {
+		if (className == null || className.length() == 0) {
 			return;
 		}
 		Class<?> clazz;
