@@ -19,6 +19,11 @@ public class PagingImpl<E> implements Paging<E> {
 	}
 
 	public PagingImpl(boolean hasNextPage) {
+		this(0, hasNextPage);
+	}
+
+	public PagingImpl(int count, boolean hasNextPage) {
+		this.count = count;
 		this.list = new ArrayList<E>();
 		this.hasNextPage = hasNextPage;
 	}
