@@ -36,5 +36,6 @@
 		<module>leopard-mongo</module>
 		<module>leopard-memdb</module>
 		<module>leopard-cache</module>
+		<module>leopard-queue</module>
 	</modules>
 </project>
