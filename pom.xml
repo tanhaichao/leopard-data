@@ -2,7 +2,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>io.leopard</groupId>
 	<artifactId>leopard-data-parent</artifactId>
-	<version>0.0.3-SNAPSHOT</version>
+	<version>0.0.3</version>
 	<packaging>pom</packaging>
 
 
@@ -13,9 +13,9 @@
 	</parent>
 
 	<scm>
-		<url>https://github.com/tanhaichao/leopard-data</url>
-		<connection>scm:svn:https://github.com/tanhaichao/leopard-data/trunk</connection>
-		<developerConnection>scm:svn:https://github.com/tanhaichao/leopard-data/trunk</developerConnection>
+		<url>https://github.com/tanhaichao/leopard-data/tags/leopard-data-parent-0.0.3</url>
+		<connection>scm:svn:https://github.com/tanhaichao/leopard-data/tags/leopard-data-parent-0.0.3</connection>
+		<developerConnection>scm:svn:https://github.com/tanhaichao/leopard-data/tags/leopard-data-parent-0.0.3</developerConnection>
 	</scm>
 
 	<dependencyManagement>
