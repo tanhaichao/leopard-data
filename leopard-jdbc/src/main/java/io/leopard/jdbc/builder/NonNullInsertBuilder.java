@@ -8,6 +8,10 @@ public class NonNullInsertBuilder extends InsertBuilder {
 		super(tableName);
 	}
 
+	public NonNullInsertBuilder(String tableName, boolean insertIgnore) {
+		super(tableName, insertIgnore);
+	}
+
 	@Override
 	public void setInt(String fieldName, Integer value) {
 		if (value != null) {
