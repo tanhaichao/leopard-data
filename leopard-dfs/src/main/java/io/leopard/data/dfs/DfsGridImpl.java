@@ -18,7 +18,8 @@ import com.mongodb.gridfs.GridFSDBFile;
 import com.mongodb.gridfs.GridFSInputFile;
 
 public class DfsGridImpl implements Dfs, InitializingBean, DisposableBean {
-	private Log logger = LogFactory.getLog(this.getClass());
+
+	protected Log logger = LogFactory.getLog(this.getClass());
 
 	private String server;
 
