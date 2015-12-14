@@ -163,9 +163,6 @@ public class RedisImpl extends AbstractRedis implements Redis {
 	}
 
 	@Override
-	/**
-	 * @see io.leopard.data.redis.Redis#getResource()
-	 */
 	public Jedis getResource() {
 		// long startTime = System.nanoTime();
 		try {
@@ -209,25 +206,11 @@ public class RedisImpl extends AbstractRedis implements Redis {
 	}
 
 	@Override
-	/**
-	 * @see io.leopard.data.redis.Redis#returnResource(Jedis )
-	 */
 	public void returnResource(Jedis jedis) {
 		this.pool.returnResource(jedis);
 	}
 
-	// private synchronized Jedis initJedis() {
-	// if (jedis != null) {
-	// return jedis;
-	// }
-	// jedis = new Jedis(server, 6379, 1000 * 10);
-	// return jedis;
-	// }
-
 	@Override
-	/**
-	 * @see io.leopard.data.redis.Redis#del(String... )
-	 */
 	public Long del(final String... keys) {
 		return (Long) this.execute(new Invoker() {
 			@Override
@@ -238,9 +221,6 @@ public class RedisImpl extends AbstractRedis implements Redis {
 	}
 
 	@Override
-	/**
-	 * @see io.leopard.data.redis.Redis#del(String )
-	 */
 	public Long del(final String key) {
 		return (Long) this.execute(new Invoker() {
 			@Override
@@ -251,9 +231,6 @@ public class RedisImpl extends AbstractRedis implements Redis {
 	}
 
 	@Override
-	/**
-	 * @see io.leopard.data.redis.JedisCommands#append(String , String)
-	 */
 	public Long append(final String key, final String value) {
 		return (Long) this.execute(new Invoker() {
 			@Override
@@ -264,9 +241,6 @@ public class RedisImpl extends AbstractRedis implements Redis {
 	}
 
 	@Override
-	/**
-	 * @see io.leopard.data.redis.Redis#append(String, String, int)
-	 */
 	public boolean append(final String key, final String value, final int seconds) {
 		return (Boolean) this.execute(new Invoker() {
 			@Override
@@ -281,9 +255,6 @@ public class RedisImpl extends AbstractRedis implements Redis {
 	}
 
 	@Override
-	/**
-	 * @see io.leopard.data.redis.Redis#append(List<String>, List<String>, int)
-	 */
 	public boolean append(final List<String> keyList, final List<String> valueList, final int seconds) {
 		RedisUtil.checkList(keyList, valueList);
 
@@ -295,7 +266,6 @@ public class RedisImpl extends AbstractRedis implements Redis {
 					transaction.append(keyList.get(i), valueList.get(i));
 					transaction.expire(keyList.get(i), seconds);
 				}
-				logger.info("seconds:123");
 				transaction.exec();
 				return true;
 			}
@@ -303,9 +273,6 @@ public class RedisImpl extends AbstractRedis implements Redis {
 	}
 
 	@Override
-	/**
-	 * @see io.leopard.data.redis.JedisCommands#set(String , String)
-	 */
 	public String set(final String key, final String value) {
 		return (String) this.execute(new Invoker() {
 			@Override
@@ -317,9 +284,6 @@ public class RedisImpl extends AbstractRedis implements Redis {
 	}
 
 	@Override
-	/**
-	 * @see io.leopard.data.redis.Redis#set(List<String>, List<String>)
-	 */
 	public boolean set(final List<String> keyList, final List<String> valueList) {
 		RedisUtil.checkList(keyList, valueList);
 
@@ -338,9 +302,6 @@ public class RedisImpl extends AbstractRedis implements Redis {
 	}
 
 	@Override
-	/**
-	 * @see io.leopard.data.redis.JedisCommands#expire(String, int)
-	 */
 	public Long expire(final String key, final int seconds) {
 		return (Long) this.execute(new Invoker() {
 			@Override
@@ -351,9 +312,6 @@ public class RedisImpl extends AbstractRedis implements Redis {
 	}
 
 	@Override
-	/**
-	 * @see io.leopard.data.redis.JedisCommands#ttl(String)
-	 */
 	public Long ttl(final String key) {
 		return (Long) this.execute(new Invoker() {
 			@Override
@@ -374,9 +332,6 @@ public class RedisImpl extends AbstractRedis implements Redis {
 	}
 
 	@Override
-	/**
-	 * @see io.leopard.data.redis.Redis#rename(String, String)
-	 */
 	public boolean rename(final String oldkey, final String newkey) {
 		return (Boolean) this.execute(new Invoker() {
 			@Override
@@ -389,18 +344,12 @@ public class RedisImpl extends AbstractRedis implements Redis {
 	}
 
 	@Override
-	/**
-	 * @see io.leopard.data.redis.Redis#rename(String, String, int)
-	 */
 	public boolean rename(String oldkey, String newkey, int seconds) {
 		boolean success = this.rename(oldkey, newkey);
 		return success;
 	}
 
 	@Override
-	/**
-	 * @see io.leopard.data.redis.Redis#info()
-	 */
 	public RedisInfo info() {
 		String info = (String) this.execute(new Invoker() {
 			@Override
@@ -414,9 +363,6 @@ public class RedisImpl extends AbstractRedis implements Redis {
 	}
 
 	@Override
-	/**
-	 * @see io.leopard.data.redis.Redis#getUsedMemory()
-	 */
 	public long getUsedMemory() {
 		RedisInfo redisInfo = this.info();
 		long usedMemory = redisInfo.getUsedMemory();
@@ -424,9 +370,6 @@ public class RedisImpl extends AbstractRedis implements Redis {
 	}
 
 	@Override
-	/**
-	 * @see io.leopard.data.redis.Redis#dbSize()
-	 */
 	public long dbSize() {
 		return (Long) this.execute(new Invoker() {
 			@Override
@@ -437,9 +380,6 @@ public class RedisImpl extends AbstractRedis implements Redis {
 	}
 
 	@Override
-	/**
-	 * @see io.leopard.data.redis.Redis#flushAll()
-	 */
 	public boolean flushAll() {
 		return (Boolean) this.execute(new Invoker() {
 			@Override
@@ -451,9 +391,6 @@ public class RedisImpl extends AbstractRedis implements Redis {
 	}
 
 	@Override
-	/**
-	 * @see io.leopard.data.redis.Redis#flushDB()
-	 */
 	public boolean flushDB() {
 		return (Boolean) this.execute(new Invoker() {
 			@Override
@@ -466,9 +403,6 @@ public class RedisImpl extends AbstractRedis implements Redis {
 	}
 
 	@Override
-	/**
-	 * @see io.leopard.data.redis.JedisCommands#incr(String)
-	 */
 	public Long incr(final String key) {
 		return (Long) this.execute(new Invoker() {
 			@Override
@@ -479,9 +413,6 @@ public class RedisImpl extends AbstractRedis implements Redis {
 	}
 
 	@Override
-	/**
-	 * @see io.leopard.data.redis.JedisCommands#get(String )
-	 */
 	public String get(final String key) {
 		return (String) this.execute(new Invoker() {
 			@Override
@@ -1008,22 +939,6 @@ public class RedisImpl extends AbstractRedis implements Redis {
 				return jedis.hgetAll(key);
 			}
 		});
-
-		// Jedis jedis = this.getResource();
-		// try {
-		// return jedis.hgetAll(key);
-		// }
-		// catch (RuntimeException e) {
-		// this.pool.returnBrokenResource(jedis);
-		// throw e;
-		// }
-		// catch (Exception e) {
-		// this.pool.returnBrokenResource(jedis);
-		// throw new RuntimeException(e.getMessage(), e);
-		// }
-		// finally {
-		// this.pool.returnResource(jedis);
-		// }
 	}
 
 	@Override
@@ -1037,27 +952,9 @@ public class RedisImpl extends AbstractRedis implements Redis {
 				return jedis.rpush(key, strings);
 			}
 		});
-		// Jedis jedis = this.getResource();
-		// try {
-		// return jedis.rpush(key, strings);
-		// }
-		// catch (RuntimeException e) {
-		// this.pool.returnBrokenResource(jedis);
-		// throw e;
-		// }
-		// catch (Exception e) {
-		// this.pool.returnBrokenResource(jedis);
-		// throw new RuntimeException(e.getMessage(), e);
-		// }
-		// finally {
-		// this.pool.returnResource(jedis);
-		// }
 	}
 
 	@Override
-	/**
-	 * @see io.leopard.data.redis.JedisCommands#lpush(String, String...)
-	 */
 	public Long lpush(final String key, final String... strings) {
 		return (Long) this.execute(new Invoker() {
 			@Override
@@ -1065,28 +962,9 @@ public class RedisImpl extends AbstractRedis implements Redis {
 				return jedis.lpush(key, strings);
 			}
 		});
-		//
-		// Jedis jedis = this.getResource();
-		// try {
-		// return jedis.lpush(key, strings);
-		// }
-		// catch (RuntimeException e) {
-		// this.pool.returnBrokenResource(jedis);
-		// throw e;
-		// }
-		// catch (Exception e) {
-		// this.pool.returnBrokenResource(jedis);
-		// throw new RuntimeException(e.getMessage(), e);
-		// }
-		// finally {
-		// this.pool.returnResource(jedis);
-		// }
 	}
 
 	@Override
-	/**
-	 * @see io.leopard.data.redis.JedisCommands#llen(String )
-	 */
 	public Long llen(final String key) {
 		return (Long) this.execute(new Invoker() {
 			@Override
@@ -1094,29 +972,10 @@ public class RedisImpl extends AbstractRedis implements Redis {
 				return jedis.llen(key);
 			}
 		});
-
-		// Jedis jedis = this.getResource();
-		// try {
-		// return jedis.llen(key);
-		// }
-		// catch (RuntimeException e) {
-		// this.pool.returnBrokenResource(jedis);
-		// throw e;
-		// }
-		// catch (Exception e) {
-		// this.pool.returnBrokenResource(jedis);
-		// throw new RuntimeException(e.getMessage(), e);
-		// }
-		// finally {
-		// this.pool.returnResource(jedis);
-		// }
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
-	/**
-	 * @see io.leopard.data.redis.JedisCommands#lrange(String, long, long)
-	 */
 	public List<String> lrange(final String key, final long start, final long end) {
 		return (List<String>) this.execute(new Invoker() {
 			@Override
@@ -1124,27 +983,9 @@ public class RedisImpl extends AbstractRedis implements Redis {
 				return jedis.lrange(key, start, end);
 			}
 		});
-		// Jedis jedis = this.getResource();
-		// try {
-		// return jedis.lrange(key, start, end);
-		// }
-		// catch (RuntimeException e) {
-		// this.pool.returnBrokenResource(jedis);
-		// throw e;
-		// }
-		// catch (Exception e) {
-		// this.pool.returnBrokenResource(jedis);
-		// throw new RuntimeException(e.getMessage(), e);
-		// }
-		// finally {
-		// this.pool.returnResource(jedis);
-		// }
 	}
 
 	@Override
-	/**
-	 * @see io.leopard.data.redis.JedisCommands#ltrim(String, long, long)
-	 */
 	public String ltrim(final String key, final long start, final long end) {
 		return (String) this.execute(new Invoker() {
 			@Override
@@ -1152,27 +993,9 @@ public class RedisImpl extends AbstractRedis implements Redis {
 				return jedis.ltrim(key, start, end);
 			}
 		});
-		// Jedis jedis = this.getResource();
-		// try {
-		// return jedis.ltrim(key, start, end);
-		// }
-		// catch (RuntimeException e) {
-		// this.pool.returnBrokenResource(jedis);
-		// throw e;
-		// }
-		// catch (Exception e) {
-		// this.pool.returnBrokenResource(jedis);
-		// throw new RuntimeException(e.getMessage(), e);
-		// }
-		// finally {
-		// this.pool.returnResource(jedis);
-		// }
 	}
 
 	@Override
-	/**
-	 * @see io.leopard.data.redis.JedisCommands#lindex(String, long)
-	 */
 	public String lindex(final String key, final long index) {
 		return (String) this.execute(new Invoker() {
 			@Override
@@ -1180,27 +1003,9 @@ public class RedisImpl extends AbstractRedis implements Redis {
 				return jedis.lindex(key, index);
 			}
 		});
-		// Jedis jedis = this.getResource();
-		// try {
-		// return jedis.lindex(key, index);
-		// }
-		// catch (RuntimeException e) {
-		// this.pool.returnBrokenResource(jedis);
-		// throw e;
-		// }
-		// catch (Exception e) {
-		// this.pool.returnBrokenResource(jedis);
-		// throw new RuntimeException(e.getMessage(), e);
-		// }
-		// finally {
-		// this.pool.returnResource(jedis);
-		// }
 	}
 
 	@Override
-	/**
-	 * @see io.leopard.data.redis.JedisCommands#lset(String, long, String)
-	 */
 	public String lset(final String key, final long index, final String value) {
 		return (String) this.execute(new Invoker() {
 			@Override
@@ -1208,28 +1013,9 @@ public class RedisImpl extends AbstractRedis implements Redis {
 				return jedis.lset(key, index, value);
 			}
 		});
-
-		// Jedis jedis = this.getResource();
-		// try {
-		// return jedis.lset(key, index, value);
-		// }
-		// catch (RuntimeException e) {
-		// this.pool.returnBrokenResource(jedis);
-		// throw e;
-		// }
-		// catch (Exception e) {
-		// this.pool.returnBrokenResource(jedis);
-		// throw new RuntimeException(e.getMessage(), e);
-		// }
-		// finally {
-		// this.pool.returnResource(jedis);
-		// }
 	}
 
 	@Override
-	/**
-	 * @see io.leopard.data.redis.JedisCommands#lrem(String, long, String)
-	 */
 	public Long lrem(final String key, final long count, final String value) {
 		return (Long) this.execute(new Invoker() {
 			@Override
@@ -1237,27 +1023,9 @@ public class RedisImpl extends AbstractRedis implements Redis {
 				return jedis.lrem(key, count, value);
 			}
 		});
-		// Jedis jedis = this.getResource();
-		// try {
-		// return jedis.lrem(key, count, value);
-		// }
-		// catch (RuntimeException e) {
-		// this.pool.returnBrokenResource(jedis);
-		// throw e;
-		// }
-		// catch (Exception e) {
-		// this.pool.returnBrokenResource(jedis);
-		// throw new RuntimeException(e.getMessage(), e);
-		// }
-		// finally {
-		// this.pool.returnResource(jedis);
-		// }
 	}
 
 	@Override
-	/**
-	 * @see io.leopard.data.redis.JedisCommands#lpop(String )
-	 */
 	public String lpop(final String key) {
 		return (String) this.execute(new Invoker() {
 			@Override
@@ -1265,27 +1033,9 @@ public class RedisImpl extends AbstractRedis implements Redis {
 				return jedis.lpop(key);
 			}
 		});
-		// Jedis jedis = this.getResource();
-		// try {
-		// return jedis.lpop(key);
-		// }
-		// catch (RuntimeException e) {
-		// this.pool.returnBrokenResource(jedis);
-		// throw e;
-		// }
-		// catch (Exception e) {
-		// this.pool.returnBrokenResource(jedis);
-		// throw new RuntimeException(e.getMessage(), e);
-		// }
-		// finally {
-		// this.pool.returnResource(jedis);
-		// }
 	}
 
 	@Override
-	/**
-	 * @see io.leopard.data.redis.JedisCommands#rpop(String)
-	 */
 	public String rpop(final String key) {
 		return (String) this.execute(new Invoker() {
 			@Override
@@ -1293,27 +1043,9 @@ public class RedisImpl extends AbstractRedis implements Redis {
 				return jedis.rpop(key);
 			}
 		});
-		// Jedis jedis = this.getResource();
-		// try {
-		// return jedis.rpop(key);
-		// }
-		// catch (RuntimeException e) {
-		// this.pool.returnBrokenResource(jedis);
-		// throw e;
-		// }
-		// catch (Exception e) {
-		// this.pool.returnBrokenResource(jedis);
-		// throw new RuntimeException(e.getMessage(), e);
-		// }
-		// finally {
-		// this.pool.returnResource(jedis);
-		// }
 	}
 
 	@Override
-	/**
-	 * @see io.leopard.data.redis.Redis#sadd(String, String...)
-	 */
 	public Long sadd(final String key, final String... members) {
 		return (Long) this.execute(new Invoker() {
 			@Override
@@ -1321,28 +1053,10 @@ public class RedisImpl extends AbstractRedis implements Redis {
 				return jedis.sadd(key, members);
 			}
 		});
-		// Jedis jedis = this.getResource();
-		// try {
-		// return jedis.sadd(key, members);
-		// }
-		// catch (RuntimeException e) {
-		// this.pool.returnBrokenResource(jedis);
-		// throw e;
-		// }
-		// catch (Exception e) {
-		// this.pool.returnBrokenResource(jedis);
-		// throw new RuntimeException(e.getMessage(), e);
-		// }
-		// finally {
-		// this.pool.returnResource(jedis);
-		// }
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
-	/**
-	 * @see io.leopard.data.redis.JedisCommands#smembers(String)
-	 */
 	public Set<String> smembers(final String key) {
 		return (Set<String>) this.execute(new Invoker() {
 			@Override
@@ -1350,27 +1064,9 @@ public class RedisImpl extends AbstractRedis implements Redis {
 				return jedis.smembers(key);
 			}
 		});
-		// Jedis jedis = this.getResource();
-		// try {
-		// return jedis.smembers(key);
-		// }
-		// catch (RuntimeException e) {
-		// this.pool.returnBrokenResource(jedis);
-		// throw e;
-		// }
-		// catch (Exception e) {
-		// this.pool.returnBrokenResource(jedis);
-		// throw new RuntimeException(e.getMessage(), e);
-		// }
-		// finally {
-		// this.pool.returnResource(jedis);
-		// }
 	}
 
 	@Override
-	/**
-	 * @see io.leopard.data.redis.JedisCommands#spop(String )
-	 */
 	public String spop(final String key) {
 		return (String) this.execute(new Invoker() {
 			@Override
@@ -1378,27 +1074,9 @@ public class RedisImpl extends AbstractRedis implements Redis {
 				return jedis.spop(key);
 			}
 		});
-		// Jedis jedis = this.getResource();
-		// try {
-		// return jedis.spop(key);
-		// }
-		// catch (RuntimeException e) {
-		// this.pool.returnBrokenResource(jedis);
-		// throw e;
-		// }
-		// catch (Exception e) {
-		// this.pool.returnBrokenResource(jedis);
-		// throw new RuntimeException(e.getMessage(), e);
-		// }
-		// finally {
-		// this.pool.returnResource(jedis);
-		// }
 	}
 
 	@Override
-	/**
-	 * @see io.leopard.data.redis.JedisCommands#scard(String )
-	 */
 	public Long scard(final String key) {
 		return (Long) this.execute(new Invoker() {
 			@Override
@@ -1406,27 +1084,9 @@ public class RedisImpl extends AbstractRedis implements Redis {
 				return jedis.scard(key);
 			}
 		});
-		// Jedis jedis = this.getResource();
-		// try {
-		// return jedis.scard(key);
-		// }
-		// catch (RuntimeException e) {
-		// this.pool.returnBrokenResource(jedis);
-		// throw e;
-		// }
-		// catch (Exception e) {
-		// this.pool.returnBrokenResource(jedis);
-		// throw new RuntimeException(e.getMessage(), e);
-		// }
-		// finally {
-		// this.pool.returnResource(jedis);
-		// }
 	}
 
 	@Override
-	/**
-	 * @see io.leopard.data.redis.JedisCommands#sismember(String, String)
-	 */
 	public Boolean sismember(final String key, final String member) {
 		return (Boolean) this.execute(new Invoker() {
 			@Override
@@ -1434,21 +1094,6 @@ public class RedisImpl extends AbstractRedis implements Redis {
 				return jedis.sismember(key, member);
 			}
 		});
-		// Jedis jedis = this.getResource();
-		// try {
-		// return jedis.sismember(key, member);
-		// }
-		// catch (RuntimeException e) {
-		// this.pool.returnBrokenResource(jedis);
-		// throw e;
-		// }
-		// catch (Exception e) {
-		// this.pool.returnBrokenResource(jedis);
-		// throw new RuntimeException(e.getMessage(), e);
-		// }
-		// finally {
-		// this.pool.returnResource(jedis);
-		// }
 	}
 
 	@SuppressWarnings("unchecked")
@@ -1473,17 +1118,13 @@ public class RedisImpl extends AbstractRedis implements Redis {
 	}
 
 	@Override
-	/**
-	 * @see io.leopard.data.redis.Redis#zrem(String, int)
-	 */
+
 	public Long zrem(String key, long member) {
 		return this.zrem(key, Long.toString(member));
 	}
 
 	@Override
-	/**
-	 * @see io.leopard.data.redis.JedisCommands#zrem(String, String...)
-	 */
+
 	public Long zrem(final String key, final String... members) {
 		return (Long) this.execute(new Invoker() {
 			@Override
@@ -1491,27 +1132,9 @@ public class RedisImpl extends AbstractRedis implements Redis {
 				return jedis.zrem(key, members);
 			}
 		});
-		// Jedis jedis = this.getResource();
-		// try {
-		// return jedis.zrem(key, members);
-		// }
-		// catch (RuntimeException e) {
-		// this.pool.returnBrokenResource(jedis);
-		// throw e;
-		// }
-		// catch (Exception e) {
-		// this.pool.returnBrokenResource(jedis);
-		// throw new RuntimeException(e.getMessage(), e);
-		// }
-		// finally {
-		// this.pool.returnResource(jedis);
-		// }
 	}
 
 	@Override
-	/**
-	 * @see io.leopard.data.redis.JedisCommands#zincrby(String, double, String)
-	 */
 	public Double zincrby(final String key, final double score, final String member) {
 		return (Double) this.execute(new Invoker() {
 			@Override
@@ -1519,32 +1142,9 @@ public class RedisImpl extends AbstractRedis implements Redis {
 				return jedis.zincrby(key, score, member);
 			}
 		});
-		// Jedis jedis = this.getResource();
-		// try {
-		// return jedis.zincrby(key, score, member);
-		// }
-		// catch (JedisConnectionException e) {
-		// this.pool.returnBrokenResource(jedis);
-		// String message = this.getErrorMessage(e);
-		// throw new JedisConnectionException(message, e);
-		// }
-		// catch (RuntimeException e) {
-		// this.pool.returnBrokenResource(jedis);
-		// throw e;
-		// }
-		// catch (Exception e) {
-		// this.pool.returnBrokenResource(jedis);
-		// throw new RuntimeException(e.getMessage(), e);
-		// }
-		// finally {
-		// this.pool.returnResource(jedis);
-		// }
 	}
 
 	@Override
-	/**
-	 * @see io.leopard.data.redis.JedisCommands#zrank(String, String)
-	 */
 	public Long zrank(final String key, final String member) {
 		return (Long) this.execute(new Invoker() {
 			@Override
@@ -1552,27 +1152,9 @@ public class RedisImpl extends AbstractRedis implements Redis {
 				return jedis.zrank(key, member);
 			}
 		});
-		// Jedis jedis = this.getResource();
-		// try {
-		// return jedis.zrank(key, member);
-		// }
-		// catch (RuntimeException e) {
-		// this.pool.returnBrokenResource(jedis);
-		// throw e;
-		// }
-		// catch (Exception e) {
-		// this.pool.returnBrokenResource(jedis);
-		// throw new RuntimeException(e.getMessage(), e);
-		// }
-		// finally {
-		// this.pool.returnResource(jedis);
-		// }
 	}
 
 	@Override
-	/**
-	 * @see io.leopard.data.redis.JedisCommands#zrevrank(String, String)
-	 */
 	public Long zrevrank(final String key, final String member) {
 		return (Long) this.execute(new Invoker() {
 			@Override
@@ -1580,27 +1162,9 @@ public class RedisImpl extends AbstractRedis implements Redis {
 				return jedis.zrevrank(key, member);
 			}
 		});
-		// Jedis jedis = this.getResource();
-		// try {
-		// return jedis.zrevrank(key, member);
-		// }
-		// catch (RuntimeException e) {
-		// this.pool.returnBrokenResource(jedis);
-		// throw e;
-		// }
-		// catch (Exception e) {
-		// this.pool.returnBrokenResource(jedis);
-		// throw new RuntimeException(e.getMessage(), e);
-		// }
-		// finally {
-		// this.pool.returnResource(jedis);
-		// }
 	}
 
 	@Override
-	/**
-	 * @see io.leopard.data.redis.Redis#zinterstore(String, String... )
-	 */
 	public Long zinterstore(final String dstkey, final String... sets) {
 		return (Long) this.execute(new Invoker() {
 			@Override
@@ -1609,27 +1173,9 @@ public class RedisImpl extends AbstractRedis implements Redis {
 				return jedis.zinterstore(dstkey, sets);
 			}
 		});
-		// Jedis jedis = this.getResource();
-		// try {
-		// return jedis.zinterstore(dstkey, sets);
-		// }
-		// catch (RuntimeException e) {
-		// this.pool.returnBrokenResource(jedis);
-		// throw e;
-		// }
-		// catch (Exception e) {
-		// this.pool.returnBrokenResource(jedis);
-		// throw new RuntimeException(e.getMessage(), e);
-		// }
-		// finally {
-		// this.pool.returnResource(jedis);
-		// }
 	}
 
 	@Override
-	/**
-	 * @see io.leopard.data.redis.Redis#zinterstore(String, ZParams, String... )
-	 */
 	public Long zinterstore(final String dstkey, final ZParams params, final String... sets) {
 		return (Long) this.execute(new Invoker() {
 			@Override
@@ -1637,28 +1183,10 @@ public class RedisImpl extends AbstractRedis implements Redis {
 				return jedis.zinterstore(dstkey, params, sets);
 			}
 		});
-		// Jedis jedis = this.getResource();
-		// try {
-		// return jedis.zinterstore(dstkey, params, sets);
-		// }
-		// catch (RuntimeException e) {
-		// this.pool.returnBrokenResource(jedis);
-		// throw e;
-		// }
-		// catch (Exception e) {
-		// this.pool.returnBrokenResource(jedis);
-		// throw new RuntimeException(e.getMessage(), e);
-		// }
-		// finally {
-		// this.pool.returnResource(jedis);
-		// }
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
-	/**
-	 * @see io.leopard.data.redis.JedisCommands#zrangeWithScores(String , long, long)
-	 */
 	public Set<Tuple> zrangeWithScores(final String key, final long start, final long end) {
 		return (Set<Tuple>) this.execute(new Invoker() {
 			@Override
@@ -1666,28 +1194,9 @@ public class RedisImpl extends AbstractRedis implements Redis {
 				return jedis.zrangeWithScores(key, start, end);
 			}
 		});
-		// Jedis jedis = this.getResource();
-		// try {
-		//
-		// return jedis.zrangeWithScores(key, start, end);
-		// }
-		// catch (RuntimeException e) {
-		// this.pool.returnBrokenResource(jedis);
-		// throw e;
-		// }
-		// catch (Exception e) {
-		// this.pool.returnBrokenResource(jedis);
-		// throw new RuntimeException(e.getMessage(), e);
-		// }
-		// finally {
-		// this.pool.returnResource(jedis);
-		// }
 	}
 
 	@Override
-	/**
-	 * @see io.leopard.data.redis.JedisCommands#zscore(String, String)
-	 */
 	public Double zscore(final String key, final String member) {
 		return (Double) this.execute(new Invoker() {
 			@Override
@@ -1706,9 +1215,6 @@ public class RedisImpl extends AbstractRedis implements Redis {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	/**
-	 * @see io.leopard.data.redis.JedisCommands#sort(String )
-	 */
 	public List<String> sort(final String key) {
 		return (List<String>) this.execute(new Invoker() {
 			@Override
@@ -1716,21 +1222,6 @@ public class RedisImpl extends AbstractRedis implements Redis {
 				return jedis.sort(key);
 			}
 		});
-		// Jedis jedis = this.getResource();
-		// try {
-		// return jedis.sort(key);
-		// }
-		// catch (RuntimeException e) {
-		// this.pool.returnBrokenResource(jedis);
-		// throw e;
-		// }
-		// catch (Exception e) {
-		// this.pool.returnBrokenResource(jedis);
-		// throw new RuntimeException(e.getMessage(), e);
-		// }
-		// finally {
-		// this.pool.returnResource(jedis);
-		// }
 	}
 
 	@SuppressWarnings("unchecked")
