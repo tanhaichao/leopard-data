@@ -1,9 +1,5 @@
 package io.leopard.redis;
 
-import io.leopard.redis.util.IJedisPool;
-import io.leopard.redis.util.RedisBackup;
-import io.leopard.redis.util.RedisUtil;
-
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.HashSet;
@@ -15,6 +11,9 @@ import java.util.Set;
 import javax.annotation.PostConstruct;
 import javax.annotation.PreDestroy;
 
+import io.leopard.redis.util.IJedisPool;
+import io.leopard.redis.util.RedisBackup;
+import io.leopard.redis.util.RedisUtil;
 import redis.clients.jedis.BinaryClient.LIST_POSITION;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPubSub;
@@ -115,9 +114,9 @@ public class RedisImpl extends AbstractRedis implements Redis {
 		}
 		// windows环境关闭初始化默认redis连接功能?
 		// TODO 未实现
-		// if (SystemUtils.IS_OS_WINDOWS) {
-		// return;
-		// }
+		if (System.getProperty("os.name").startsWith("Windows")) {
+			return;
+		}
 		int size;
 		if (this.initialPoolSize > this.maxActive) {
 			size = this.maxActive;
@@ -1200,7 +1199,7 @@ public class RedisImpl extends AbstractRedis implements Redis {
 
 	@Override
 	/**
-	 * @see io.leopard.data.redis.JedisCommands#lset(String, long, String) 
+	 * @see io.leopard.data.redis.JedisCommands#lset(String, long, String)
 	 */
 	public String lset(final String key, final long index, final String value) {
 		return (String) this.execute(new Invoker() {
