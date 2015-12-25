@@ -12,7 +12,7 @@ public class PagingImpl<E> implements Paging<E> {
 
 	List<E> list;
 
-	private boolean nextPage;
+	private boolean hasNextPage;
 
 	public PagingImpl() {
 		this.list = new ArrayList<E>();
@@ -25,7 +25,7 @@ public class PagingImpl<E> implements Paging<E> {
 	public PagingImpl(int count, boolean hasNextPage) {
 		this.count = count;
 		this.list = new ArrayList<E>();
-		this.nextPage = hasNextPage;
+		this.hasNextPage = hasNextPage;
 	}
 
 	public PagingImpl(List<E> list) {
@@ -39,7 +39,7 @@ public class PagingImpl<E> implements Paging<E> {
 
 	public PagingImpl(List<E> list, boolean hasNextPage) {
 		this.list = list;
-		this.nextPage = hasNextPage;
+		this.hasNextPage = hasNextPage;
 	}
 
 	public int getCount() {
@@ -166,8 +166,8 @@ public class PagingImpl<E> implements Paging<E> {
 	}
 
 	@Override
-	public boolean isNextPage() {
-		return nextPage;
+	public boolean hasNextPage() {
+		return hasNextPage;
 	}
 
 	@Override
