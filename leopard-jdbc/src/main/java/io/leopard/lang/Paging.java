@@ -23,5 +23,5 @@ public interface Paging<E> extends List<E> {
 	 * 
 	 * @return
 	 */
-	boolean hasNextPage();
+	boolean isNextPage();
 }
