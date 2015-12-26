@@ -61,4 +61,9 @@ public class PagingImpl<E> implements Paging<E> {
 		this.nextPage = nextPage;
 	}
 
+	@Override
+	public E get(int index) {
+		return list.get(index);
+	}
+
 }

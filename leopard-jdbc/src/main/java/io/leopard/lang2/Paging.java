@@ -13,6 +13,8 @@ public interface Paging<E> {
 	 */
 	List<E> getList();
 
+	E get(int index);
+
 	/**
 	 * 记录总条数.
 	 * 
