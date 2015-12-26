@@ -54,7 +54,7 @@ public class PagingImpl<E> implements Paging<E> {
 
 	@Override
 	public Boolean isNextPage() {
-		return null;
+		return nextPage;
 	}
 
 	public void setNextPage(Boolean nextPage) {
