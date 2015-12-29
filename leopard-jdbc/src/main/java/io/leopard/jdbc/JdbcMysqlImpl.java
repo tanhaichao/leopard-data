@@ -423,9 +423,12 @@ public class JdbcMysqlImpl implements Jdbc {
 		Object[] args = param.getArgs();
 		int[] argTypes = param.getArgTypes();
 		try {
-			@SuppressWarnings("deprecation")
-			int result = this.getJdbcTemplate().queryForInt(sql, args, argTypes);
-			return result;
+
+			// Number number = queryForObject(sql, args, argTypes, Integer.class);
+			// return (number != null ? number.intValue() : 0);
+			// @SuppressWarnings("deprecation")
+			Number number = this.getJdbcTemplate().queryForObject(sql, args, argTypes, Integer.class);
+			return (number != null ? number.intValue() : 0);
 		}
 		catch (EmptyResultDataAccessException e) {
 			return null;
