@@ -753,9 +753,12 @@ public class JdbcMysqlImpl implements Jdbc {
 	public <T> Paging<T> queryForPaging(String sql, Class<T> elementType) {
 		List<T> list = this.queryForList(sql, elementType);
 		String countSql = SqlUtil.toCountSql(sql);
-		int count = this.queryForInt(countSql);
+		int totalCount = this.queryForInt(countSql);
 
-		return new PagingImpl<T>(list, count);
+		PagingImpl<T> paging = new PagingImpl<T>();
+		paging.setTotalCount(totalCount);
+		paging.setList(list);
+		return paging;
 	}
 
 	@Override
@@ -768,12 +771,15 @@ public class JdbcMysqlImpl implements Jdbc {
 	public <T> Paging<T> queryForPaging(String sql, Class<T> elementType, Object... params) {
 		StatementParameter param = toStatementParameter(sql, params);
 		List<T> list = this.queryForList(sql, elementType, param);
-		// String countSql = SqlUtil.toCountSql(sql);
-		// int count = this.queryForInt(countSql, param);
 		CountSqlParser countSqlParser = new CountSqlParser(sql, param);
-		int count = this.queryForInt(countSqlParser.getCountSql(), countSqlParser.getCountParam());
+		int totalCount = this.queryForInt(countSqlParser.getCountSql(), countSqlParser.getCountParam());
 
-		return new PagingImpl<T>(list, count);
+		// return new PagingImpl<T>(list, count);
+
+		PagingImpl<T> paging = new PagingImpl<T>();
+		paging.setTotalCount(totalCount);
+		paging.setList(list);
+		return paging;
 	}
 
 	@Override
@@ -782,16 +788,25 @@ public class JdbcMysqlImpl implements Jdbc {
 		CountSqlParser countSqlParser = new CountSqlParser(sql, param);
 		// String countSql = countSqlParser.getCountSql();
 		// System.err.println("countSql:" + countSqlParser.getCountSql());
-		int count = this.queryForInt(countSqlParser.getCountSql(), countSqlParser.getCountParam());
+		int totalCount = this.queryForInt(countSqlParser.getCountSql(), countSqlParser.getCountParam());
 
-		return new PagingImpl<T>(list, count);
+		// return new PagingImpl<T>(list, count);
+
+		PagingImpl<T> paging = new PagingImpl<T>();
+		paging.setTotalCount(totalCount);
+		paging.setList(list);
+		return paging;
 	}
 
 	@Override
 	public <T> Paging<T> queryForPaging(String sql, Class<T> elementType, StatementParameter param, int start, int size) {
 		PageableRowMapperResultSetExtractor<T> extractor = new PageableRowMapperResultSetExtractor<T>(new BeanPropertyRowMapper<T>(elementType), start, size);
 		List<T> list = this.getJdbcTemplate().query(sql, param.getArgs(), extractor);
-		int count = extractor.getCount();
-		return new PagingImpl<T>(list, count);
+		int totalCount = extractor.getCount();
+		// return new PagingImpl<T>(list, count);
+		PagingImpl<T> paging = new PagingImpl<T>();
+		paging.setTotalCount(totalCount);
+		paging.setList(list);
+		return paging;
 	}
 }

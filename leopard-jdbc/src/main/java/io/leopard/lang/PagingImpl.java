@@ -31,23 +31,38 @@ public class PagingImpl<E> implements Paging<E> {
 		}
 	}
 
-	public PagingImpl(List<E> list) {
-		this.list = list;
+	public PagingImpl(List<?> list, int size) {
+		boolean nextPage;
+		if (list == null) {
+			nextPage = false;
+		}
+		else {
+			nextPage = list.size() >= size;
+		}
+		this.setNextPage(nextPage);
 	}
 
-	public PagingImpl(List<E> list, int count) {
-		this.list = list;
-		this.totalCount = count;
-	}
-
-	public PagingImpl(List<E> list, boolean nextPage) {
-		this.list = list;
-		this.nextPage = nextPage;
-	}
+	// public PagingImpl(List<E> list) {
+	// this.list = list;
+	// }
+	//
+	// public PagingImpl(List<E> list, int count) {
+	// this.list = list;
+	// this.totalCount = count;
+	// }
+	//
+	// public PagingImpl(List<E> list, boolean nextPage) {
+	// this.list = list;
+	// this.nextPage = nextPage;
+	// }
 
 	@Override
 	public List<E> getList() {
 		return this.list;
+	}
+
+	public void setList(List<E> list) {
+		this.list = list;
 	}
 
 	@Override
