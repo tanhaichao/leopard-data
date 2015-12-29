@@ -30,7 +30,7 @@ public class JdbcMysqlImplTest {
 
 		Paging<RequestStat> paging = jdbc.queryForPaging(sql, RequestStat.class, param, 1, 1);
 
-		System.out.println("paging:" + paging.getCount());
+		System.out.println("paging:" + paging.getTotalCount());
 	}
 
 }

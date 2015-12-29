@@ -12,6 +12,39 @@ public class PagingImpl<E> implements Paging<E> {
 	private Integer pageCount;
 	private Integer pageSize;
 
+	public PagingImpl() {
+
+	}
+
+	public PagingImpl(Paging<?> paging) {
+		if (paging.isNextPage() != null) {
+			this.setNextPage(paging.isNextPage());
+		}
+		if (paging.getTotalCount() != null) {
+			this.setTotalCount(paging.getTotalCount());
+		}
+		if (paging.getPageCount() != null) {
+			this.setPageCount(paging.getPageCount());
+		}
+		if (paging.getPageSize() != null) {
+			this.setPageSize(paging.getPageSize());
+		}
+	}
+
+	public PagingImpl(List<E> list) {
+		this.list = list;
+	}
+
+	public PagingImpl(List<E> list, int count) {
+		this.list = list;
+		this.totalCount = count;
+	}
+
+	public PagingImpl(List<E> list, boolean nextPage) {
+		this.list = list;
+		this.nextPage = nextPage;
+	}
+
 	@Override
 	public List<E> getList() {
 		return this.list;
