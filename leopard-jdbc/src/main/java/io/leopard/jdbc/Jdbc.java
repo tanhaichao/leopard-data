@@ -21,6 +21,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
  * 
  */
 public interface Jdbc {
+	
 
 	// /**
 	// * 事务回滚.
