@@ -2,26 +2,45 @@ package io.leopard.lang;
 
 import java.util.List;
 
-/**
- * 分页接口.
- * 
- * @author 阿海
- *
- * @param <E>
- */
-public interface Paging<E> extends List<E> {
+public interface Paging<E> {
+
+	void add(E element);
 
 	/**
-	 * 记录总量
+	 * 数据列表.
 	 * 
 	 * @return
 	 */
-	int getCount();
+	List<E> getList();
+
+	E get(int index);
+
+	/**
+	 * 记录总条数.
+	 * 
+	 * @return
+	 */
+	Integer getTotalCount();
+
+	/**
+	 * 总页数.
+	 * 
+	 * @return
+	 */
+	Integer getPageCount();
+
+	/**
+	 * 每页记录条数.
+	 * 
+	 * @return
+	 */
+	Integer getPageSize();
 
 	/**
 	 * 是否有下一页.
 	 * 
 	 * @return
 	 */
-	boolean hasNextPage();
+	Boolean isNextPage();
+
 }
