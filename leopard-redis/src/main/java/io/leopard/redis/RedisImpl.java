@@ -1709,6 +1709,16 @@ public class RedisImpl extends AbstractRedis implements Redis {
 	}
 
 	@Override
+	public Long sdiffstore(final String dstkey, final String... keys) {
+		return (Long) this.execute(new Invoker() {
+			@Override
+			public Object execute(Jedis jedis) {
+				return jedis.sdiffstore(dstkey, keys);
+			}
+		});
+	}
+
+	@Override
 	public String randomKey() {
 		return (String) this.execute(new Invoker() {
 			@Override

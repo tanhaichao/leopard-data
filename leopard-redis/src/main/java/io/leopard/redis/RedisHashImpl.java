@@ -1041,4 +1041,9 @@ public class RedisHashImpl extends AbstractRedis implements Redis {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public Long sdiffstore(String dstkey, String... keys) {
+		throw new UnsupportedOperationException("Not Implemented");
+	}
 }

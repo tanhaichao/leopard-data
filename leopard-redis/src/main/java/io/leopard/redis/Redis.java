@@ -464,6 +464,8 @@ public interface Redis extends JedisCommands {
 
 	Set<String> sdiff(final String... keys);
 
+	Long sdiffstore(final String dstkey, final String... keys);
+
 	/**
 	 * 随机获取一个key
 	 * 

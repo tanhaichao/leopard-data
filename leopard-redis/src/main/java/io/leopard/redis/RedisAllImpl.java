@@ -953,4 +953,9 @@ public class RedisAllImpl implements Redis {
 		return null;
 	}
 
+	@Override
+	public Long sdiffstore(String dstkey, String... keys) {
+		throw new UnsupportedOperationException("Not Implemented");
+	}
+
 }

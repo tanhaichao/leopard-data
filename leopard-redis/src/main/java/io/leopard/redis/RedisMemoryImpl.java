@@ -1015,4 +1015,9 @@ public class RedisMemoryImpl implements Redis {
 	public List<String> brpop(int timeout, String key) {
 		throw new UnsupportedOperationException("Not Implemented");
 	}
+
+	@Override
+	public Long sdiffstore(String dstkey, String... keys) {
+		throw new UnsupportedOperationException("Not Implemented");
+	}
 }
