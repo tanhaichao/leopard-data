@@ -10,6 +10,8 @@ import org.apache.commons.logging.Log;
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.JdbcTemplate;
 
+import io.leopard.autounit.unitdb.ConnectionContext;
+import io.leopard.autounit.unitdb.H2Util;
 import io.leopard.jdbc.Jdbc;
 import io.leopard.jdbc.StatementParameter;
 import io.leopard.jdbc.builder.InsertBuilder;
@@ -21,10 +23,14 @@ public class JdbcThreadImpl implements Jdbc {
 
 	private Jdbc original;
 
-	private Jdbc jdbcH2Impl;
+	private JdbcH2Impl jdbcH2Impl;
 
 	public JdbcThreadImpl(Jdbc original) {
 		this.original = original;
+
+		jdbcH2Impl = new JdbcH2Impl();
+		DataSource dataSource = H2Util.createDataSource("jdbc");
+		jdbcH2Impl.setDataSource(ConnectionContext.register(dataSource));
 	}
 
 	private Jdbc getJdbc() {
@@ -168,146 +174,124 @@ public class JdbcThreadImpl implements Jdbc {
 
 	@Override
 	public Integer queryForInt(String sql, StatementParameter param) {
-		// TODO Auto-generated method stub
-		return null;
+		return getJdbc().queryForInt(sql, param);
 	}
 
 	@Override
 	public Integer queryForInt(String sql, Object... params) {
-		// TODO Auto-generated method stub
-		return null;
+		return getJdbc().queryForInt(sql, params);
 	}
 
 	@Override
 	public Date queryForDate(String sql) {
-		// TODO Auto-generated method stub
-		return null;
+		return getJdbc().queryForDate(sql);
 	}
 
 	@Override
 	public Date queryForDate(String sql, StatementParameter param) {
-		// TODO Auto-generated method stub
-		return null;
+		return getJdbc().queryForDate(sql, param);
 	}
 
 	@Override
 	public String queryForString(String sql) {
-		// TODO Auto-generated method stub
-		return null;
+		return getJdbc().queryForString(sql);
 	}
 
 	@Override
 	public String queryForString(String sql, StatementParameter param) {
-		// TODO Auto-generated method stub
-		return null;
+		return getJdbc().queryForString(sql, param);
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public boolean insertIgnoreForBoolean(InsertBuilder builder) {
-		// TODO Auto-generated method stub
-		return false;
+		return getJdbc().insertIgnoreForBoolean(builder);
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public boolean insertIgnoreForBoolean(ReplaceBuilder builder) {
-		// TODO Auto-generated method stub
-		return false;
+		return getJdbc().insertIgnoreForBoolean(builder);
 	}
 
 	@Override
 	public boolean insertIgnoreForBoolean(String sql, StatementParameter param) {
-		// TODO Auto-generated method stub
-		return false;
+		return getJdbc().insertForBoolean(sql, param);
 	}
 
 	@Override
 	public boolean insertForBoolean(String sql, StatementParameter param) {
-		// TODO Auto-generated method stub
-		return false;
+		return getJdbc().insertForBoolean(sql, param);
 	}
 
 	@Override
 	public boolean insertForBoolean(String sql, Object... params) {
-		// TODO Auto-generated method stub
-		return false;
+		return getJdbc().insertForBoolean(sql, params);
 	}
 
 	@Override
 	public Long incr(String sql, StatementParameter param) {
-		// TODO Auto-generated method stub
-		return null;
+		return getJdbc().incr(sql, param);
 	}
 
 	@Override
 	public boolean insertForBoolean(InsertBuilder builder) {
-		// TODO Auto-generated method stub
-		return false;
+		return getJdbc().insertForBoolean(builder);
 	}
 
 	@Override
 	public boolean insertForBoolean(ReplaceBuilder builder) {
-		// TODO Auto-generated method stub
-		return false;
+		return getJdbc().insertForBoolean(builder);
 	}
 
 	@Override
 	public boolean updateForBoolean(String sql, Object... params) {
-		// TODO Auto-generated method stub
-		return false;
+		return getJdbc().updateForBoolean(sql, params);
 	}
 
 	@Override
 	public boolean updateForBoolean(String sql, StatementParameter param) {
-		// TODO Auto-generated method stub
-		return false;
+		return getJdbc().updateForBoolean(sql, param);
 	}
 
 	@Override
 	public boolean updateForBoolean(SqlBuilder builder) {
-		// TODO Auto-generated method stub
-		return false;
+		return getJdbc().updateForBoolean(builder);
 	}
 
 	@Override
 	public int update(SqlBuilder builder) {
-		// TODO Auto-generated method stub
-		return 0;
+		return getJdbc().update(builder);
 	}
 
 	@Override
 	public int update(String sql, StatementParameter param) {
-		// TODO Auto-generated method stub
-		return 0;
+		return getJdbc().update(sql, param);
 	}
 
 	@Override
 	public int update(String sql) {
-		// TODO Auto-generated method stub
-		return 0;
+		return getJdbc().update(sql);
 	}
 
 	@Override
 	public long insertForLastId(String sql, StatementParameter param) {
-		// TODO Auto-generated method stub
-		return 0;
+		return getJdbc().insertForLastId(sql, param);
 	}
 
 	@Override
 	public int[] batchUpdate(String[] sqls) {
-		// TODO Auto-generated method stub
-		return null;
+		return getJdbc().batchUpdate(sqls);
 	}
 
 	@Override
 	public boolean insertByBean(String sql, Object bean) {
-		// TODO Auto-generated method stub
-		return false;
+		return getJdbc().insertByBean(sql, bean);
 	}
 
 	@Override
 	public boolean updateByBean(String sql, Object bean) {
-		// TODO Auto-generated method stub
-		return false;
+		return getJdbc().updateByBean(sql, bean);
 	}
 
 	@Override
@@ -322,14 +306,12 @@ public class JdbcThreadImpl implements Jdbc {
 
 	@Override
 	public <T> Paging<T> queryForPaging(String sql, Class<T> elementType, StatementParameter param) {
-		// TODO Auto-generated method stub
-		return null;
+		return getJdbc().queryForPaging(sql, elementType, param);
 	}
 
 	@Override
 	public <T> Paging<T> queryForPaging(String sql, Class<T> elementType, StatementParameter param, int start, int size) {
-		// TODO Auto-generated method stub
-		return null;
+		return getJdbc().queryForPaging(sql, elementType, param, start, size);
 	}
 
 }
