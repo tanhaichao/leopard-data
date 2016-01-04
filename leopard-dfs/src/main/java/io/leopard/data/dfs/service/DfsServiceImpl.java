@@ -16,6 +16,10 @@ public class DfsServiceImpl implements DfsService {
 
 	@Override
 	public void write(String filename, byte[] data, long uid) throws IOException {
+		if (data.length <= 0) {
+			throw new IllegalArgumentException("文件不能为空.");
+		}
+
 		dfsDao.write(filename, data, uid);
 
 		fileDao.add(uid, filename);
