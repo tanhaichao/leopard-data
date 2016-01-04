@@ -34,15 +34,15 @@
 			<artifactId>junit</artifactId>
 			<scope>test</scope>
 		</dependency>
-		<!-- 
-		<dependency>
-			<groupId>io.leopard</groupId>
-			<artifactId>jlang</artifactId>
-		</dependency>
-		 -->
+		<!-- <dependency> <groupId>io.leopard</groupId> <artifactId>jlang</artifactId> </dependency> -->
 		<dependency>
 			<groupId>io.leopard</groupId>
 			<artifactId>autounit</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		<dependency>
+			<groupId>io.leopard</groupId>
+			<artifactId>autounit-web</artifactId>
 			<scope>provided</scope>
 		</dependency>
 	</dependencies>
