@@ -158,13 +158,11 @@ public class JdbcThreadImpl implements Jdbc {
 
 	@Override
 	public Long queryForLong(String sql, Object... params) {
-		// TODO Auto-generated method stub
-		return null;
+		return getJdbc().queryForLong(sql, params);
 	}
 
 	@Override
 	public Integer queryForInt(String sql) {
-		// TODO Auto-generated method stub
 		return getJdbc().queryForInt(sql);
 	}
 
