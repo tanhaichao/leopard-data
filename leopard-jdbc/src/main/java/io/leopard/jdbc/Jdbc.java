@@ -21,7 +21,6 @@ import org.springframework.jdbc.core.JdbcTemplate;
  * 
  */
 public interface Jdbc {
-	
 
 	// /**
 	// * 事务回滚.
@@ -583,7 +582,7 @@ public interface Jdbc {
 
 	<T> Paging<T> queryForPaging(String sql, Class<T> elementType);
 
-	<T> Paging<T> queryForPaging(String sql, Class<T> elementType, int start, int size);
+	// <T> Paging<T> queryForPaging(String sql, Class<T> elementType, int start, int size);
 
 	<T> Paging<T> queryForPaging(String sql, Class<T> elementType, Object... params);
 

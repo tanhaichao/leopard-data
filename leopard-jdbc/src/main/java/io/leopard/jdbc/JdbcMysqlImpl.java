@@ -105,7 +105,7 @@ public class JdbcMysqlImpl implements Jdbc {
 
 	@Override
 	/**
-	 * @see io.leopard.data.jdbc.Jdbc#query(String, Class<T>) 
+	 * @see io.leopard.data.jdbc.Jdbc#query(String, Class<T>)
 	 */
 	public <T> T query(String sql, Class<T> elementType) {
 		try {
@@ -720,7 +720,7 @@ public class JdbcMysqlImpl implements Jdbc {
 
 	@Override
 	/**
-	 * @see io.leopard.data.jdbc.Jdbc#queryForLong(String, Object...) 
+	 * @see io.leopard.data.jdbc.Jdbc#queryForLong(String, Object...)
 	 */
 	public Long queryForLong(String sql, Object... params) {
 		return this.queryForLong(sql, this.toStatementParameter(sql, params));
@@ -761,11 +761,11 @@ public class JdbcMysqlImpl implements Jdbc {
 		return paging;
 	}
 
-	@Override
-	public <T> Paging<T> queryForPaging(String sql, Class<T> elementType, int start, int size) {
-		sql = this.appendLimitSql(sql, start, size);
-		return this.queryForPaging(sql, elementType);
-	}
+	// @Override
+	// public <T> Paging<T> queryForPaging(String sql, Class<T> elementType, int start, int size) {
+	// sql = this.appendLimitSql(sql, start, size);
+	// return this.queryForPaging(sql, elementType);
+	// }
 
 	@Override
 	public <T> Paging<T> queryForPaging(String sql, Class<T> elementType, Object... params) {
