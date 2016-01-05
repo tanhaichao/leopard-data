@@ -61,11 +61,8 @@ public class JdbcThreadImpl implements Jdbc {
 		sql = sql.replaceAll("\n", "");
 		sql = sql.replaceAll("\r", "");
 
-		// sql ="CREATE TABLE admin (username varchar(50) NOT NULL DEFAULT '',name varchar(20) NOT NULL DEFAULT '',type varchar(10) NOT NULL DEFAULT '',posttime datetime NOT NULL DEFAULT '1970-01-01
-		// 00:00:00',PRIMARY KEY (username)) ";
-		System.out.println(sql);
-		System.err.println("开始导入表结构:" + tableName);
-		// System.err.println(sql);
+		// System.out.println(sql);
+		// System.err.println("开始导入表结构:" + tableName);
 		Resource scripts = new ByteArrayResource(sql.getBytes());
 		DatabasePopulator populator = new ResourceDatabasePopulator(scripts);
 		DatabasePopulatorUtils.execute(populator, dataSource);
