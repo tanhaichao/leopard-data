@@ -1,5 +1,6 @@
 package io.leopard.jdbc.test;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -7,8 +8,13 @@ import java.util.Map;
 import javax.sql.DataSource;
 
 import org.apache.commons.logging.Log;
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.core.io.Resource;
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.datasource.init.DatabasePopulator;
+import org.springframework.jdbc.datasource.init.DatabasePopulatorUtils;
+import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
 
 import io.leopard.autounit.unitdb.ConnectionContext;
 import io.leopard.autounit.unitdb.H2Util;
@@ -31,16 +37,61 @@ public class JdbcThreadImpl implements Jdbc {
 	}
 
 	protected Jdbc getJdbcH2Impl() {
-		if (jdbcH2Impl == null) {
-			jdbcH2Impl = new JdbcH2Impl();
-			DataSource dataSource = H2Util.createDataSource("jdbc");
-			jdbcH2Impl.setDataSource(ConnectionContext.register(dataSource));
+		if (jdbcH2Impl != null) {
+			return this.jdbcH2Impl;
+		}
+		jdbcH2Impl = new JdbcH2Impl();
+		DataSource dataSource = H2Util.createDataSource("jdbc-web");
+		DataSource dataSource2 = ConnectionContext.register(dataSource);
+		jdbcH2Impl.setDataSource(dataSource2);
+
+		List<String> tableList = this.showTables(this.original);
+		for (String tableName : tableList) {
+			String sql = this.showCreateTable(original, tableName);
+
+			jdbcH2Impl.update("drop table if exists " + tableName);
+			this.populate(dataSource2, tableName, sql);
 		}
 		return jdbcH2Impl;
 	}
 
+	private void populate(DataSource dataSource, String tableName, String sql) {
+
+		sql = H2SqlUtil.filter(sql);
+		sql = sql.replaceAll("\n", "");
+		sql = sql.replaceAll("\r", "");
+
+		// sql ="CREATE TABLE admin (username varchar(50) NOT NULL DEFAULT '',name varchar(20) NOT NULL DEFAULT '',type varchar(10) NOT NULL DEFAULT '',posttime datetime NOT NULL DEFAULT '1970-01-01
+		// 00:00:00',PRIMARY KEY (username)) ";
+		System.out.println(sql);
+		System.err.println("开始导入表结构:" + tableName);
+		// System.err.println(sql);
+		Resource scripts = new ByteArrayResource(sql.getBytes());
+		DatabasePopulator populator = new ResourceDatabasePopulator(scripts);
+		DatabasePopulatorUtils.execute(populator, dataSource);
+	}
+
+	private String showCreateTable(Jdbc jdbc, String tableName) {
+		List<Map<String, Object>> list = jdbc.queryForMaps("show create table " + tableName);
+		for (Map<String, Object> map : list) {
+			String sql = (String) map.get("Create Table");
+			return sql;
+		}
+		return null;
+	}
+
+	private List<String> showTables(Jdbc jdbc) {
+		List<Map<String, Object>> list = jdbc.queryForMaps("SHOW TABLES;");
+		List<String> tableList = new ArrayList<String>();
+		for (Map<String, Object> map : list) {
+			String tableName = (String) map.values().iterator().next();
+			tableList.add(tableName);
+		}
+		return tableList;
+	}
+
 	private Jdbc getJdbc() {
-		new Exception("getJdbc").printStackTrace();
+		// new Exception("getJdbc").printStackTrace();
 		if (true) {
 			return this.getJdbcH2Impl();
 		}
