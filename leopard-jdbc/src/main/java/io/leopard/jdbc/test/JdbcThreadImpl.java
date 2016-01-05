@@ -28,12 +28,22 @@ public class JdbcThreadImpl implements Jdbc {
 	public JdbcThreadImpl(Jdbc original) {
 		this.original = original;
 
-		jdbcH2Impl = new JdbcH2Impl();
-		DataSource dataSource = H2Util.createDataSource("jdbc");
-		jdbcH2Impl.setDataSource(ConnectionContext.register(dataSource));
+	}
+
+	protected Jdbc getJdbcH2Impl() {
+		if (jdbcH2Impl == null) {
+			jdbcH2Impl = new JdbcH2Impl();
+			DataSource dataSource = H2Util.createDataSource("jdbc");
+			jdbcH2Impl.setDataSource(ConnectionContext.register(dataSource));
+		}
+		return jdbcH2Impl;
 	}
 
 	private Jdbc getJdbc() {
+		new Exception("getJdbc").printStackTrace();
+		if (true) {
+			return this.getJdbcH2Impl();
+		}
 		return this.original;
 	}
 
