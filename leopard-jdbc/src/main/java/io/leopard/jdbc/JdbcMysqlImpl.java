@@ -492,17 +492,11 @@ public class JdbcMysqlImpl implements Jdbc {
 	}
 
 	@Override
-	/**
-	 * @see io.leopard.data.jdbc.Jdbc#queryForLong(String, Object...)
-	 */
 	public Long queryForLong(String sql, Object... params) {
 		return this.queryForLong(sql, this.toStatementParameter(sql, params));
 	}
 
 	@Override
-	/**
-	 * @see io.leopard.data.jdbc.Jdbc#queryForInt(String, Object...)
-	 */
 	public Integer queryForInt(String sql, Object... params) {
 		return this.queryForInt(sql, this.toStatementParameter(sql, params));
 	}
@@ -584,20 +578,12 @@ public class JdbcMysqlImpl implements Jdbc {
 		return paging;
 	}
 
-	// @Override
-	// public <T> Paging<T> queryForPaging(String sql, Class<T> elementType, int start, int size) {
-	// sql = this.appendLimitSql(sql, start, size);
-	// return this.queryForPaging(sql, elementType);
-	// }
-
 	@Override
 	public <T> Paging<T> queryForPaging(String sql, Class<T> elementType, Object... params) {
 		StatementParameter param = toStatementParameter(sql, params);
 		List<T> list = this.queryForList(sql, elementType, param);
 		CountSqlParser countSqlParser = new CountSqlParser(sql, param);
 		int totalCount = this.queryForInt(countSqlParser.getCountSql(), countSqlParser.getCountParam());
-
-		// return new PagingImpl<T>(list, count);
 
 		PagingImpl<T> paging = new PagingImpl<T>();
 		paging.setTotalCount(totalCount);
@@ -609,11 +595,7 @@ public class JdbcMysqlImpl implements Jdbc {
 	public <T> Paging<T> queryForPaging(String sql, Class<T> elementType, StatementParameter param) {
 		List<T> list = this.queryForList(sql, elementType, param);
 		CountSqlParser countSqlParser = new CountSqlParser(sql, param);
-		// String countSql = countSqlParser.getCountSql();
-		// System.err.println("countSql:" + countSqlParser.getCountSql());
 		int totalCount = this.queryForInt(countSqlParser.getCountSql(), countSqlParser.getCountParam());
-
-		// return new PagingImpl<T>(list, count);
 
 		PagingImpl<T> paging = new PagingImpl<T>();
 		paging.setTotalCount(totalCount);
@@ -626,7 +608,6 @@ public class JdbcMysqlImpl implements Jdbc {
 		PageableRowMapperResultSetExtractor<T> extractor = new PageableRowMapperResultSetExtractor<T>(new LeopardBeanPropertyRowMapper<T>(elementType), start, size);
 		List<T> list = this.getJdbcTemplate().query(sql, param.getArgs(), extractor);
 		int totalCount = extractor.getCount();
-		// return new PagingImpl<T>(list, count);
 		PagingImpl<T> paging = new PagingImpl<T>();
 		paging.setTotalCount(totalCount);
 		paging.setList(list);
