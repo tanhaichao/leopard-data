@@ -576,6 +576,8 @@ public interface Jdbc {
 	 */
 	int[] batchUpdate(String[] sqls);
 
+	boolean insert(String tableName, Object bean);
+
 	boolean insertByBean(String sql, Object bean);
 
 	boolean updateByBean(String sql, Object bean);

@@ -1,11 +1,6 @@
 package io.leopard.jdbc;
 
-import io.leopard.jdbc.builder.InsertBuilder;
-import io.leopard.jdbc.builder.ReplaceBuilder;
-import io.leopard.jdbc.builder.SqlBuilder;
-import io.leopard.lang.Paging;
-import io.leopard.lang.PagingImpl;
-
+import java.lang.reflect.Field;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -20,12 +15,19 @@ import javax.sql.DataSource;
 import org.apache.commons.logging.Log;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.dao.InvalidDataAccessApiUsageException;
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
+
+import io.leopard.jdbc.builder.InsertBuilder;
+import io.leopard.jdbc.builder.ReplaceBuilder;
+import io.leopard.jdbc.builder.SqlBuilder;
+import io.leopard.lang.Paging;
+import io.leopard.lang.PagingImpl;
 
 /**
  * Jdbc接口MySQL实现.
@@ -745,6 +747,53 @@ public class JdbcMysqlImpl implements Jdbc {
 	}
 
 	@Override
+	public boolean insert(String tableName, Object bean) {
+		InsertBuilder builder = new InsertBuilder(tableName);
+
+		Field[] fields = bean.getClass().getDeclaredFields();
+		for (Field field : fields) {
+			String fieldName = field.getName();
+			Class<?> type = field.getType();
+			field.setAccessible(true);
+			Object obj;
+			try {
+				obj = field.get(bean);
+			}
+			catch (IllegalArgumentException e) {
+				throw new InvalidDataAccessApiUsageException(e.getMessage());
+			}
+			catch (IllegalAccessException e) {
+				throw new InvalidDataAccessApiUsageException(e.getMessage());
+			}
+			if (String.class.equals(type)) {
+				builder.setString(fieldName, (String) obj);
+			}
+			else if (boolean.class.equals(type) || Boolean.class.equals(type)) {
+				builder.setBool(fieldName, (Boolean) obj);
+			}
+			else if (int.class.equals(type) || Integer.class.equals(type)) {
+				builder.setInt(fieldName, (Integer) obj);
+			}
+			else if (long.class.equals(type) || Long.class.equals(type)) {
+				builder.setLong(fieldName, (Long) obj);
+			}
+			else if (float.class.equals(type) || Float.class.equals(type)) {
+				builder.setFloat(fieldName, (Float) obj);
+			}
+			else if (double.class.equals(type) || Double.class.equals(type)) {
+				builder.setDouble(fieldName, (Double) obj);
+			}
+			else if (Date.class.equals(type)) {
+				builder.setDate(fieldName, (Date) obj);
+			}
+			else {
+				throw new InvalidDataAccessApiUsageException("未知数据类型[" + type.getName() + "].");
+			}
+		}
+		return this.insertForBoolean(builder);
+	}
+
+	@Override
 	public boolean updateByBean(String sql, Object bean) {
 		return this.updateForBoolean(sql, SqlParserUtil.toUpdateParameter(sql, bean));
 	}
@@ -809,4 +858,5 @@ public class JdbcMysqlImpl implements Jdbc {
 		paging.setList(list);
 		return paging;
 	}
+
 }

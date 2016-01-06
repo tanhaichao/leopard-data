@@ -372,4 +372,9 @@ public class JdbcThreadImpl implements Jdbc {
 		return getJdbc().queryForPaging(sql, elementType, param, start, size);
 	}
 
+	@Override
+	public boolean insert(String tableName, Object bean) {
+		return getJdbc().insert(tableName, bean);
+	}
+
 }
