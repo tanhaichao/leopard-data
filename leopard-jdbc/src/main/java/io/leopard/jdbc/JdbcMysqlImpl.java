@@ -132,7 +132,7 @@ public class JdbcMysqlImpl implements Jdbc {
 	 */
 	public <T> T query(String sql, Class<T> elementType, StatementParameter param) {
 		try {
-			return this.getJdbcTemplate().queryForObject(sql, param.getArgs(), new BeanPropertyRowMapper<T>(elementType));
+			return this.getJdbcTemplate().queryForObject(sql, param.getArgs(), new LeopardBeanPropertyRowMapper<T>(elementType));
 		}
 		catch (EmptyResultDataAccessException e) {
 			return null;

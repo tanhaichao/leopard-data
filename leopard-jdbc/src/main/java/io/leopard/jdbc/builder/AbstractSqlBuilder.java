@@ -1,12 +1,12 @@
 package io.leopard.jdbc.builder;
 
-//import io.leopard.burrow.lang.datatype.OnlyDate;
-import io.leopard.jdbc.StatementParameter;
-
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+
+//import io.leopard.burrow.lang.datatype.OnlyDate;
+import io.leopard.jdbc.StatementParameter;
 
 public abstract class AbstractSqlBuilder implements SqlBuilder {
 	protected StatementParameter statementParameter = new StatementParameter();
@@ -23,6 +23,19 @@ public abstract class AbstractSqlBuilder implements SqlBuilder {
 	public void setString(String fieldName, String value) {
 		fieldList.add(fieldName);
 		statementParameter.setString(value);
+	}
+
+	/**
+	 * 设置List类型参数.
+	 * 
+	 * @param fieldName
+	 *            参数名
+	 * @param value
+	 *            参数值
+	 */
+	public void setList(String fieldName, List<?> value) {
+		fieldList.add(fieldName);
+		statementParameter.setList(value);
 	}
 
 	/**

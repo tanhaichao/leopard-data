@@ -11,6 +11,8 @@ import java.util.List;
 
 import org.springframework.jdbc.core.PreparedStatementSetter;
 
+import io.leopard.json.Json;
+
 /**
  * SQL参数.
  * 
@@ -19,7 +21,6 @@ import org.springframework.jdbc.core.PreparedStatementSetter;
  */
 public class StatementParameter {
 
-	
 	private final List<Object> list = new ArrayList<Object>();
 	private final List<Class<?>> type = new ArrayList<Class<?>>();
 
@@ -54,16 +55,16 @@ public class StatementParameter {
 	// type.add(OnlyDate.class);
 	// }
 
-//	/**
-//	 * 设置OnlyDate类型参数.
-//	 * 
-//	 * @param value
-//	 */
-//	public void setMonth(Month value) {
-//		this.checkNull(value);
-//		list.add(value);
-//		type.add(Month.class);
-//	}
+	// /**
+	// * 设置OnlyDate类型参数.
+	// *
+	// * @param value
+	// */
+	// public void setMonth(Month value) {
+	// this.checkNull(value);
+	// list.add(value);
+	// type.add(Month.class);
+	// }
 
 	/**
 	 * 设置Timestamp类型参数.
@@ -141,6 +142,17 @@ public class StatementParameter {
 		this.checkNull(value);
 		list.add(value);
 		type.add(String.class);
+	}
+
+	/**
+	 * 设置List类型参数.
+	 * 
+	 * @param value
+	 */
+	public void setList(List<?> list) {
+		this.checkNull(list);
+		this.list.add(list);
+		this.type.add(List.class);
 	}
 
 	/**
@@ -398,6 +410,9 @@ public class StatementParameter {
 		else if (type.equals(Timestamp.class)) {
 			return value;
 		}
+		else if (type.equals(List.class)) {
+			return value;
+		}
 		else if (type.equals(byte[].class)) {
 			return value;
 		}
@@ -513,7 +528,6 @@ public class StatementParameter {
 		}
 		else if (type.equals(Boolean.class)) {
 			pstmt.setInt(i, (Integer) value);
-
 		}
 		else if (type.equals(Integer.class)) {
 			pstmt.setInt(i, (Integer) value);
@@ -538,6 +552,9 @@ public class StatementParameter {
 		}
 		else if (type.equals(byte[].class)) {
 			pstmt.setBytes(i, (byte[]) value);
+		}
+		else if (type.equals(List.class)) {
+			pstmt.setString(i, Json.toJson(value));
 		}
 		else {
 			throw new InvalidParamDataAccessException("未知参数类型[" + i + ":" + type.getName() + "].");
