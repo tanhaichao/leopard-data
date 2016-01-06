@@ -423,88 +423,46 @@ public class JdbcMysqlImpl implements Jdbc {
 	}
 
 	@Override
-	/**
-	 * @see io.leopard.data.jdbc.Jdbc#update(String, StatementParameter)
-	 */
 	public int update(String sql, StatementParameter param) {
-		// try {
 		return this.getJdbcTemplate().update(sql, param.getParameters());
-		// }
-		// catch (RuntimeException e) {
-		// throw e;
-		// }
 	}
 
 	@Override
-	/**
-	 * @see io.leopard.data.jdbc.Jdbc#update(String)
-	 */
 	public int update(String sql) {
-		// try {
 		return this.getJdbcTemplate().update(sql);
-		// }
-		// catch (RuntimeException e) {
-		// logger.error("sql:" + sql);
-		// throw e;
-		// }
 	}
 
-	// public String beanName() {
-	// return this.getClass().getName();
-	// }
-
 	@Override
-	/**
-	 * @see io.leopard.data.jdbc.Jdbc#insertIgnoreForBoolean(InsertBuilder)
-	 */
 	public boolean insertIgnoreForBoolean(InsertBuilder builder) {
 		return this.insertIgnoreForBoolean(builder.getSql(), builder.getParam());
 	}
 
 	@Override
-	/**
-	 * @see io.leopard.data.jdbc.Jdbc#insertIgnoreForBoolean(ReplaceBuilder)
-	 */
 	public boolean insertIgnoreForBoolean(ReplaceBuilder builder) {
 		return this.insertIgnoreForBoolean(builder.getSql(), builder.getParam());
 	}
 
 	@Override
-	/**
-	 * @see io.leopard.data.jdbc.Jdbc#insertForBoolean(InsertBuilder)
-	 */
 	public boolean insertForBoolean(InsertBuilder builder) {
 		return this.insertForBoolean(builder.getSql(), builder.getParam());
 	}
 
 	@Override
-	/**
-	 * @see io.leopard.data.jdbc.Jdbc#insertForBoolean(ReplaceBuilder)
-	 */
 	public boolean insertForBoolean(ReplaceBuilder builder) {
 		return this.insertForBoolean(builder.getSql(), builder.getParam());
 	}
 
 	@Override
-	/**
-	 * @see io.leopard.data.jdbc.Jdbc#updateForBoolean(SqlBuilder)
-	 */
 	public boolean updateForBoolean(SqlBuilder builder) {
 		return this.updateForBoolean(builder.getSql(), builder.getParam());
 	}
 
 	@Override
-	/**
-	 * @see io.leopard.data.jdbc.Jdbc#update(SqlBuilder)
-	 */
 	public int update(SqlBuilder builder) {
 		return this.update(builder.getSql(), builder.getParam());
 	}
 
 	@Override
-	/**
-	 * @see io.leopard.data.jdbc.Jdbc#incr(String , StatementParameter)
-	 */
 	public Long incr(String sql, StatementParameter param) {
 		boolean success = this.updateForBoolean(sql, param);
 		if (success) {
@@ -516,27 +474,18 @@ public class JdbcMysqlImpl implements Jdbc {
 	}
 
 	@Override
-	/**
-	 * @see io.leopard.data.jdbc.Jdbc#queryForInts(String, StatementParameter, int, int)
-	 */
 	public List<Integer> queryForInts(String sql, StatementParameter param, int start, int size) {
 		sql = this.appendLimitSql(sql, start, size);
 		return this.queryForInts(sql, param);
 	}
 
 	@Override
-	/**
-	 * @see io.leopard.data.jdbc.Jdbc#queryForStrings(String, int, int)
-	 */
 	public List<String> queryForStrings(String sql, int start, int size) {
 		sql = this.appendLimitSql(sql, start, size);
 		return this.queryForStrings(sql);
 	}
 
 	@Override
-	/**
-	 * @see io.leopard.data.jdbc.Jdbc#queryForStrings(String, StatementParameter, int, int)
-	 */
 	public List<String> queryForStrings(String sql, StatementParameter param, int start, int size) {
 		sql = this.appendLimitSql(sql, start, size);
 		return this.queryForStrings(sql, param);
