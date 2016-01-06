@@ -17,7 +17,6 @@ import org.springframework.dao.DuplicateKeyException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.dao.InvalidDataAccessApiUsageException;
 import org.springframework.jdbc.core.BatchPreparedStatementSetter;
-import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.PreparedStatementCreator;
 import org.springframework.jdbc.core.RowMapper;
@@ -111,7 +110,7 @@ public class JdbcMysqlImpl implements Jdbc {
 	 */
 	public <T> T query(String sql, Class<T> elementType) {
 		try {
-			return this.getJdbcTemplate().queryForObject(sql, new BeanPropertyRowMapper<T>(elementType));
+			return this.getJdbcTemplate().queryForObject(sql, new LeopardBeanPropertyRowMapper<T>(elementType));
 		}
 		catch (EmptyResultDataAccessException e) {
 			return null;
@@ -197,7 +196,7 @@ public class JdbcMysqlImpl implements Jdbc {
 	 */
 	public <T> List<T> queryForList(String sql, Class<T> elementType) {
 		try {
-			List<T> list = this.getJdbcTemplate().query(sql, new BeanPropertyRowMapper<T>(elementType));
+			List<T> list = this.getJdbcTemplate().query(sql, new LeopardBeanPropertyRowMapper<T>(elementType));
 			// if (log) {
 			// this.log(list, sql, null);
 			// }
@@ -343,7 +342,7 @@ public class JdbcMysqlImpl implements Jdbc {
 	 */
 	public <T> List<T> queryForList(String sql, Class<T> elementType, StatementParameter param) {
 		try {
-			List<T> list = this.getJdbcTemplate().query(sql, param.getArgs(), new BeanPropertyRowMapper<T>(elementType));
+			List<T> list = this.getJdbcTemplate().query(sql, param.getArgs(), new LeopardBeanPropertyRowMapper<T>(elementType));
 			// if (log) {
 			// this.log(list, sql, param);
 			// }
@@ -852,7 +851,7 @@ public class JdbcMysqlImpl implements Jdbc {
 
 	@Override
 	public <T> Paging<T> queryForPaging(String sql, Class<T> elementType, StatementParameter param, int start, int size) {
-		PageableRowMapperResultSetExtractor<T> extractor = new PageableRowMapperResultSetExtractor<T>(new BeanPropertyRowMapper<T>(elementType), start, size);
+		PageableRowMapperResultSetExtractor<T> extractor = new PageableRowMapperResultSetExtractor<T>(new LeopardBeanPropertyRowMapper<T>(elementType), start, size);
 		List<T> list = this.getJdbcTemplate().query(sql, param.getArgs(), extractor);
 		int totalCount = extractor.getCount();
 		// return new PagingImpl<T>(list, count);
