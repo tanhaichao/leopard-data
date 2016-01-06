@@ -35,13 +35,6 @@ import io.leopard.lang.PagingImpl;
  * 
  */
 public class JdbcMysqlImpl implements Jdbc {
-	// protected Log logger = LogFactory.getLog(this.getClass());
-
-	// private static boolean log = false;
-	//
-	// public static void setLog(boolean log) {
-	// JdbcMysqlImpl.log = log;
-	// }
 
 	protected JdbcTemplate jdbcTemplate;
 
@@ -62,52 +55,28 @@ public class JdbcMysqlImpl implements Jdbc {
 	}
 
 	@Override
-	/**
-	 * @see io.leopard.data.jdbc.Jdbc#printSQL(String, StatementParameter )
-	 */
 	public String printSQL(Log logger, String sql, StatementParameter param) {
 		String sql1 = this.getSQL(sql, param);
 		logger.info(sql1);
 		return sql1;
 	}
 
-	// protected void printStackTrace(String sql, StatementParameter param, int
-	// updatedCount) {
-	// String str1 = this.getSQL(sql, param);
-	// logger.info("sql:" + str1);
-	// logger.info("updatedCount:" + updatedCount);
-	// Exception e = new Exception();
-	// logger.info(e.getMessage(), e);
-	// }
-
 	@Override
-	/**
-	 * @see io.leopard.data.jdbc.Jdbc#getSQL(String, StatementParameter)
-	 */
 	public String getSQL(String sql, StatementParameter param) {
 		return SqlUtil.getSQL(sql, param);
 	}
 
 	@Override
-	/**
-	 * @see io.leopard.data.jdbc.Jdbc#batchUpdate(String[])
-	 */
 	public int[] batchUpdate(String[] sqls) {
 		return this.getJdbcTemplate().batchUpdate(sqls);
 	}
 
 	@Override
-	/**
-	 * @see io.leopard.data.jdbc.Jdbc#batchUpdate(String, BatchPreparedStatementSetter)
-	 */
 	public int[] batchUpdate(String sql, BatchPreparedStatementSetter setter) {
 		return this.getJdbcTemplate().batchUpdate(sql, setter);
 	}
 
 	@Override
-	/**
-	 * @see io.leopard.data.jdbc.Jdbc#query(String, Class<T>)
-	 */
 	public <T> T query(String sql, Class<T> elementType) {
 		try {
 			return this.getJdbcTemplate().queryForObject(sql, new LeopardBeanPropertyRowMapper<T>(elementType));
@@ -118,17 +87,11 @@ public class JdbcMysqlImpl implements Jdbc {
 	}
 
 	@Override
-	/**
-	 * @see io.leopard.data.jdbc.Jdbc#query(String, Class<T>, Object...)
-	 */
 	public <T> T query(String sql, Class<T> elementType, Object... params) {
 		return this.query(sql, elementType, toStatementParameter(sql, params));
 	}
 
 	@Override
-	/**
-	 * @see io.leopard.data.jdbc.Jdbc#query(String, Class<T>, StatementParameter)
-	 */
 	public <T> T query(String sql, Class<T> elementType, StatementParameter param) {
 		try {
 			return this.getJdbcTemplate().queryForObject(sql, param.getArgs(), new LeopardBeanPropertyRowMapper<T>(elementType));
@@ -138,32 +101,8 @@ public class JdbcMysqlImpl implements Jdbc {
 		}
 	}
 
-	// /**
-	// * 输出查询结果到日志中
-	// *
-	// * @param list
-	// * 结果List
-	// * @param sql
-	// * sql
-	// * @param param
-	// * 参数列表
-	// */
-	// protected void log(List<?> list, String sql, StatementParameter param) {
-	// int size = (list == null ? 0 : list.size());
-	// String sql1;
-	// if (param == null) {
-	// sql1 = sql;
-	// }
-	// else {
-	// sql1 = this.getSQL(sql, param);
-	// }
-	// // this.logger.info("result size:" + size + " sql:" + sql1);
-	// }
-
 	@Override
-	/**
-	 * @see io.leopard.data.jdbc.Jdbc#queryForMaps(String)
-	 */
+
 	public List<Map<String, Object>> queryForMaps(String sql) {
 		try {
 			List<Map<String, Object>> list = this.getJdbcTemplate().queryForList(sql);
@@ -181,25 +120,11 @@ public class JdbcMysqlImpl implements Jdbc {
 		return sql + " LIMIT " + start + "," + size + ";";
 	}
 
-	// @Override
-	// /**
-	// * @see io.leopard.data.jdbc.Jdbc#queryForList(String, Class<T>, int, int)
-	// */
-	// public <T> List<T> queryForList(String sql, Class<T> elementType, int start, int size) {
-	// sql = this.appendLimitSql(sql, start, size);
-	// return this.queryForList(sql, elementType);
-	// }
-
 	@Override
-	/**
-	 * @see io.leopard.data.jdbc.Jdbc#queryForList(String, Class<T>)
-	 */
+
 	public <T> List<T> queryForList(String sql, Class<T> elementType) {
 		try {
 			List<T> list = this.getJdbcTemplate().query(sql, new LeopardBeanPropertyRowMapper<T>(elementType));
-			// if (log) {
-			// this.log(list, sql, null);
-			// }
 			return list;
 		}
 		catch (EmptyResultDataAccessException e) {
@@ -208,18 +133,12 @@ public class JdbcMysqlImpl implements Jdbc {
 	}
 
 	@Override
-	/**
-	 * @see io.leopard.data.jdbc.Jdbc#queryForLongs(String, StatementParameter, int, int)
-	 */
 	public List<Long> queryForLongs(String sql, StatementParameter param, int start, int size) {
 		sql = this.appendLimitSql(sql, start, size);
 		return this.queryForLongs(sql, param);
 	}
 
 	@Override
-	/**
-	 * @see io.leopard.data.jdbc.Jdbc#queryForLongs(String, StatementParameter)
-	 */
 	public List<Long> queryForLongs(String sql, StatementParameter param) {
 		List<Long> list = jdbcTemplate.query(sql, param.getArgs(), new RowMapper<Long>() {
 			@Override
@@ -232,16 +151,10 @@ public class JdbcMysqlImpl implements Jdbc {
 				}
 			}
 		});
-		// if (log) {
-		// this.log(list, sql, param);
-		// }
 		return list;
 	}
 
 	@Override
-	/**
-	 * @see io.leopard.data.jdbc.Jdbc#queryForInts(String, StatementParameter)
-	 */
 	public List<Integer> queryForInts(String sql, StatementParameter param) {
 		List<Integer> list = jdbcTemplate.query(sql, param.getArgs(), new RowMapper<Integer>() {
 			@Override
@@ -254,16 +167,10 @@ public class JdbcMysqlImpl implements Jdbc {
 				}
 			}
 		});
-		// if (log) {
-		// this.log(list, sql, param);
-		// }
 		return list;
 	}
 
 	@Override
-	/**
-	 * @see io.leopard.data.jdbc.Jdbc#queryForStrings(String )
-	 */
 	public List<String> queryForStrings(String sql) {
 		List<String> list = jdbcTemplate.query(sql, new RowMapper<String>() {
 			@Override
@@ -280,9 +187,6 @@ public class JdbcMysqlImpl implements Jdbc {
 	}
 
 	@Override
-	/**
-	 * @see io.leopard.data.jdbc.Jdbc#queryForStrings(String, StatementParameter)
-	 */
 	public List<String> queryForStrings(String sql, StatementParameter param) {
 		List<String> list = jdbcTemplate.query(sql, param.getArgs(), new RowMapper<String>() {
 			@Override
@@ -295,57 +199,24 @@ public class JdbcMysqlImpl implements Jdbc {
 				}
 			}
 		});
-		// if (log) {
-		// this.log(list, sql, param);
-		// }
 		return list;
 	}
 
-	// private String replaceH2Date(String sql) {
-	// if (!h2) {
-	// return sql;
-	// }
-	// String regex = "DATE\\((.*?)\\)";
-	// Pattern p = Pattern.compile(regex);
-	// Matcher m = p.matcher(sql);
-	// StringBuffer sb = new StringBuffer();
-	// while (m.find()) {
-	// String param = m.group(1);
-	// String replacement = "left(" + param + ",10)";
-	// m.appendReplacement(sb, replacement);
-	// }
-	// sql = sql.replace("DATE(?)", "left(?,10)");
-	// m.appendTail(sb);
-	// return sb.toString();
-	// }
-
 	@Override
-	/**
-	 * @see io.leopard.data.jdbc.Jdbc#queryForList(String, Class<T>, StatementParameter, int, int)
-	 */
 	public <T> List<T> queryForList(String sql, Class<T> elementType, StatementParameter param, int start, int size) {
 		sql = this.appendLimitSql(sql, start, size);
 		return this.queryForList(sql, elementType, param);
 	}
 
 	@Override
-	/**
-	 * @see io.leopard.data.jdbc.Jdbc#queryForList(String, Class<T>, Object...)
-	 */
 	public <T> List<T> queryForList(String sql, Class<T> elementType, Object... params) {
 		return this.queryForList(sql, elementType, toStatementParameter(sql, params));
 	}
 
 	@Override
-	/**
-	 * @see io.leopard.data.jdbc.Jdbc#queryForList(String, Class<T>, StatementParameter)
-	 */
 	public <T> List<T> queryForList(String sql, Class<T> elementType, StatementParameter param) {
 		try {
 			List<T> list = this.getJdbcTemplate().query(sql, param.getArgs(), new LeopardBeanPropertyRowMapper<T>(elementType));
-			// if (log) {
-			// this.log(list, sql, param);
-			// }
 			return list;
 		}
 		catch (EmptyResultDataAccessException e) {
@@ -354,9 +225,6 @@ public class JdbcMysqlImpl implements Jdbc {
 	}
 
 	@Override
-	/**
-	 * @see io.leopard.data.jdbc.Jdbc#queryForLong(String)
-	 */
 	public Long queryForLong(String sql) {
 		try {
 			@SuppressWarnings("deprecation")
@@ -369,9 +237,6 @@ public class JdbcMysqlImpl implements Jdbc {
 	}
 
 	@Override
-	/**
-	 * @see io.leopard.data.jdbc.Jdbc#queryForLong(String, StatementParameter)
-	 */
 	public Long queryForLong(String sql, StatementParameter param) {
 		Object[] args = param.getArgs();
 		int[] argTypes = param.getArgTypes();
@@ -386,9 +251,6 @@ public class JdbcMysqlImpl implements Jdbc {
 	}
 
 	@Override
-	/**
-	 * @see io.leopard.data.jdbc.Jdbc#queryForInt(String)
-	 */
 	public Integer queryForInt(String sql) {
 		try {
 			@SuppressWarnings("deprecation")
@@ -401,33 +263,20 @@ public class JdbcMysqlImpl implements Jdbc {
 	}
 
 	@Override
-	/**
-	 * @see io.leopard.data.jdbc.Jdbc#exist(String)
-	 */
 	public boolean exist(String sql) {
 		return this.queryForInt(sql) > 0;
 	}
 
 	@Override
-	/**
-	 * @see io.leopard.data.jdbc.Jdbc#exist(String, StatementParameter)
-	 */
 	public boolean exist(String sql, StatementParameter param) {
 		return this.queryForInt(sql, param) > 0;
 	}
 
 	@Override
-	/**
-	 * @see io.leopard.data.jdbc.Jdbc#queryForInt(String, StatementParameter)
-	 */
 	public Integer queryForInt(String sql, StatementParameter param) {
 		Object[] args = param.getArgs();
 		int[] argTypes = param.getArgTypes();
 		try {
-
-			// Number number = queryForObject(sql, args, argTypes, Integer.class);
-			// return (number != null ? number.intValue() : 0);
-			// @SuppressWarnings("deprecation")
 			Number number = this.getJdbcTemplate().queryForObject(sql, args, argTypes, Integer.class);
 			return (number != null ? number.intValue() : 0);
 		}
@@ -437,9 +286,6 @@ public class JdbcMysqlImpl implements Jdbc {
 	}
 
 	@Override
-	/**
-	 * @see io.leopard.data.jdbc.Jdbc#queryForDate(String)
-	 */
 	public java.util.Date queryForDate(String sql) {
 		try {
 			java.util.Date result = this.getJdbcTemplate().queryForObject(sql, java.util.Date.class);
@@ -451,9 +297,6 @@ public class JdbcMysqlImpl implements Jdbc {
 	}
 
 	@Override
-	/**
-	 * @see io.leopard.data.jdbc.Jdbc#queryForDate(String, StatementParameter)
-	 */
 	public java.util.Date queryForDate(String sql, StatementParameter param) {
 		Object[] args = param.getArgs();
 		int[] argTypes = param.getArgTypes();
@@ -467,9 +310,6 @@ public class JdbcMysqlImpl implements Jdbc {
 	}
 
 	@Override
-	/**
-	 * @see io.leopard.data.jdbc.Jdbc#queryForString(String)
-	 */
 	public String queryForString(String sql) {
 		try {
 			String result = this.getJdbcTemplate().queryForObject(sql, String.class);
@@ -482,12 +322,7 @@ public class JdbcMysqlImpl implements Jdbc {
 	}
 
 	@Override
-	/**
-	 * @see io.leopard.data.jdbc.Jdbc#queryForString(String, StatementParameter)
-	 */
 	public String queryForString(String sql, StatementParameter param) {
-		// System.out.println("queryForString:" + sql + " " +
-		// this.getJdbcTemplate());
 		Object[] args = param.getArgs();
 		int[] argTypes = param.getArgTypes();
 		try {
@@ -500,9 +335,6 @@ public class JdbcMysqlImpl implements Jdbc {
 	}
 
 	@Override
-	/**
-	 * @see io.leopard.data.jdbc.Jdbc#insertIgnoreForBoolean(String, StatementParameter)
-	 */
 	public boolean insertIgnoreForBoolean(String sql, StatementParameter param) {
 		try {
 			return this.insertForBoolean(sql, param);
@@ -513,9 +345,6 @@ public class JdbcMysqlImpl implements Jdbc {
 	}
 
 	@Override
-	/**
-	 * @see io.leopard.data.jdbc.Jdbc#insertForLastId(final String, final StatementParameter)
-	 */
 	public long insertForLastId(final String sql, final StatementParameter param) {
 		GeneratedKeyHolder keyHolder = new GeneratedKeyHolder();
 		this.getJdbcTemplate().update(new PreparedStatementCreator() {
@@ -530,17 +359,11 @@ public class JdbcMysqlImpl implements Jdbc {
 	}
 
 	@Override
-	/**
-	 * @see io.leopard.data.jdbc.Jdbc#insertForBoolean(String, StatementParameter)
-	 */
 	public boolean insertForBoolean(String sql, StatementParameter param) {
 		return this.updateForBoolean(sql, param);
 	}
 
 	@Override
-	/**
-	 * @see io.leopard.data.jdbc.Jdbc#updateForBoolean(String, StatementParameter)
-	 */
 	public boolean updateForBoolean(String sql, StatementParameter param) {
 		int updatedCount = this.update(sql, param);
 		return (updatedCount > 0);
