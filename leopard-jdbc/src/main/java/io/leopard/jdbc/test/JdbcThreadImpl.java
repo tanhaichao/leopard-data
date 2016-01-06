@@ -33,7 +33,6 @@ public class JdbcThreadImpl implements Jdbc {
 
 	public JdbcThreadImpl(Jdbc original) {
 		this.original = original;
-
 	}
 
 	protected Jdbc getJdbcH2Impl() {
@@ -90,7 +89,8 @@ public class JdbcThreadImpl implements Jdbc {
 	private Jdbc getJdbc() {
 		// new Exception("getJdbc").printStackTrace();
 		if (true) {
-			return this.getJdbcH2Impl();
+			// TODO 未实现.
+			// return this.getJdbcH2Impl();
 		}
 		return this.original;
 	}

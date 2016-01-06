@@ -786,6 +786,9 @@ public class JdbcMysqlImpl implements Jdbc {
 			else if (Date.class.equals(type)) {
 				builder.setDate(fieldName, (Date) obj);
 			}
+			else if (List.class.equals(type)) {
+				builder.setString(fieldName, obj.toString());
+			}
 			else {
 				throw new InvalidDataAccessApiUsageException("未知数据类型[" + type.getName() + "].");
 			}
