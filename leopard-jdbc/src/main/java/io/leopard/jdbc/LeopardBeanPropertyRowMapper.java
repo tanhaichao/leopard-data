@@ -42,7 +42,8 @@ public class LeopardBeanPropertyRowMapper<T> implements RowMapper<T> {
 		int columnCount = rsmd.getColumnCount();
 		for (int index = 1; index <= columnCount; index++) {
 			String column = JdbcUtils.lookupColumnName(rsmd, index);
-			column = column.replaceAll(" ", "").toLowerCase();
+			column = column.replaceAll(" ", "");
+
 			Field field = this.mappedFields.get(column);
 
 			if (field == null && column.endsWith("s")) {
@@ -52,7 +53,6 @@ public class LeopardBeanPropertyRowMapper<T> implements RowMapper<T> {
 			}
 
 			if (field != null) {
-
 				Object value = getColumnValue(rs, index, field);
 
 				field.setAccessible(true);
