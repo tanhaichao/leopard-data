@@ -89,7 +89,7 @@ public class JdbcThreadImpl implements Jdbc {
 	private Jdbc getJdbc() {
 		// new Exception("getJdbc").printStackTrace();
 		if (true) {
-			// TODO 未实现.
+			// TODO ThreadLocal Jdbc未实现.
 			// return this.getJdbcH2Impl();
 		}
 		return this.original;

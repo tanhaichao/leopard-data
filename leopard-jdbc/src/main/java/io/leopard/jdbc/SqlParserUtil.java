@@ -87,31 +87,26 @@ public class SqlParserUtil {
 
 	protected static void setValue(StatementParameter param, Class<?> type, Object value) {
 		String className = type.getName();
-		// TODO class.getName方法会有性能问题，可以写成常量
+		// class.getName方法会有性能问题，可以写成常量
 		if (String.class.getName().equals(className)) {
 			param.setString((String) value);
 		}
 		else if (Date.class.getName().equals(className)) {
 			param.setDate((Date) value);
 		}
-		// else if (ClassTypeUtil.isInteger(className)) {
 		else if (className.equals(int.class.getName()) || className.equals(Integer.class.getName())) {
 			param.setInt((Integer) value);
 		}
 		else if (className.equals(long.class.getName()) || className.equals(Long.class.getName())) {
-			// else if (ClassTypeUtil.isLong(className)) {
 			param.setLong((Long) value);
 		}
 		else if (className.equals(float.class.getName()) || className.equals(Float.class.getName())) {
-			// else if (ClassTypeUtil.isFloat(className)) {
 			param.setFloat((Float) value);
 		}
 		else if (className.equals(double.class.getName()) || className.equals(Double.class.getName())) {
-			// else if (ClassTypeUtil.isDouble(className)) {
 			param.setDouble((Double) value);
 		}
 		else if (className.equals(boolean.class.getName()) || className.equals(Boolean.class.getName())) {
-			// else if (ClassTypeUtil.isBoolean(className)) {
 			param.setBool((Boolean) value);
 		}
 		else {

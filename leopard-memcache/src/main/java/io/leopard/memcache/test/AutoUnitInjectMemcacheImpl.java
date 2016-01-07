@@ -30,7 +30,6 @@ public class AutoUnitInjectMemcacheImpl extends AbstractInject {
 
 	@Override
 	public boolean clean() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 

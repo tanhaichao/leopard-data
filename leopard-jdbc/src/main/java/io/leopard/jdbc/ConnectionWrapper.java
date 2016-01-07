@@ -19,13 +19,10 @@ import java.util.Map;
 import java.util.Properties;
 import java.util.concurrent.Executor;
 
-//TODO ahai 此类未测试
 public class ConnectionWrapper implements Connection {
 
 	protected Connection connection;
 
-	
-	
 	public ConnectionWrapper(Connection connection) {
 		this.connection = connection;
 	}

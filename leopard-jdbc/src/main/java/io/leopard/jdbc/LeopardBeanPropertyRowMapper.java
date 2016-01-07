@@ -46,7 +46,7 @@ public class LeopardBeanPropertyRowMapper<T> implements RowMapper<T> {
 			Field field = this.mappedFields.get(column);
 
 			if (field == null && column.endsWith("s")) {
-				// TODO 临时实现?
+				// TODO images转imageList的临时实现?
 				String column2 = column.substring(0, column.length() - 1) + "List";
 				field = this.mappedFields.get(column2);
 			}

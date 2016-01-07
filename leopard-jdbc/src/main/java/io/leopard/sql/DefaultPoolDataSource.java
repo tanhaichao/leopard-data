@@ -11,7 +11,6 @@ public class DefaultPoolDataSource implements PoolDataSource {
 	private PoolDataSource dataSource;
 
 	public DefaultPoolDataSource() {
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override

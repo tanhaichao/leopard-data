@@ -68,8 +68,6 @@ public class SqlUtil {
 		}
 		else {
 			throw new InvalidParamDataAccessException("未知参数类型[" + type.getName() + "].");
-			// throw new InvalidParamDataAccessException("未知数据类型[" + type +
-			// "]");
 		}
 		return value;
 	}
@@ -81,7 +79,6 @@ public class SqlUtil {
 	 * @return
 	 */
 	public static String toCountSql(String sql) {
-		// TODO ahai 未完整实现
 		sql = sql.replaceAll("select .*? from", "select count(*) from");
 		sql = sql.replaceAll("SELECT .*? FROM", "SELECT count(*) FROM");
 		sql = sql.replaceAll(" LIMIT.*", "");
@@ -89,9 +86,4 @@ public class SqlUtil {
 		return sql;
 	}
 
-	// public static String getTimeRangeSql(String fieldName, Date startTime,
-	// Date endTime) {
-	// StringBuilder sb = new StringBuilder();
-	// return sb.toString();
-	// }
 }

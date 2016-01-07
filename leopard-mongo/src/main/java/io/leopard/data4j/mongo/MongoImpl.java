@@ -120,7 +120,6 @@ public class MongoImpl implements Mongo {
 
 	@Override
 	public <T> T query() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 

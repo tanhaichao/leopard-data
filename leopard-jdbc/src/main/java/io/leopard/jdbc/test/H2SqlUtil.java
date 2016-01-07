@@ -8,12 +8,10 @@ public class H2SqlUtil {
 
 	protected static String filter(String sql) {
 		if (true) {
-			// TODO 临时过滤
+			// 临时过滤
 			sql = sql.replace("DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP", "DEFAULT NULL");
 		}
-		
-		
-		
+
 		if (true) {
 			sql = sql.replaceAll("/\\*.*?\\*/;", "");
 			sql = sql.replaceAll("--[^\n]{0,}", "");

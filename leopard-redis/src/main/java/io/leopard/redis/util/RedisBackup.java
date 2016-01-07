@@ -1,7 +1,5 @@
 package io.leopard.redis.util;
 
-import io.leopard.redis.Redis;
-
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Timer;
@@ -10,6 +8,8 @@ import java.util.TimerTask;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.util.StringUtils;
+
+import io.leopard.redis.Redis;
 
 /**
  * redis备份.
@@ -52,8 +52,7 @@ public class RedisBackup {
 	 * @return
 	 */
 	protected int getInterval() {
-		// TODO 未实现
-		// if (SystemUtils.IS_OS_WINDOWS) {
+		// if (System.getProperty("os.name").startsWith("Windows")) {
 		// return 2;
 		// }
 		return 10 * 60;

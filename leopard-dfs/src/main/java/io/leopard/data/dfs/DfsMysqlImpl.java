@@ -65,7 +65,6 @@ public class DfsMysqlImpl implements Dfs, InitializingBean, DisposableBean {
 
 	@Override
 	public void afterPropertiesSet() throws Exception {
-		// TODO Auto-generated method stub
 
 	}
 
