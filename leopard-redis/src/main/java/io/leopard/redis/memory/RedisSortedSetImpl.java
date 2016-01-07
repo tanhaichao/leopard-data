@@ -403,6 +403,7 @@ public class RedisSortedSetImpl implements IRedisSortedSet {
 		return (long) this.getMap(key).size();
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public Long zinterstore(String dstkey, String... sets) {
 		int[] weights = new int[sets.length];
