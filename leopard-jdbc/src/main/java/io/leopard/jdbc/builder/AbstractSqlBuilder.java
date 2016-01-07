@@ -21,6 +21,10 @@ public abstract class AbstractSqlBuilder implements SqlBuilder {
 	 *            参数值
 	 */
 	public void setString(String fieldName, String value) {
+		if (value == null) {
+			throw new IllegalArgumentException("参数值[" + fieldName + "]不能为NULL.");
+		}
+
 		fieldList.add(fieldName);
 		statementParameter.setString(value);
 	}
@@ -34,6 +38,10 @@ public abstract class AbstractSqlBuilder implements SqlBuilder {
 	 *            参数值
 	 */
 	public void setList(String fieldName, List<?> value) {
+		if (value == null) {
+			// list默认允许传入null
+			return;
+		}
 		fieldList.add(fieldName);
 		statementParameter.setList(value);
 	}
@@ -47,6 +55,9 @@ public abstract class AbstractSqlBuilder implements SqlBuilder {
 	 *            参数值
 	 */
 	public void setTimestamp(String fieldName, Timestamp value) {
+		if (value == null) {
+			throw new IllegalArgumentException("参数值[" + fieldName + "]不能为NULL.");
+		}
 		fieldList.add(fieldName);
 		statementParameter.setTimestamp(value);
 	}
@@ -73,6 +84,9 @@ public abstract class AbstractSqlBuilder implements SqlBuilder {
 	 *            参数值
 	 */
 	public void setBool(String fieldName, Boolean value) {
+		if (value == null) {
+			throw new IllegalArgumentException("参数值[" + fieldName + "]不能为NULL.");
+		}
 		fieldList.add(fieldName);
 		statementParameter.setBool(value);
 	}
@@ -86,6 +100,9 @@ public abstract class AbstractSqlBuilder implements SqlBuilder {
 	 *            参数值
 	 */
 	public void setInt(String fieldName, Integer value) {
+		if (value == null) {
+			throw new IllegalArgumentException("参数值[" + fieldName + "]不能为NULL.");
+		}
 		fieldList.add(fieldName);
 		statementParameter.setInt(value);
 	}
@@ -99,6 +116,9 @@ public abstract class AbstractSqlBuilder implements SqlBuilder {
 	 *            参数值
 	 */
 	public void setDate(String fieldName, Date value) {
+		if (value == null) {
+			throw new IllegalArgumentException("参数值[" + fieldName + "]不能为NULL.");
+		}
 		fieldList.add(fieldName);
 		statementParameter.setDate(value);
 	}
@@ -112,11 +132,17 @@ public abstract class AbstractSqlBuilder implements SqlBuilder {
 	 *            参数值
 	 */
 	public void setLong(String fieldName, Long value) {
+		if (value == null) {
+			throw new IllegalArgumentException("参数值[" + fieldName + "]不能为NULL.");
+		}
 		fieldList.add(fieldName);
 		statementParameter.setLong(value);
 	}
 
 	public void setBytes(String fieldName, byte[] value) {
+		if (value == null) {
+			throw new IllegalArgumentException("参数值[" + fieldName + "]不能为NULL.");
+		}
 		fieldList.add(fieldName);
 		statementParameter.setBytes(value);
 	}
@@ -130,6 +156,9 @@ public abstract class AbstractSqlBuilder implements SqlBuilder {
 	 *            参数值
 	 */
 	public void setFloat(String fieldName, Float value) {
+		if (value == null) {
+			throw new IllegalArgumentException("参数值[" + fieldName + "]不能为NULL.");
+		}
 		fieldList.add(fieldName);
 		statementParameter.setFloat(value);
 	}
@@ -143,6 +172,9 @@ public abstract class AbstractSqlBuilder implements SqlBuilder {
 	 *            参数值
 	 */
 	public void setDouble(String fieldName, Double value) {
+		if (value == null) {
+			throw new IllegalArgumentException("参数值[" + fieldName + "]不能为NULL.");
+		}
 		fieldList.add(fieldName);
 		statementParameter.setDouble(value);
 	}
