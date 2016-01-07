@@ -18,10 +18,8 @@ public class DriverManager {
 	private static void loadInitialDrivers() {
 		ServiceLoader<Driver> loadedDrivers = ServiceLoader.load(Driver.class);
 		Iterator<Driver> driversIterator = loadedDrivers.iterator();
-		// System.out.println("driversIterator:" + driversIterator);
 		while (driversIterator.hasNext()) {
 			Driver driver = driversIterator.next();
-			// System.out.println("driver:" + driver);
 			list.add(driver);
 		}
 	}
@@ -30,7 +28,6 @@ public class DriverManager {
 	private static Map<Integer, redis.clients.jedis.Jedis> cache = new ConcurrentHashMap<Integer, redis.clients.jedis.Jedis>();
 
 	public static redis.clients.jedis.Jedis wrapper(redis.clients.jedis.Jedis jedis) {
-		// System.out.println("\nwrapper:" + jedis);
 		int key = jedis.hashCode();
 		{
 			redis.clients.jedis.Jedis jedis2 = cache.get(key);
