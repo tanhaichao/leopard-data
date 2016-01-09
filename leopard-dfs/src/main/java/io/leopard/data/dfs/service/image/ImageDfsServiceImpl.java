@@ -1,6 +1,8 @@
 package io.leopard.data.dfs.service.image;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 import javax.annotation.Resource;
@@ -8,7 +10,9 @@ import javax.annotation.Resource;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import io.leopard.data.dfs.MockMultipartFile;
 import io.leopard.data.dfs.service.DfsService;
 
 @Service
@@ -18,6 +22,27 @@ public class ImageDfsServiceImpl implements ImageDfsService {
 
 	@Resource
 	private DfsService dfsService;
+
+	@Override
+	public List<String> save(long uid, String folder, List<MultipartFile> pictureList, String sizeList, boolean asyncSave) throws IOException {
+		List<String> imageUrlList = new ArrayList<String>();
+		if (pictureList != null) {
+			for (MultipartFile file : pictureList) {
+				if (file.isEmpty()) {
+					continue;
+				}
+				String uri;
+				if (file instanceof MockMultipartFile) {
+					uri = ((MockMultipartFile) file).getName();
+				}
+				else {
+					uri = this.save(uid, folder, file.getBytes(), sizeList, asyncSave);
+				}
+				imageUrlList.add(uri);
+			}
+		}
+		return imageUrlList;
+	}
 
 	@Override
 	public String save(long uid, String folder, byte[] data, String sizeList, boolean asyncSave) throws IOException {
