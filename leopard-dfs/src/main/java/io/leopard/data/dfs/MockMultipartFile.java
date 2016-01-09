@@ -4,14 +4,20 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 
+import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 public class MockMultipartFile implements MultipartFile {
 
+	private String url;
+
+	public MockMultipartFile(String url) {
+		this.url = url;
+	}
+
 	@Override
 	public String getName() {
-		// TODO Auto-generated method stub
-		return null;
+		return url;
 	}
 
 	@Override
@@ -28,8 +34,7 @@ public class MockMultipartFile implements MultipartFile {
 
 	@Override
 	public boolean isEmpty() {
-		// TODO Auto-generated method stub
-		return false;
+		return StringUtils.isEmpty(this.getName());
 	}
 
 	@Override

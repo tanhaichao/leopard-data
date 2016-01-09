@@ -24,6 +24,21 @@ public class ImageDfsServiceImpl implements ImageDfsService {
 	private DfsService dfsService;
 
 	@Override
+	public String save(long uid, String folder, MultipartFile file, String sizeList, boolean asyncSave) throws IOException {
+		if (file == null || file.isEmpty()) {
+			return null;
+		}
+		String uri;
+		if (file instanceof MockMultipartFile) {
+			uri = ((MockMultipartFile) file).getName();
+		}
+		else {
+			uri = this.save(uid, folder, file.getBytes(), sizeList, asyncSave);
+		}
+		return uri;
+	}
+
+	@Override
 	public List<String> save(long uid, String folder, List<MultipartFile> pictureList, String sizeList, boolean asyncSave) throws IOException {
 		List<String> imageUrlList = new ArrayList<String>();
 		if (pictureList != null) {
