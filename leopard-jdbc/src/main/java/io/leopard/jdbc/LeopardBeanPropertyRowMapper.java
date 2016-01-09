@@ -26,10 +26,18 @@ public class LeopardBeanPropertyRowMapper<T> implements RowMapper<T> {
 
 		mappedFields = new HashMap<String, Field>();
 
-		Field[] fields = mappedClass.getDeclaredFields();
+		Class<?> clazz = mappedClass;
+		while (true) {
 
-		for (Field field : fields) {
-			mappedFields.put(field.getName(), field);
+			Field[] fields = clazz.getDeclaredFields();
+
+			for (Field field : fields) {
+				mappedFields.put(field.getName(), field);
+			}
+			clazz = clazz.getSuperclass();
+			if (clazz.equals(Object.class)) {
+				break;
+			}
 		}
 
 	}
