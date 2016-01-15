@@ -33,7 +33,7 @@ public class H2SqlUtil {
 		catch (IOException e) {
 			throw new RuntimeException(e.getMessage(), e);
 		}
-		System.err.println("sql:" + sql);
+		// System.err.println("sql:" + sql);
 		String dir = H2Util.getDir(type);
 		new File(dir).mkdirs();
 		File file = new File(dir, "jdbc.hash");
