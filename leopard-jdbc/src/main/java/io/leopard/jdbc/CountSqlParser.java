@@ -11,7 +11,6 @@ public class CountSqlParser {
 	private final StatementParameter param;
 
 	private String countSql;
-	private int limitParamCount;// 0表示没有，1表示1个，2表示2个
 
 	public CountSqlParser(String sql, StatementParameter param) {
 		this.sql = sql;
@@ -19,33 +18,27 @@ public class CountSqlParser {
 		this.parse();
 	}
 
-	
-	private static final String LIMIT_REGEX = " limit (.*)";
-	private static final Pattern LIMIT_PATTERN = Pattern.compile(LIMIT_REGEX, Pattern.CASE_INSENSITIVE);
+	private static final Pattern LIMIT_PATTERN = Pattern.compile(" limit .*$", Pattern.CASE_INSENSITIVE);
+	private static final Pattern ORDERBY_PATTERN = Pattern.compile(" order by .*$", Pattern.CASE_INSENSITIVE);
 
 	protected void parse() {
 		String sql = this.sql;
 		sql = sql.replaceAll("select .*? from", "select count(*) from");
 		sql = sql.replaceAll("SELECT .*? FROM", "SELECT count(*) FROM");
-
-		Matcher m = LIMIT_PATTERN.matcher(sql);
-		if (m.find()) {
-			String limitParam = m.group(1);
-			this.limitParamCount = this.parseLimitParamCount(limitParam);
-			this.countSql = sql.substring(0, m.start());
+		{
+			Matcher m = ORDERBY_PATTERN.matcher(sql);
+			if (m.find()) {
+				sql = sql.substring(0, m.start());
+			}
 		}
-		else {
-			limitParamCount = 0;
-			this.countSql = sql;
+		{
+			Matcher m = LIMIT_PATTERN.matcher(sql);
+			if (m.find()) {
+				sql = sql.substring(0, m.start());
+			}
 		}
 
-		// System.out.println("limitParamCount:" + limitParamCount);
-	}
-
-	protected int parseLimitParamCount(String limitParam) {
-		return StringUtils.countOccurrencesOf(limitParam, "?");
-		// return StringUtils.countMatches(limitParam, "?");
-		// return 2;
+		this.countSql = sql;
 	}
 
 	public String getCountSql() {
@@ -53,11 +46,8 @@ public class CountSqlParser {
 	}
 
 	public StatementParameter getCountParam() {
-		if (this.limitParamCount <= 0) {
-			return this.param;
-		}
+		int max = StringUtils.countOccurrencesOf(this.countSql, "?");
 		Object[] values = this.param.getArgs();
-		int max = values.length - this.limitParamCount;
 		StatementParameter param = new StatementParameter();
 		for (int i = 0; i < max; i++) {
 			Class<?> type = this.param.getType(i);
