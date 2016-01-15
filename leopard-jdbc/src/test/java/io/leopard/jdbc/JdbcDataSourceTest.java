@@ -1,7 +1,5 @@
 package io.leopard.jdbc;
 
-import io.leopard.jdbc.JdbcDataSource;
-
 import java.sql.SQLException;
 
 import javax.sql.DataSource;
@@ -30,7 +28,7 @@ public class JdbcDataSourceTest {
 		dataSource.setUser("user");
 		dataSource.setPassword("password");
 		dataSource.setMaxPoolSize(10);
-		dataSource.init();
+		// dataSource.init();
 
 		Assert.assertEquals("127.0.0.2", dataSource.getHost());
 		Assert.assertEquals(3306, dataSource.getPort());

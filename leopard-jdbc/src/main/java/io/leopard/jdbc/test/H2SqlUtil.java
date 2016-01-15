@@ -1,10 +1,68 @@
 package io.leopard.jdbc.test;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.Random;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import javax.sql.DataSource;
+
+import org.springframework.core.io.ByteArrayResource;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
+import org.springframework.jdbc.datasource.init.DatabasePopulator;
+import org.springframework.jdbc.datasource.init.DatabasePopulatorUtils;
+import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
+
+import io.leopard.autounit.FileUtils;
+import io.leopard.autounit.unitdb.H2Util;
+
 public class H2SqlUtil {
+
+	/**
+	 * 导入表结构.
+	 * 
+	 * @param dataSource
+	 */
+	protected static String populate(DataSource dataSource) {
+		String sql;
+		try {
+			sql = FileUtils.toString(new ClassPathResource("/init.sql").getInputStream());
+		}
+		catch (IOException e) {
+			throw new RuntimeException(e.getMessage(), e);
+		}
+		String dir = H2Util.getDir("jdbc");
+		File file = new File(dir, "jdbc.hash");
+
+		int hashCode = sql.hashCode();
+		{// 验证表结构是否有变化
+
+			if (file.exists()) {
+				String content = FileUtils.readToString(file);
+				System.out.println("content:" + content + " " + hashCode);
+				if (Integer.parseInt(content) == hashCode) {
+					// 表结构没有改动
+					System.err.println("表结构没有改动");
+					// new Exception().printStackTrace();
+					return sql;
+				}
+			}
+		}
+
+		sql = H2SqlUtil.filter(sql);
+
+		System.err.println("开始导入表结构");
+		// System.err.println(sql);
+
+		Resource scripts = new ByteArrayResource(sql.getBytes());
+		DatabasePopulator populator = new ResourceDatabasePopulator(scripts);
+		DatabasePopulatorUtils.execute(populator, dataSource);
+
+		FileUtils.write(file, Integer.toString(hashCode));
+		return sql;
+	}
 
 	protected static String filter(String sql) {
 		if (true) {

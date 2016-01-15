@@ -33,10 +33,21 @@ public class MysqlDsnDataSource extends JdbcDataSource {
 		this.setPort(jdbcUrlInfo.getPort());
 		this.setDatabase(jdbcUrlInfo.getDatabase());
 
-		super.init();
-		// DataSource dataSource = ProxyDataSource.createDataSource(jdbcUrl,
-		// user, password, maxPoolSize);
-		// this.setDatabase(database);
+		String jdbcUrl = ProxyDataSource.getJdbcUrl(host, port, database);
+		this.dataSource = ProxyDataSource.createDataSource(driverClass, jdbcUrl, user, password, maxPoolSize);
+
+	}
+
+	public void destroy() {
+		// System.out.println("JdbcDataSourceImpl destroy");
+		if (dataSource != null) {
+			if (dataSource instanceof ProxyDataSource) {
+				((ProxyDataSource) dataSource).close();
+			}
+			else {
+				throw new RuntimeException("未知DataSource类型[" + dataSource.getClass().getName() + "].");
+			}
+		}
 	}
 
 	protected JdbcUrlInfo parseUrl(String url) {
