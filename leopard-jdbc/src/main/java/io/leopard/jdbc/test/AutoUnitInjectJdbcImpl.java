@@ -23,7 +23,7 @@ public class AutoUnitInjectJdbcImpl extends AbstractInject {
 		}
 
 		jdbc = new JdbcH2Impl();
-		DataSource dataSource = H2Util.createDataSource("autounit");
+		DataSource dataSource = H2Util.createDataSource("autounit", "jdbc");
 		jdbc.setDataSource(ConnectionContext.register(dataSource));
 
 		super.setFieldValue(bean, field, jdbc);

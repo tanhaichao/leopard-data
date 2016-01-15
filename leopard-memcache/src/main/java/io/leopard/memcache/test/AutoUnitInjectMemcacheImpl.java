@@ -19,7 +19,7 @@ public class AutoUnitInjectMemcacheImpl extends AbstractInject {
 		}
 
 		MemcacheH2Impl memcache = new MemcacheH2Impl();
-		DataSource dataSource = H2Util.createDataSource("memcache");
+		DataSource dataSource = H2Util.createDataSource("autounit", "memcache");
 		memcache.setDataSource(ConnectionContext.register(dataSource));
 		memcache.init();
 

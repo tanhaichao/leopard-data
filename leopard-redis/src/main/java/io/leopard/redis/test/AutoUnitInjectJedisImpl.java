@@ -20,7 +20,7 @@ public class AutoUnitInjectJedisImpl extends AbstractInject {
 		}
 
 		JedisH2Impl jedis = new JedisH2Impl();
-		DataSource dataSource = H2Util.createDataSource("jedis");
+		DataSource dataSource = H2Util.createDataSource("autounit", "jedis");
 		jedis.setDataSource(ConnectionContext.register(dataSource));
 		jedis.init();
 

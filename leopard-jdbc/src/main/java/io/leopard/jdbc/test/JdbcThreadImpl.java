@@ -40,7 +40,7 @@ public class JdbcThreadImpl implements Jdbc {
 			return this.jdbcH2Impl;
 		}
 		jdbcH2Impl = new JdbcH2Impl();
-		DataSource dataSource = H2Util.createDataSource("jdbc-web");
+		DataSource dataSource = H2Util.createDataSource("time", "jdbc-web");
 		DataSource dataSource2 = ConnectionContext.register(dataSource);
 		jdbcH2Impl.setDataSource(dataSource2);
 

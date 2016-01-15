@@ -19,7 +19,7 @@ public class AutoUnitInjectRedisImpl extends AbstractInject {
 		}
 
 		RedisH2Impl redis = new RedisH2Impl();
-		DataSource dataSource = H2Util.createDataSource("redis");
+		DataSource dataSource = H2Util.createDataSource("autounit", "redis");
 		redis.setDataSource(ConnectionContext.register(dataSource));
 		redis.init();
 
