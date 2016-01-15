@@ -19,6 +19,7 @@ public class CountSqlParser {
 		this.parse();
 	}
 
+	
 	private static final String LIMIT_REGEX = " limit (.*)";
 	private static final Pattern LIMIT_PATTERN = Pattern.compile(LIMIT_REGEX, Pattern.CASE_INSENSITIVE);
 
