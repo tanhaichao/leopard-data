@@ -253,9 +253,11 @@ public class JdbcMysqlImpl implements Jdbc {
 	@Override
 	public Integer queryForInt(String sql) {
 		try {
-			@SuppressWarnings("deprecation")
-			int result = this.getJdbcTemplate().queryForInt(sql);
-			return result;
+			Number number = this.getJdbcTemplate().queryForObject(sql, Integer.class);
+			return (number != null ? number.intValue() : 0);
+			//
+			// int result = this.getJdbcTemplate().queryForInt(sql);
+			// return result;
 		}
 		catch (EmptyResultDataAccessException e) {
 			return null;

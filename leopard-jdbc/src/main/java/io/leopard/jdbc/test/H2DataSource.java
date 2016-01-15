@@ -16,7 +16,7 @@ public class H2DataSource extends JdbcDataSource {
 	}
 
 	public void init() {
-		super.dataSource = H2Util.createDataSource("mock", this.jdbcId);
+		super.dataSource = H2Util.createDataSource("mock", this.jdbcId, true);
 		H2SqlUtil.populate("mock", dataSource);
 	}
 
