@@ -25,7 +25,7 @@ public class H2SqlUtil {
 	 * 
 	 * @param dataSource
 	 */
-	protected static String populate(DataSource dataSource) {
+	protected static String populate(String type, DataSource dataSource) {
 		String sql;
 		try {
 			sql = FileUtils.toString(new ClassPathResource("/init.sql").getInputStream());
@@ -33,7 +33,9 @@ public class H2SqlUtil {
 		catch (IOException e) {
 			throw new RuntimeException(e.getMessage(), e);
 		}
-		String dir = H2Util.getDir("jdbc");
+		System.err.println("sql:" + sql);
+		String dir = H2Util.getDir(type);
+		new File(dir).mkdirs();
 		File file = new File(dir, "jdbc.hash");
 
 		int hashCode = sql.hashCode();
