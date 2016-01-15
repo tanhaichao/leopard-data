@@ -1,20 +1,10 @@
 package io.leopard.jdbc.test;
 
-import io.leopard.autounit.FileUtils;
-import io.leopard.autounit.inject.AbstractInject;
-import io.leopard.autounit.inject.Inject;
-import io.leopard.autounit.unitdb.ConnectionContext;
-import io.leopard.autounit.unitdb.H2Util;
-import io.leopard.jdbc.Jdbc;
-
 import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Map;
-import java.util.Random;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 import javax.sql.DataSource;
 
@@ -24,6 +14,13 @@ import org.springframework.core.io.Resource;
 import org.springframework.jdbc.datasource.init.DatabasePopulator;
 import org.springframework.jdbc.datasource.init.DatabasePopulatorUtils;
 import org.springframework.jdbc.datasource.init.ResourceDatabasePopulator;
+
+import io.leopard.autounit.FileUtils;
+import io.leopard.autounit.inject.AbstractInject;
+import io.leopard.autounit.inject.Inject;
+import io.leopard.autounit.unitdb.ConnectionContext;
+import io.leopard.autounit.unitdb.H2Util;
+import io.leopard.jdbc.Jdbc;
 
 public class AutoUnitInjectJdbcImpl extends AbstractInject {
 
@@ -84,6 +81,7 @@ public class AutoUnitInjectJdbcImpl extends AbstractInject {
 				if (Integer.parseInt(content) == hashCode) {
 					// 表结构没有改动
 					System.err.println("表结构没有改动");
+					// new Exception().printStackTrace();
 					return sql;
 				}
 			}
@@ -101,8 +99,5 @@ public class AutoUnitInjectJdbcImpl extends AbstractInject {
 		FileUtils.write(file, Integer.toString(hashCode));
 		return sql;
 	}
-
-	
-
 
 }
