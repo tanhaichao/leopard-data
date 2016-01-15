@@ -797,6 +797,7 @@ public class JedisH2Impl extends Jedis {
 		return list;
 	}
 
+	@SuppressWarnings("deprecation")
 	@Override
 	public Long zinterstore(String dstkey, String... sets) {
 		int[] weights = RedisUtil.getDefaultWeights(sets);
