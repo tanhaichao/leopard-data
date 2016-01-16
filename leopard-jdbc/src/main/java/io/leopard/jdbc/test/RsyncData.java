@@ -1,5 +1,6 @@
 package io.leopard.jdbc.test;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -89,8 +90,10 @@ public class RsyncData {
 	}
 
 	protected void rsyncTable(String tableName) {
-		if (!"notice".equals(tableName)) {
-			return;
+		if (false) {
+			if (!"notice".equals(tableName)) {
+				return;
+			}
 		}
 
 		System.out.println("rsyncTable:" + tableName);
@@ -118,40 +121,55 @@ public class RsyncData {
 		for (Map<String, Object> row : list) {
 			Object[] args = this.toArgs(row);
 			argsList.add(args);
-			this.insert(tableName, row);
 		}
-//		jdbcH2Impl.getJdbcTemplate().batchUpdate(sql, argsList);
+
+		jdbcH2Impl.getJdbcTemplate().batchUpdate(sql, argsList);
+		if ("user".equals(tableName)) {
+			List<Map<String, Object>> list2 = jdbcH2Impl.getJdbcTemplate().queryForList("select * from " + tableName);
+			for (Map<String, Object> map : list2) {
+				System.out.println("mapmap:" + map);
+			}
+		}
 	}
 
 	protected Object[] toArgs(Map<String, Object> row) {
 		Collection<Object> values = row.values();
-		System.out.println("values:" + values);
+		// System.out.println("values:" + values);
 		Object[] args = new Object[values.size()];
 		values.toArray(args);
+
+		for (int i = 0; i < args.length; i++) {
+			if (args[i] instanceof BigInteger) {
+				args[i] = ((BigInteger) args[i]).intValue();
+			}
+		}
 		return args;
 	}
-
-	protected void insert(String tableName, Map<String, Object> row) {
-		List<Object> valueList = new ArrayList<Object>();
-
-		StringBuilder names = new StringBuilder();
-		StringBuilder values = new StringBuilder();
-		for (Entry<String, Object> entry : row.entrySet()) {
-			if (values.length() > 0) {
-				values.append(",");
-				names.append(",");
-			}
-			names.append(entry.getKey());
-			values.append("?");
-			valueList.add(entry.getValue());
-		}
-		String sql = "insert into " + tableName + "(" + names.toString() + ")" + " values(" + values.toString() + ");";
-		// System.out.println("sql:" + sql);
-		Object[] args = new Object[valueList.size()];
-		valueList.toArray(args);
-
-		jdbcH2Impl.getJdbcTemplate().update(sql, args);
-	}
+	//
+	// protected void insert(String tableName, Map<String, Object> row) {
+	// List<Object> valueList = new ArrayList<Object>();
+	//
+	// StringBuilder names = new StringBuilder();
+	// StringBuilder values = new StringBuilder();
+	// for (Entry<String, Object> entry : row.entrySet()) {
+	// if (values.length() > 0) {
+	// values.append(",");
+	// names.append(",");
+	// }
+	// names.append(entry.getKey());
+	// values.append("?");
+	//
+	// BigInteger dd;
+	// Object value = entry.getValue();
+	// valueList.add(value);
+	// }
+	// String sql = "insert into " + tableName + "(" + names.toString() + ")" + " values(" + values.toString() + ");";
+	// // System.out.println("sql:" + sql);
+	// Object[] args = new Object[valueList.size()];
+	// valueList.toArray(args);
+	//
+	// jdbcH2Impl.getJdbcTemplate().update(sql, args);
+	// }
 
 	protected List<String> listAllTables() {
 		List<Map<String, Object>> list = jdbcMysqlImpl.queryForMaps("show tables");
