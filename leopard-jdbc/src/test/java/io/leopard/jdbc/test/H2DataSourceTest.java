@@ -28,7 +28,7 @@ public class H2DataSourceTest {
 
 	@Test
 	public void rsyncServerDataToLocal() {
-		H2DataSource dataSource = new H2DataSource();
+		JdbcH2DataSource dataSource = new JdbcH2DataSource();
 		dataSource.setJdbcId("jdbc");
 		dataSource.setUser("example");
 		dataSource.setPassword("leopard");

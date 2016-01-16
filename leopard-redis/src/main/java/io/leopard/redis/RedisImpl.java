@@ -413,9 +413,11 @@ public class RedisImpl extends AbstractRedis implements Redis {
 
 	@Override
 	public String get(final String key) {
+		System.out.println("redisImpl get:" + key);
 		return (String) this.execute(new Invoker() {
 			@Override
 			public Object execute(Jedis jedis) {
+				System.out.println("jedis:" + jedis);
 				return jedis.get(key);
 			}
 		});

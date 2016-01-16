@@ -20,9 +20,9 @@ public class RsyncData {
 	// private DataSource mysqlDataSource;
 	// private DataSource h2DataSource;
 
-	private static H2DataSource h2DataSource;
+	private static JdbcH2DataSource h2DataSource;
 
-	public static void registerH2DataSource(H2DataSource h2DataSource) {
+	public static void registerH2DataSource(JdbcH2DataSource h2DataSource) {
 		RsyncData.h2DataSource = h2DataSource;
 	}
 

@@ -5,8 +5,9 @@ import org.springframework.util.StringUtils;
 import io.leopard.autounit.unitdb.H2Util;
 import io.leopard.jdbc.JdbcDataSource;
 
-public class H2DataSource extends JdbcDataSource {
+public class JdbcH2DataSource extends JdbcDataSource {
 
+	
 	private String jdbcId;
 
 	public String getJdbcId() {

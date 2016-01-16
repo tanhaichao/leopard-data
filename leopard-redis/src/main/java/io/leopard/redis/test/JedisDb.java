@@ -24,7 +24,10 @@ public class JedisDb extends UnitdbH2Impl {
 
 	protected String get(String key) {
 		String sql = "select value from " + TABLE + " where `key`=?;";
-		return super.queryForString(sql, key);
+
+		String value = super.queryForString(sql, key);
+		// System.out.println("get sql:" + sql + " key:" + key + " value:" + value);
+		return value;
 	}
 
 	protected int count(String key) {
@@ -64,7 +67,7 @@ public class JedisDb extends UnitdbH2Impl {
 	}
 
 	protected String getByField(String key, String field) {
-		String sql = "select value from " + TABLE + " where `key`=? and score=?;";
+		String sql = "select value from " + TABLE + " where `key`=? and field=?;";
 		String value = super.queryForString(sql, key, field);
 		// unitdb.printSQL(sql, param);
 		return value;
@@ -163,6 +166,8 @@ public class JedisDb extends UnitdbH2Impl {
 		Assert.notNull(value, "参数value不能为null.");
 		Assert.notNull(expire, "参数expire不能为null.");
 		String sql = "insert into " + TABLE + "(`key`, field, value, expire) values(?,?,?,?);";
+
+		// System.out.println("insert sql:" + sql + " key:" + key + " field:" + field + " value:" + value);
 		int count = super.update(sql, key, field, value, expire);
 		return count > 0;
 	}

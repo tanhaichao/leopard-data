@@ -1,19 +1,17 @@
 package io.leopard.redis.test;
 
-import io.leopard.autounit.unitdb.DatabaseScriptImpl;
-import io.leopard.redis.RedisImpl;
-import io.leopard.redis.util.IJedisPool;
-
 import java.util.List;
 import java.util.Set;
 
 import javax.sql.DataSource;
 
+import io.leopard.redis.RedisImpl;
+import io.leopard.redis.util.IJedisPool;
 import redis.clients.jedis.Jedis;
 
 public class RedisH2Impl extends RedisImpl {
 
-	private JedisDb jedisDb;
+	// private JedisDb jedisDb;
 	private Jedis jedis;
 
 	private DataSource dataSource;
@@ -25,9 +23,9 @@ public class RedisH2Impl extends RedisImpl {
 	@Override
 	public void init() {
 		// DataSource dataSource = H2Util.createDataSource("redis");
-		DatabaseScriptImpl.populate(dataSource, RedisEntity.class, JedisDb.TABLE);// 导入表结构
-		this.jedisDb = new JedisDb();
-		jedisDb.setDataSource(dataSource);
+		// DatabaseScriptImpl.populate(dataSource, RedisEntity.class, JedisDb.TABLE);// 导入表结构
+		// this.jedisDb = new JedisDb();
+		// jedisDb.setDataSource(dataSource);
 
 		JedisH2Impl jedisH2Impl = new JedisH2Impl();
 		jedisH2Impl.setDataSource(dataSource);
