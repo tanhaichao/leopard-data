@@ -37,7 +37,7 @@ public class H2DataSourceTest {
 		dataSource.init();
 
 		RsyncData.registerH2DataSource(dataSource);
-		RsyncData.rsyncServerDataToLocal();
+		RsyncData.rsyncServerDataToH2();
 
 		dataSource.destroy();
 	}
