@@ -17,6 +17,7 @@ public class RedisEntity {
 	@XmlID
 	private String key;
 	private String field;
+
 	private String value;
 	private Date expire;
 	private Date posttime;

@@ -48,6 +48,7 @@ public class JedisH2Impl extends Jedis {
 	public void init() {
 		// DataSource dataSource = H2Util.createDataSource("redis");
 		DatabaseScriptImpl.populate(dataSource, RedisEntity.class, JedisDb.TABLE);// 导入表结构
+		
 		this.jedisDb = new JedisDb();
 		jedisDb.setDataSource(dataSource);
 	}
@@ -77,9 +78,9 @@ public class JedisH2Impl extends Jedis {
 	@Override
 	public Long expire(String key, int seconds) {
 		long millis = System.currentTimeMillis() + (seconds * 1000L);
-		Date expiry = new Date(millis);
-		String sql = "update " + JedisDb.TABLE + " set expiry=? where `key`=?;";
-		jedisDb.update(sql, expiry, key);
+		Date expire = new Date(millis);
+		String sql = "update " + JedisDb.TABLE + " set expire=? where `key`=?;";
+		jedisDb.update(sql, expire, key);
 		return 1L;
 	}
 

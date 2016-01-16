@@ -167,6 +167,10 @@ public class RedisH2Impl extends RedisImpl {
 
 	}
 
+	protected void returnBrokenResource(Jedis jedis) {
+
+	}
+
 	@Override
 	public void destroy() {
 

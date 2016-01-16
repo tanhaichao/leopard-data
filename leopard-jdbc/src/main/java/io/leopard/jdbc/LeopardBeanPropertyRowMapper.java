@@ -32,7 +32,7 @@ public class LeopardBeanPropertyRowMapper<T> implements RowMapper<T> {
 			Field[] fields = clazz.getDeclaredFields();
 
 			for (Field field : fields) {
-				mappedFields.put(field.getName(), field);
+				mappedFields.put(field.getName().toLowerCase(), field);
 			}
 			clazz = clazz.getSuperclass();
 			if (clazz.equals(Object.class)) {
@@ -50,7 +50,7 @@ public class LeopardBeanPropertyRowMapper<T> implements RowMapper<T> {
 		int columnCount = rsmd.getColumnCount();
 		for (int index = 1; index <= columnCount; index++) {
 			String column = JdbcUtils.lookupColumnName(rsmd, index);
-			column = column.replaceAll(" ", "");
+			column = column.replaceAll(" ", "").toLowerCase();
 
 			Field field = this.mappedFields.get(column);
 
