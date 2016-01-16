@@ -36,7 +36,8 @@ public class H2DataSourceTest {
 		dataSource.setDriverClass("org.gjt.mm.mysql.Driver");
 		dataSource.init();
 
-		dataSource.rsyncServerDataToLocal();
+		RsyncData.registerH2DataSource(dataSource);
+		RsyncData.rsyncServerDataToLocal();
 
 		dataSource.destroy();
 	}
