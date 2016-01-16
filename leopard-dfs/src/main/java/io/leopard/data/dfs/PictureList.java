@@ -21,7 +21,7 @@ public class PictureList extends ArrayList<MultipartFile> {
 	}
 
 	public boolean add(String url) {
-		MockMultipartFile file = new MockMultipartFile(url);
+		UrlMultipartFile file = new UrlMultipartFile(url);
 		return this.add(file);
 	}
 

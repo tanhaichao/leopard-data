@@ -7,11 +7,11 @@ import java.io.InputStream;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
-public class MockMultipartFile implements MultipartFile {
+public class UrlMultipartFile implements MultipartFile {
 
 	private String url;
 
-	public MockMultipartFile(String url) {
+	public UrlMultipartFile(String url) {
 		this.url = url;
 	}
 

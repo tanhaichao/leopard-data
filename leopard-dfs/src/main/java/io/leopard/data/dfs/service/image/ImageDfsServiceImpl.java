@@ -12,7 +12,7 @@ import org.apache.commons.logging.LogFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import io.leopard.data.dfs.MockMultipartFile;
+import io.leopard.data.dfs.UrlMultipartFile;
 import io.leopard.data.dfs.service.DfsService;
 
 @Service
@@ -29,8 +29,8 @@ public class ImageDfsServiceImpl implements ImageDfsService {
 			return null;
 		}
 		String uri;
-		if (file instanceof MockMultipartFile) {
-			uri = ((MockMultipartFile) file).getName();
+		if (file instanceof UrlMultipartFile) {
+			uri = ((UrlMultipartFile) file).getName();
 		}
 		else {
 			uri = this.save(uid, folder, file.getBytes(), sizeList, asyncSave);
@@ -47,8 +47,8 @@ public class ImageDfsServiceImpl implements ImageDfsService {
 					continue;
 				}
 				String uri;
-				if (file instanceof MockMultipartFile) {
-					uri = ((MockMultipartFile) file).getName();
+				if (file instanceof UrlMultipartFile) {
+					uri = ((UrlMultipartFile) file).getName();
 				}
 				else {
 					uri = this.save(uid, folder, file.getBytes(), sizeList, asyncSave);
