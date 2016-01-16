@@ -104,6 +104,37 @@ public class JdbcDataSource implements DataSource {
 		// System.err.println("driverClass:" + driverClass);
 	}
 
+	public void init() {
+		// String jdbcUrl = "jdbc:mysql://" + host + ":" + port + "/" + database + "?useUnicode=true&characterEncoding=UTF8";
+		// ComboPooledDataSource dataSource = new ComboPooledDataSource();
+		// dataSource.setDriverClass("org.gjt.mm.mysql.Driver");
+		// dataSource.setJdbcUrl(jdbcUrl);
+		// dataSource.setUser(user);
+		// dataSource.setPassword(password);
+		// dataSource.setTestConnectionOnCheckout(false);
+		// dataSource.setInitialPoolSize(2);
+		// dataSource.setMinPoolSize(2);
+		// dataSource.setMaxPoolSize(maxPoolSize);
+		// dataSource.setAcquireIncrement(1);
+		// dataSource.setAcquireRetryAttempts(1);
+		// dataSource.setMaxIdleTime(7200);
+		// dataSource.setMaxStatements(0);
+		String jdbcUrl = ProxyDataSource.getJdbcUrl(host, port, database);
+		this.dataSource = ProxyDataSource.createDataSource(driverClass, jdbcUrl, user, password, maxPoolSize);
+	}
+
+	public void destroy() {
+		// System.out.println("JdbcDataSourceImpl destroy");
+		if (dataSource != null) {
+			if (dataSource instanceof ProxyDataSource) {
+				((ProxyDataSource) dataSource).close();
+			}
+			else {
+				throw new RuntimeException("未知DataSource类型[" + dataSource.getClass().getName() + "].");
+			}
+		}
+	}
+
 	@Override
 	public PrintWriter getLogWriter() throws SQLException {
 		return dataSource.getLogWriter();

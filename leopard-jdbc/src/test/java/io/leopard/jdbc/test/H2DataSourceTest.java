@@ -31,7 +31,7 @@ public class H2DataSourceTest {
 		H2DataSource dataSource = new H2DataSource();
 		dataSource.setJdbcId("jdbc");
 		dataSource.setUser("example");
-		dataSource.setPassword("example123");
+		dataSource.setPassword("leopard");
 		dataSource.setUrl("jdbc:mysql://jdbc.h2.test:3306/zhongcao?useUnicode=true&characterEncoding=UTF8");
 		dataSource.setDriverClass("org.gjt.mm.mysql.Driver");
 		dataSource.init();
