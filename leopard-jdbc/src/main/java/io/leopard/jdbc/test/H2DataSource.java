@@ -1,7 +1,5 @@
 package io.leopard.jdbc.test;
 
-import java.util.List;
-import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -14,7 +12,6 @@ import io.leopard.jdbc.JdbcDataSource;
 import io.leopard.jdbc.JdbcMysqlImpl;
 import io.leopard.jdbc.JdbcUrlInfo;
 import io.leopard.jdbc.ProxyDataSource;
-import io.leopard.json.Json;
 
 public class H2DataSource extends JdbcDataSource {
 
@@ -55,8 +52,10 @@ public class H2DataSource extends JdbcDataSource {
 		JdbcMysqlImpl jdbc = new JdbcMysqlImpl();
 		jdbc.setDataSource(mysqlDataSource);
 
-		List<Map<String, Object>> list = jdbc.queryForMaps("show tables");
-		Json.printList(list, "tables");
+		RsyncData rsyncData = new RsyncData();
+		rsyncData.setMysqlDataSource(mysqlDataSource);
+		rsyncData.setH2DataSource(super.dataSource);
+		rsyncData.start();
 	}
 
 	protected JdbcUrlInfo parseUrl(String url) {
