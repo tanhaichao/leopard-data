@@ -122,7 +122,8 @@ public class JedisDb extends UnitdbH2Impl {
 	}
 
 	protected synchronized boolean deleteByField(String key, String field) {
-		String sql = "delete from " + TABLE + " where `key`=? and score=?;";
+		String sql = "delete from " + TABLE + " where `key`=? and field=?;";
+		// System.out.println("deleteByField sql:" + sql + " key:" + key + " field:" + field);
 		int count = super.update(sql, key, field);
 		return count > 0;
 	}

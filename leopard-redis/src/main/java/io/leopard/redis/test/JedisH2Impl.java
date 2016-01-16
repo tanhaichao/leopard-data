@@ -274,7 +274,6 @@ public class JedisH2Impl extends Jedis {
 	@Override
 	public Long hdel(String key, String... fields) {
 		boolean success = jedisDb.deleteByFields(key, fields);
-
 		return jedisDb.boolToLong(success);
 	}
 
