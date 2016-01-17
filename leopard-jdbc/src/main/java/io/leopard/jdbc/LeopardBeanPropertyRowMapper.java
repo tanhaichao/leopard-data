@@ -51,12 +51,12 @@ public class LeopardBeanPropertyRowMapper<T> implements RowMapper<T> {
 		for (int index = 1; index <= columnCount; index++) {
 			String column = JdbcUtils.lookupColumnName(rsmd, index);
 			column = column.replaceAll(" ", "").toLowerCase();
-
 			Field field = this.mappedFields.get(column);
+			// System.out.println("column:" + column + " field:" + field);
 
 			if (field == null && column.endsWith("s")) {
 				// TODO images转imageList的临时实现?
-				String column2 = column.substring(0, column.length() - 1) + "List";
+				String column2 = column.substring(0, column.length() - 1) + "list";
 				field = this.mappedFields.get(column2);
 			}
 
