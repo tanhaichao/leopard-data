@@ -1020,4 +1020,14 @@ public class RedisMemoryImpl implements Redis {
 	public Long sdiffstore(String dstkey, String... keys) {
 		throw new UnsupportedOperationException("Not Implemented");
 	}
+
+	@Override
+	public Long sadd(String key, long member) {
+		throw new UnsupportedOperationException("Not Implemented");
+	}
+
+	@Override
+	public Long srem(String key, long member) {
+		throw new UnsupportedOperationException("Not Implemented");
+	}
 }

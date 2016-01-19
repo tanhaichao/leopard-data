@@ -464,6 +464,10 @@ public interface Redis extends JedisCommands {
 
 	Set<String> sdiff(final String... keys);
 
+	Long sadd(String key, long member);
+
+	Long srem(String key, long member);
+
 	Long sdiffstore(final String dstkey, final String... keys);
 
 	/**

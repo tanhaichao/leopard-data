@@ -1985,4 +1985,14 @@ public class RedisImpl extends AbstractRedis implements Redis {
 
 		return null;
 	}
+
+	@Override
+	public Long sadd(String key, long member) {
+		return this.sadd(key, Long.toString(member));
+	}
+
+	@Override
+	public Long srem(String key, long member) {
+		return this.srem(key, Long.toString(member));
+	}
 }

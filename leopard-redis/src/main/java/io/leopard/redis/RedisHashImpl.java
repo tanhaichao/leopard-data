@@ -972,78 +972,88 @@ public class RedisHashImpl extends AbstractRedis implements Redis {
 
 	@Override
 	public Long pexpire(String key, long milliseconds) {
-		
+
 		return null;
 	}
 
 	@Override
 	public Long pexpireAt(String key, long millisecondsTimestamp) {
-		
+
 		return null;
 	}
 
 	@Override
 	public Double incrByFloat(String key, double value) {
-		
+
 		return null;
 	}
 
 	@Override
 	public Set<String> spop(String key, long count) {
-		
+
 		return null;
 	}
 
 	@Override
 	public Long zlexcount(String key, String min, String max) {
-		
+
 		return null;
 	}
 
 	@Override
 	public Set<String> zrangeByLex(String key, String min, String max) {
-		
+
 		return null;
 	}
 
 	@Override
 	public Set<String> zrangeByLex(String key, String min, String max, int offset, int count) {
-		
+
 		return null;
 	}
 
 	@Override
 	public Set<String> zrevrangeByLex(String key, String max, String min) {
-		
+
 		return null;
 	}
 
 	@Override
 	public Set<String> zrevrangeByLex(String key, String max, String min, int offset, int count) {
-		
+
 		return null;
 	}
 
 	@Override
 	public Long zremrangeByLex(String key, String min, String max) {
-		
+
 		return null;
 	}
 
 	@Override
 	public List<String> blpop(int timeout, String key) {
-		
+
 		return null;
 	}
 
 	@Override
 	public List<String> brpop(int timeout, String key) {
-		
+
 		return null;
 	}
 
 	@Override
 	public Long sdiffstore(String dstkey, String... keys) {
+		throw new UnsupportedOperationException("Not Implemented");
+	}
+
+	@Override
+	public Long sadd(String key, long member) {
+		throw new UnsupportedOperationException("Not Implemented");
+	}
+
+	@Override
+	public Long srem(String key, long member) {
 		throw new UnsupportedOperationException("Not Implemented");
 	}
 }
