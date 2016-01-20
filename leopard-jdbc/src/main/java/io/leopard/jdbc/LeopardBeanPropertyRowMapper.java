@@ -34,7 +34,7 @@ public class LeopardBeanPropertyRowMapper<T> implements RowMapper<T> {
 
 			for (Field field : fields) {
 				String key = field.getName().toLowerCase();
-				System.out.println("key:" + key);
+				// System.out.println("key:" + key);
 				mappedFields.put(key, field);
 			}
 			clazz = clazz.getSuperclass();
@@ -61,7 +61,7 @@ public class LeopardBeanPropertyRowMapper<T> implements RowMapper<T> {
 				// TODO images转imageList的临时实现?
 				String column2 = column.substring(0, column.length() - 1) + "list";
 				field = this.mappedFields.get(column2);
-				System.out.println("column2:" + column2 + " field:" + field);
+				// System.out.println("column2:" + column2 + " field:" + field);
 			}
 
 			if (field != null) {
