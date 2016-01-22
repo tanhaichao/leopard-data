@@ -40,6 +40,8 @@ public class PagingImpl<E> implements Paging<E> {
 			nextPage = list.size() >= size;
 		}
 		this.setNextPage(nextPage);
+
+		this.list = new ArrayList<E>();
 	}
 
 	// public PagingImpl(List<E> list) {
