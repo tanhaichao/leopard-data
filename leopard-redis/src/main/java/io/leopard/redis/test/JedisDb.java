@@ -1,14 +1,14 @@
 package io.leopard.redis.test;
 
-import io.leopard.autounit.unitdb.UnitdbH2Impl;
-
 import java.util.Date;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Set;
 
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.util.Assert;
 
+import io.leopard.autounit.unitdb.UnitdbH2Impl;
 import redis.clients.jedis.Tuple;
 
 public class JedisDb extends UnitdbH2Impl {
@@ -169,8 +169,13 @@ public class JedisDb extends UnitdbH2Impl {
 		String sql = "insert into " + TABLE + "(`key`, field, value, expire) values(?,?,?,?);";
 
 		// System.out.println("insert sql:" + sql + " key:" + key + " field:" + field + " value:" + value);
-		int count = super.update(sql, key, field, value, expire);
-		return count > 0;
+		try {
+			int count = super.update(sql, key, field, value, expire);
+			return count > 0;
+		}
+		catch (DuplicateKeyException e) {
+			return false;
+		}
 	}
 
 	protected Long boolToLong(boolean bool) {
