@@ -14,7 +14,7 @@ public class Location {
 	private Double lat;
 
 	/**
-	 * 精度
+	 * 经度
 	 */
 	private Double lng;
 
