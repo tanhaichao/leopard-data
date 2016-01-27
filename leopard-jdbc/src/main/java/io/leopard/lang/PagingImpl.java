@@ -76,6 +76,14 @@ public class PagingImpl<E> implements Paging<E> {
 	}
 
 	@Override
+	public void add(int index, E element) {
+		if (this.list == null) {
+			this.list = new ArrayList<E>();
+		}
+		this.list.add(index, element);
+	}
+
+	@Override
 	public Integer getTotalCount() {
 		return this.totalCount;
 	}
@@ -114,6 +122,14 @@ public class PagingImpl<E> implements Paging<E> {
 	@Override
 	public E get(int index) {
 		return list.get(index);
+	}
+
+	@Override
+	public int size() {
+		if (list == null) {
+			return 0;
+		}
+		return list.size();
 	}
 
 }

@@ -6,6 +6,10 @@ public interface Paging<E> {
 
 	void add(E element);
 
+	void add(int index, E element);
+
+	int size();
+
 	/**
 	 * 数据列表.
 	 * 
