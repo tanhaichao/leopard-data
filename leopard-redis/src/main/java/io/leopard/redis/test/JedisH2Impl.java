@@ -33,6 +33,7 @@ public class JedisH2Impl extends Jedis {
 		super("127.0.0.1", 16379);
 	}
 
+	
 	private JedisDb jedisDb;
 
 	public JedisDb getJedisDb() {
@@ -285,7 +286,7 @@ public class JedisH2Impl extends Jedis {
 
 	@Override
 	public Set<String> hkeys(String key) {
-		String sql = "select score from " + JedisDb.TABLE + " where `key`=?";
+		String sql = "select field from " + JedisDb.TABLE + " where `key`=?";
 		List<String> list = jedisDb.queryForStrings(sql, key);
 		return jedisDb.toSet(list);
 	}
