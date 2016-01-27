@@ -41,7 +41,7 @@ public class NatureTimeRankRedisImpl implements NatureTimeRank {
 		redis.zadd(fieldKey, posttime.getTime(), member);
 		long min = posttime.getTime() - this.natureTime;
 		Long count = redis.zcount(fieldKey, min, Long.MAX_VALUE);
-		System.out.println("count:" + count);
+		// System.out.println("count:" + count);
 		redis.zadd(key, count, field);
 		return true;
 	}
@@ -69,7 +69,7 @@ public class NatureTimeRankRedisImpl implements NatureTimeRank {
 	@Override
 	public List<Tuple> list(int start, int size) {
 		long end = start + size;
-		Set<Tuple> set = redis.zrangeWithScores(key, start, end);
+		Set<Tuple> set = redis.zrevrangeWithScores(key, start, end);
 		if (set == null || set.isEmpty()) {
 			return null;
 		}
