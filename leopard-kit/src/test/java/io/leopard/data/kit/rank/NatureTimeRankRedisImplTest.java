@@ -24,9 +24,11 @@ public class NatureTimeRankRedisImplTest {
 	public void add() {
 		System.out.println("clean count:" + this.natureTimeRankRedisImpl.clean());
 		natureTimeRankRedisImpl.add("shareId1", "1", new Date());
-		System.out.println("member count:" + this.natureTimeRankRedisImpl.count("shareId1", "1"));
+		System.out.println("member count:" + this.natureTimeRankRedisImpl.count("shareId1"));
 		natureTimeRankRedisImpl.add("shareId1", "2", new Date());
+		System.out.println("member count:" + this.natureTimeRankRedisImpl.count("shareId1"));
 		natureTimeRankRedisImpl.add("shareId2", "1", new Date());
+		System.out.println("member count:" + this.natureTimeRankRedisImpl.count("shareId2"));
 	}
 
 	@Test

@@ -24,8 +24,6 @@ public interface NatureTimeRank {
 
 	List<Tuple> list(String field, int start, int size);
 
-	int count(String field, String member);
-
 	boolean delete(String field);
 
 	boolean delete(String field, String member);
@@ -33,4 +31,6 @@ public interface NatureTimeRank {
 	int clean();
 
 	int count(String field);
+
+	int count();
 }

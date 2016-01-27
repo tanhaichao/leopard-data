@@ -48,8 +48,6 @@ public class NatureTimeRankRedisImpl implements NatureTimeRank {
 
 	@Override
 	public int count() {
-		String fieldKey = this.getFieldKey(field);
-		long min = System.currentTimeMillis() - this.natureTime;
 		Long count = redis.zcard(key);
 		if (count == null) {
 			return 0;
