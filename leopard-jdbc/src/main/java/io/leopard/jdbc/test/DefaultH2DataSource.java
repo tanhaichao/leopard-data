@@ -26,7 +26,7 @@ public class DefaultH2DataSource extends JdbcDataSource {
 	public static String getCategory() {
 		String category = System.getProperty("h2Category");
 		if (category == null || category.length() == 0) {
-			category = "mock";
+			throw new IllegalArgumentException("h2Category属性不能为空.");
 		}
 		return category;
 	}
