@@ -80,6 +80,7 @@ public class H2SqlUtil {
 
 			sql = sql.replace("UNIQUE KEY ", "UNIQUE INDEX ");
 			sql = sql.replace("USING HASH", "");
+			sql = sql.replace("USING BTREE", "");
 			sql = sql.replace("double(11,0)", "double(11)");
 			sql = sql.replaceAll("double\\([0-9]+,[0-9]+\\)", "double");
 
