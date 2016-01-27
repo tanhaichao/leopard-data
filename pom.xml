@@ -44,5 +44,6 @@
 		<module>leopard-cache</module>
 		<module>leopard-queue</module>
 		<module>leopard-dfs</module>
+		<module>leopard-kit</module>
 	</modules>
 </project>
