@@ -33,4 +33,6 @@ public interface NatureTimeRank {
 	int count(String field);
 
 	int count();
+
+	List<String> listMembers(int start, int size);
 }

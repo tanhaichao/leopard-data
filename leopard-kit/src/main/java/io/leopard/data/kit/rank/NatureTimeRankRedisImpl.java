@@ -81,6 +81,20 @@ public class NatureTimeRankRedisImpl implements NatureTimeRank {
 	}
 
 	@Override
+	public List<String> listMembers(int start, int size) {
+		long end = start + size;
+		Set<String> set = redis.zrevrange(key, start, end);
+		if (set == null || set.isEmpty()) {
+			return null;
+		}
+		List<String> list = new ArrayList<String>();
+		for (String member : set) {
+			list.add(member);
+		}
+		return list;
+	}
+
+	@Override
 	public List<Tuple> list(String field, int start, int size) {
 		// TODO Auto-generated method stub
 		return null;
