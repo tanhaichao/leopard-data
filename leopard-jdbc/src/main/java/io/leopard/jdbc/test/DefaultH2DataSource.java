@@ -37,6 +37,10 @@ public class DefaultH2DataSource extends JdbcDataSource {
 		System.setProperty("h2AutoCommit", Boolean.toString(autoCommit));
 	}
 
+	public static boolean isUseH2() {
+		return "true".equals(System.getProperty("useH2"));
+	}
+
 	public static boolean isAutoCommit() {
 		return "true".equals(System.getProperty("h2AutoCommit"));
 	}
