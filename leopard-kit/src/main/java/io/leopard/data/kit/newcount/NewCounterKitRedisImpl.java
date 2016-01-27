@@ -33,6 +33,7 @@ public class NewCounterKitRedisImpl implements NewCounterKit {
 
 	@Override
 	public boolean delete(String member) {
+		// System.out.println("redis:" + redis);
 		Long num = redis.zrem(key, member);
 		return num >= 0;
 	}
