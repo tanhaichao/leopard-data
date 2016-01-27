@@ -7,7 +7,6 @@ import io.leopard.jdbc.JdbcDataSource;
 
 public class JdbcH2DataSource extends JdbcDataSource {
 
-	
 	private String jdbcId;
 
 	public String getJdbcId() {
@@ -34,8 +33,9 @@ public class JdbcH2DataSource extends JdbcDataSource {
 	}
 
 	public void init() {
-		super.dataSource = H2Util.createDataSource("mock", this.jdbcId, true);
-		H2SqlUtil.populate("mock", dataSource);
+		String type = DefaultH2DataSource.getCategory();
+		super.dataSource = H2Util.createDataSource(type, this.jdbcId, DefaultH2DataSource.isAutoCommit());
+		H2SqlUtil.populate(type, dataSource);
 
 		RsyncData.registerH2DataSource(this);
 	}

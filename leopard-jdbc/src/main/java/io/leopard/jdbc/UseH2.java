@@ -10,6 +10,7 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Documented
 public @interface UseH2 {
-	
+
 	boolean value() default true;
+
 }

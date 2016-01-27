@@ -16,11 +16,28 @@ public class DefaultH2DataSource extends JdbcDataSource {
 	}
 
 	public void init() {
-		super.dataSource = H2Util.createDataSource("mock", this.name, true);
+		super.dataSource = H2Util.createDataSource(getCategory(), this.name, isAutoCommit());
 	}
 
 	public void destroy() {
 
 	}
 
+	public static String getCategory() {
+		String category = System.getProperty("h2Category");
+		if (category == null || category.length() == 0) {
+			category = "mock";
+		}
+		return category;
+	}
+
+	public static void setUseH2(boolean useH2, String category, boolean autoCommit) {
+		System.setProperty("h2Category", category);
+		System.setProperty("useH2", Boolean.toString(useH2));
+		System.setProperty("h2AutoCommit", Boolean.toString(autoCommit));
+	}
+
+	public static boolean isAutoCommit() {
+		return "true".equals(System.getProperty("h2AutoCommit"));
+	}
 }
