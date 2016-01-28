@@ -168,7 +168,7 @@ public class JedisDb extends UnitdbH2Impl {
 		Assert.notNull(expire, "参数expire不能为null.");
 		String sql = "insert into " + TABLE + "(`key`, field, value, score,expire) values(?,?,?,?,?);";
 
-		System.out.println("insert sql:" + sql + " key:" + key + " field:" + field + " value:" + value);
+		// System.out.println("insert sql:" + sql + " key:" + key + " field:" + field + " value:" + value);
 		try {
 			int count = super.update(sql, key, field, value, score, expire);
 			return count > 0;
