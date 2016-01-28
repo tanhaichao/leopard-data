@@ -13,4 +13,6 @@ public @interface UseH2 {
 
 	boolean value() default true;
 
+	boolean rollback() default true;
+
 }
