@@ -136,7 +136,7 @@ public class JedisDb extends UnitdbH2Impl {
 		long millis = System.currentTimeMillis() + (seconds * 1000L);
 		Date expiry = new Date(millis);
 		String field = "";
-		return this.insert(key, field, value, expiry);
+		return this.insert(key, field, value, 0, expiry);
 	}
 
 	protected synchronized boolean inserts(String key, double score, String... values) {
@@ -151,26 +151,26 @@ public class JedisDb extends UnitdbH2Impl {
 		int seconds = 60 * 60 * 24 * 30;
 		long millis = System.currentTimeMillis() + (seconds * 1000L);
 		Date expiry = new Date(millis);
-		String field = Double.toString(score);
-		return this.insert(key, field, value, expiry);
+		String field = "";// Double.toString(score);
+		return this.insert(key, field, value, score, expiry);
 	}
 
 	protected synchronized boolean insert(String key, String field, String value) {
 		int seconds = 60 * 60 * 24 * 30;
 		long millis = System.currentTimeMillis() + (seconds * 1000L);
 		Date expiry = new Date(millis);
-		return this.insert(key, field, value, expiry);
+		return this.insert(key, field, value, 0, expiry);
 	}
 
-	protected synchronized boolean insert(String key, String field, String value, Date expire) {
+	protected synchronized boolean insert(String key, String field, String value, double score, Date expire) {
 		Assert.hasLength(key, "参数key不能为空.");
 		Assert.notNull(value, "参数value不能为null.");
 		Assert.notNull(expire, "参数expire不能为null.");
-		String sql = "insert into " + TABLE + "(`key`, field, value, expire) values(?,?,?,?);";
+		String sql = "insert into " + TABLE + "(`key`, field, value, score,expire) values(?,?,?,?,?);";
 
-		// System.out.println("insert sql:" + sql + " key:" + key + " field:" + field + " value:" + value);
+		System.out.println("insert sql:" + sql + " key:" + key + " field:" + field + " value:" + value);
 		try {
-			int count = super.update(sql, key, field, value, expire);
+			int count = super.update(sql, key, field, value, score, expire);
 			return count > 0;
 		}
 		catch (DuplicateKeyException e) {

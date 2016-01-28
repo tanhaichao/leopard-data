@@ -16,6 +16,7 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import javax.sql.DataSource;
 
+import org.springframework.transaction.jta.JtaAfterCompletionSynchronization;
 import org.springframework.util.Assert;
 
 import redis.clients.jedis.BinaryClient.LIST_POSITION;
@@ -33,7 +34,6 @@ public class JedisH2Impl extends Jedis {
 		super("127.0.0.1", 16379);
 	}
 
-	
 	private JedisDb jedisDb;
 
 	public JedisDb getJedisDb() {
@@ -49,7 +49,7 @@ public class JedisH2Impl extends Jedis {
 	public void init() {
 		// DataSource dataSource = H2Util.createDataSource("redis");
 		DatabaseScriptImpl.populate(dataSource, RedisEntity.class, JedisDb.TABLE);// 导入表结构
-		
+
 		this.jedisDb = new JedisDb();
 		jedisDb.setDataSource(dataSource);
 	}
@@ -479,9 +479,13 @@ public class JedisH2Impl extends Jedis {
 
 	@Override
 	public synchronized Long zadd(String key, double score, String member) {
-		// System.err.println("zadd " + key + " " + score + " " + member);
+		System.err.println("zadd " + key + " " + score + " " + member);
 		jedisDb.delete(key, member);
 		jedisDb.insert(key, score, member);
+		if (true) {
+			Set<String> set = this.zrange(key, 0, -1);
+			System.out.println("set:" + set);
+		}
 		return 1L;
 	}
 
@@ -585,6 +589,7 @@ public class JedisH2Impl extends Jedis {
 		}
 		String sql = "select * from " + JedisDb.TABLE + " where `key`=? order by " + jedisDb.getScoreString() + " desc limit ?,?;";
 		List<RedisEntity> list = jedisDb.queryForList(sql, RedisEntity.class, key, start, size);
+		System.out.println("list:" + list.size());
 		return jedisDb.toTupleSet(list);
 	}
 
