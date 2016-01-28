@@ -14,7 +14,8 @@ import javax.xml.bind.annotation.XmlID;
 public class RedisEntity {
 
 	// 为了不引入其他jar包，暂时使用这个注解替代
-	@XmlID
+	// @XmlID
+
 	private String key;
 	private String field;
 

@@ -1,8 +1,5 @@
 package io.leopard.redis.test;
 
-import io.leopard.autounit.unitdb.DatabaseScriptImpl;
-import io.leopard.redis.util.RedisUtil;
-
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -16,9 +13,12 @@ import java.util.concurrent.ConcurrentHashMap;
 
 import javax.sql.DataSource;
 
-import org.springframework.transaction.jta.JtaAfterCompletionSynchronization;
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.util.Assert;
 
+import io.leopard.autounit.unitdb.DatabaseScriptImpl;
+import io.leopard.redis.util.RedisUtil;
 import redis.clients.jedis.BinaryClient.LIST_POSITION;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPubSub;
@@ -29,6 +29,7 @@ import redis.clients.jedis.Tuple;
 import redis.clients.jedis.ZParams;
 
 public class JedisH2Impl extends Jedis {
+	protected Log logger = LogFactory.getLog(this.getClass());
 
 	public JedisH2Impl() {
 		super("127.0.0.1", 16379);
@@ -49,6 +50,7 @@ public class JedisH2Impl extends Jedis {
 	public void init() {
 		// DataSource dataSource = H2Util.createDataSource("redis");
 		DatabaseScriptImpl.populate(dataSource, RedisEntity.class, JedisDb.TABLE);// 导入表结构
+		// logger.info("dataSource:" + dataSource);
 
 		this.jedisDb = new JedisDb();
 		jedisDb.setDataSource(dataSource);
@@ -479,13 +481,10 @@ public class JedisH2Impl extends Jedis {
 
 	@Override
 	public synchronized Long zadd(String key, double score, String member) {
-		System.err.println("zadd " + key + " " + score + " " + member);
+		// System.err.println("zadd " + key + " " + score + " " + member);
 		jedisDb.delete(key, member);
 		jedisDb.insert(key, score, member);
-		if (true) {
-			Set<String> set = this.zrange(key, 0, -1);
-			System.out.println("set:" + set);
-		}
+
 		return 1L;
 	}
 

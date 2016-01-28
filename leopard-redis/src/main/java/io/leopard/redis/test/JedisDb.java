@@ -174,6 +174,7 @@ public class JedisDb extends UnitdbH2Impl {
 			return count > 0;
 		}
 		catch (DuplicateKeyException e) {
+			e.printStackTrace();
 			return false;
 		}
 	}
