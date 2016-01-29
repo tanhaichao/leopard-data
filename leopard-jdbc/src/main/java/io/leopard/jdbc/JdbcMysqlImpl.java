@@ -378,6 +378,7 @@ public class JdbcMysqlImpl implements Jdbc {
 	 *            参数列表
 	 * @return 转换后的StatementParameter
 	 */
+	@SuppressWarnings("rawtypes")
 	protected StatementParameter toStatementParameter(String sql, Object... params) {
 		StatementParameter param = new StatementParameter();
 		for (Object p : params) {
@@ -401,6 +402,10 @@ public class JdbcMysqlImpl implements Jdbc {
 			}
 			else if (p instanceof Date) {
 				param.setDate((Date) p);
+			}
+
+			else if (p instanceof List) {
+				param.setList((List) p);
 			}
 			// 自定义数据类型start
 			// else if (p instanceof OnlyDate) {
