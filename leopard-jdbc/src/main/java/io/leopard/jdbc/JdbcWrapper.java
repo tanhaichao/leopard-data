@@ -85,20 +85,17 @@ public class JdbcWrapper implements Jdbc {
 
 	@Override
 	public <T> List<T> queryForList(String sql, Class<T> elementType) {
-		// TODO Auto-generated method stub
-		return null;
+		return this.getJdbc().queryForList(sql, elementType);
 	}
 
 	@Override
 	public <T> List<T> queryForList(String sql, Class<T> elementType, Object... params) {
-		// TODO Auto-generated method stub
-		return null;
+		return this.getJdbc().queryForList(sql, elementType, params);
 	}
 
 	@Override
 	public <T> List<T> queryForList(String sql, Class<T> elementType, StatementParameter param) {
-		// TODO Auto-generated method stub
-		return null;
+		return this.getJdbc().queryForList(sql, elementType, param);
 	}
 
 	@Override
@@ -265,8 +262,7 @@ public class JdbcWrapper implements Jdbc {
 
 	@Override
 	public boolean updateForBoolean(String sql, Object... params) {
-		// TODO Auto-generated method stub
-		return false;
+		return this.getJdbc().updateForBoolean(sql, params);
 	}
 
 	@Override
