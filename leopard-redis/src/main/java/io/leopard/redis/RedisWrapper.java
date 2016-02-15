@@ -946,8 +946,7 @@ public class RedisWrapper implements Redis {
 
 	@Override
 	public Long publish(String channel, String message) {
-		// TODO Auto-generated method stub
-		return null;
+		return this.getRedis().publish(channel, message);
 	}
 
 	@Override
@@ -958,8 +957,7 @@ public class RedisWrapper implements Redis {
 
 	@Override
 	public void subscribe(JedisPubSub jedisPubSub, String... channels) {
-		// TODO Auto-generated method stub
-
+		this.getRedis().subscribe(jedisPubSub, channels);
 	}
 
 	@Override
