@@ -664,62 +664,52 @@ public class RedisWrapper implements Redis {
 
 	@Override
 	public ScanResult<Tuple> zscan(String key, String cursor) {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public void init() {
-		// TODO Auto-generated method stub
-
+		getRedis().init();
 	}
 
 	@Override
 	public void destroy() {
-		// TODO Auto-generated method stub
-
+		getRedis().destroy();
 	}
 
 	@Override
 	public IJedisPool getJedisPool() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.getRedis().getJedisPool();
 	}
 
 	@Override
 	public Jedis getResource() {
-		// TODO Auto-generated method stub
-		return null;
+		return getRedis().getResource();
 	}
 
 	@Override
 	public boolean append(String key, String value, int seconds) {
-		// TODO Auto-generated method stub
-		return false;
+		return getRedis().append(key, value, seconds);
 	}
 
 	@Override
 	public boolean rename(String oldkey, String newkey) {
-		// TODO Auto-generated method stub
-		return false;
+		return getRedis().rename(oldkey, newkey);
 	}
 
 	@Override
 	public Long setrange(String key, long offset, String value) {
-		// TODO Auto-generated method stub
-		return null;
+		return getRedis().setrange(key, offset, value);
 	}
 
 	@Override
 	public Long setrange(String key, int offset, String value) {
-		// TODO Auto-generated method stub
-		return null;
+		return getRedis().setrange(key, offset, value);
 	}
 
 	@Override
 	public Transaction multi() {
-		// TODO Auto-generated method stub
-		return null;
+		return getRedis().multi();
 	}
 
 	@Override
@@ -760,8 +750,7 @@ public class RedisWrapper implements Redis {
 
 	@Override
 	public boolean flushAll() {
-		// TODO Auto-generated method stub
-		return false;
+		return getRedis().flushAll();
 	}
 
 	@Override
@@ -784,14 +773,12 @@ public class RedisWrapper implements Redis {
 
 	@Override
 	public Long del(String key) {
-		// TODO Auto-generated method stub
-		return null;
+		return getRedis().del(key);
 	}
 
 	@Override
 	public void returnResource(Jedis jedis) {
-		// TODO Auto-generated method stub
-
+		this.getRedis().returnResource(jedis);
 	}
 
 	@Override
