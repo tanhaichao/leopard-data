@@ -1974,10 +1974,15 @@ public class RedisImpl extends AbstractRedis implements Redis {
 		return null;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
-	public List<String> blpop(int timeout, String key) {
-
-		return null;
+	public List<String> blpop(final int timeout, final String key) {
+		return (List<String>) this.execute(new Invoker() {
+			@Override
+			public Object execute(Jedis jedis) {
+				return jedis.blpop(timeout, key);
+			}
+		});
 	}
 
 	@Override
