@@ -14,12 +14,16 @@ public class LeopardBeanFactoryAware implements BeanFactoryAware {
 	@Override
 	public void setBeanFactory(BeanFactory beanFactory) throws BeansException {
 		if (LeopardBeanFactoryAware.beanFactory != null) {
-			RuntimeException e = new RuntimeException("beanFactory已初始化.");
-			e.printStackTrace();
+			// RuntimeException e = new RuntimeException("beanFactory已初始化.");
+			// e.printStackTrace();
 			return;
 		}
 
 		// System.err.println("setBeanFactory:" + beanFactory);
+		LeopardBeanFactoryAware.beanFactory = beanFactory;
+	}
+
+	public static void updateBeanFactory(BeanFactory beanFactory) {
 		LeopardBeanFactoryAware.beanFactory = beanFactory;
 	}
 
