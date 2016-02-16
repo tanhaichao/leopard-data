@@ -8,13 +8,21 @@ import java.util.Map.Entry;
 import java.util.Set;
 
 import redis.clients.jedis.BinaryClient.LIST_POSITION;
+import redis.clients.jedis.BitPosParams;
+import redis.clients.jedis.GeoCoordinate;
+import redis.clients.jedis.GeoRadiusResponse;
+import redis.clients.jedis.GeoUnit;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPubSub;
+import redis.clients.jedis.ScanParams;
 import redis.clients.jedis.ScanResult;
 import redis.clients.jedis.SortingParams;
 import redis.clients.jedis.Transaction;
 import redis.clients.jedis.Tuple;
 import redis.clients.jedis.ZParams;
+import redis.clients.jedis.params.geo.GeoRadiusParam;
+import redis.clients.jedis.params.sortedset.ZAddParams;
+import redis.clients.jedis.params.sortedset.ZIncrByParams;
 
 /**
  * Redis接口实现(一个指令在所有服务器执行).
@@ -966,6 +974,138 @@ public class RedisAllImpl implements Redis {
 	@Override
 	public Long srem(String key, long member) {
 		throw new UnsupportedOperationException("Not Implemented");
+	}
+
+	@Override
+	public Long bitpos(String arg0, boolean arg1) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Long bitpos(String arg0, boolean arg1, BitPosParams arg2) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Long geoadd(String arg0, Map<String, GeoCoordinate> arg1) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Long geoadd(String arg0, double arg1, double arg2, String arg3) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Double geodist(String arg0, String arg1, String arg2) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Double geodist(String arg0, String arg1, String arg2, GeoUnit arg3) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<String> geohash(String arg0, String... arg1) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<GeoCoordinate> geopos(String arg0, String... arg1) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<GeoRadiusResponse> georadius(String arg0, double arg1, double arg2, double arg3, GeoUnit arg4) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<GeoRadiusResponse> georadius(String arg0, double arg1, double arg2, double arg3, GeoUnit arg4, GeoRadiusParam arg5) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<GeoRadiusResponse> georadiusByMember(String arg0, String arg1, double arg2, GeoUnit arg3) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<GeoRadiusResponse> georadiusByMember(String arg0, String arg1, double arg2, GeoUnit arg3, GeoRadiusParam arg4) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Double hincrByFloat(String arg0, String arg1, double arg2) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ScanResult<Entry<String, String>> hscan(String arg0, String arg1, ScanParams arg2) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String psetex(String arg0, long arg1, String arg2) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Long pttl(String arg0) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public String set(String arg0, String arg1, String arg2) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ScanResult<String> sscan(String arg0, String arg1, ScanParams arg2) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Long zadd(String arg0, Map<String, Double> arg1, ZAddParams arg2) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Long zadd(String arg0, double arg1, String arg2, ZAddParams arg3) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public Double zincrby(String arg0, double arg1, String arg2, ZIncrByParams arg3) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ScanResult<Tuple> zscan(String arg0, String arg1, ScanParams arg2) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
