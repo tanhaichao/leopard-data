@@ -6,8 +6,8 @@
 		<version>0.0.4-SNAPSHOT</version>
 	</parent>
 	<artifactId>leopard-jdbc</artifactId>
-	<name>MySQL操作</name>
-	<description>MySQL操作，基于Spring Jdbc封装，简化SQL操作.</description>
+	<name>Leopard-Jdbc</name>
+	<description>MySQL操作，基于Spring Jdbc封装，简化SQL操作。</description>
 
 	<dependencies>
 		<dependency>

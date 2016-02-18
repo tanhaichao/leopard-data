@@ -7,7 +7,7 @@
 	</parent>
 	<artifactId>leopard-redis</artifactId>
 	<name>Leopard-Redis</name>
-	<description>Redis操作，基于Jedis封装，简化Redis操作.</description>
+	<description>Redis操作，基于Jedis封装，简化Redis操作。</description>
 
 	<dependencies>
 		<dependency>
