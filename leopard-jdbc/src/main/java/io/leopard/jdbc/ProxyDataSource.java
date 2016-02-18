@@ -192,7 +192,7 @@ public class ProxyDataSource implements DataSource {
 	}
 
 	public static String getJdbcUrl(String host, int port, String database) {
-		String jdbcUrl = "jdbc:mysql://" + host + ":" + port + "/" + database + "?useUnicode=true&characterEncoding=UTF8";
+		String jdbcUrl = "jdbc:mysql://" + host + ":" + port + "/" + database + "?useUnicode=true&characterEncoding=utf8";//UTF8,utf8mb4
 		return jdbcUrl;
 	}
 
