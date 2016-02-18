@@ -6,7 +6,8 @@
 		<version>0.0.4-SNAPSHOT</version>
 	</parent>
 	<artifactId>leopard-memdb</artifactId>
-	
+	<name>Leopard-Memdb</name>
+	<description>内存KV数据库，基于Java Map实现，支持单JVM、跨JVM同步。</description>
 	<dependencies>
 		<!-- pubsub使用 -->
 		<dependency>

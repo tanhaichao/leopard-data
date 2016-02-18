@@ -6,6 +6,9 @@
 		<version>0.0.4-SNAPSHOT</version>
 	</parent>
 	<artifactId>leopard-cache</artifactId>
+	<name>Leopard-Cache</name>
+	<description>缓存操作，使程序可以非常方便增加、删除缓存实现类(XxxDaoRedisImpl、XxxDaoMemoryImpl、XxxDaoThreadImpl、XxxDaoRsyncImpl)。</description>
+	
 	<dependencies>
 
 		<dependency>
