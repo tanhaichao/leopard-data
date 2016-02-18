@@ -6,6 +6,8 @@
 		<version>0.0.4-SNAPSHOT</version>
 	</parent>
 	<artifactId>leopard-queue</artifactId>
+	<name>Leopard-Queue</name>
+	<description>消息队列操作，目前只是做了基于Redis的实现。</description>
 	
 	<dependencies>
 		<dependency>
