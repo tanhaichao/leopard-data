@@ -4,7 +4,8 @@
 	<artifactId>leopard-data-parent</artifactId>
 	<version>0.0.4-SNAPSHOT</version>
 	<packaging>pom</packaging>
-
+	<name>Leopard-Data</name>
+	<description>MySQL、Memcached、Redis、Queue、MongoDB、内存数据库、Cache等</description>
 
 	<parent>
 		<groupId>io.leopard.depend</groupId>
