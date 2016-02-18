@@ -8,7 +8,7 @@
 	<artifactId>leopard-memcache</artifactId>
 	
 	<name>Leopard-Memcache</name>
-	<description>Memcache操作.</description>
+	<description>Memcache操作，基于Memcached-Java-Client封装，简化Memcached操作。</description>
 
 	<dependencies>
 		<dependency>
