@@ -13,6 +13,8 @@ import org.springframework.beans.factory.InitializingBean;
 
 import com.mongodb.DB;
 import com.mongodb.MongoClient;
+import com.mongodb.MongoClientOptions;
+import com.mongodb.ServerAddress;
 import com.mongodb.gridfs.GridFS;
 import com.mongodb.gridfs.GridFSDBFile;
 import com.mongodb.gridfs.GridFSInputFile;
@@ -58,9 +60,16 @@ public class DfsGridImpl implements Dfs, InitializingBean, DisposableBean {
 		String[] list = server.split(":");
 		String host = list[0];
 		int port = Integer.parseInt(list[1]);
+
+		int connectTimeout = 1000 * 60;
+		MongoClientOptions options = new MongoClientOptions.Builder().connectTimeout(connectTimeout).build();
 		try {
-			client = new MongoClient(host, port);
+			client = new MongoClient(new ServerAddress(host, port), options);
 		}
+		//
+		// try {
+		// client = new MongoClient(host, port);
+		// }
 		catch (UnknownHostException e) {
 			throw new RuntimeException(e.getMessage(), e);
 		}
