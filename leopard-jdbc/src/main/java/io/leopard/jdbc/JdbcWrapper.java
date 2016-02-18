@@ -273,8 +273,7 @@ public class JdbcWrapper implements Jdbc {
 
 	@Override
 	public boolean updateForBoolean(SqlBuilder builder) {
-		// TODO Auto-generated method stub
-		return false;
+		return this.getJdbc().updateForBoolean(builder);
 	}
 
 	@Override

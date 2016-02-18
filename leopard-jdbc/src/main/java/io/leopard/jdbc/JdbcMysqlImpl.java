@@ -367,6 +367,7 @@ public class JdbcMysqlImpl implements Jdbc {
 
 	@Override
 	public boolean updateForBoolean(String sql, StatementParameter param) {
+		// System.out.println("updateForBoolean sql:" + sql);
 		int updatedCount = this.update(sql, param);
 		return (updatedCount > 0);
 	}
