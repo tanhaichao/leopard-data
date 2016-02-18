@@ -15,6 +15,8 @@ import com.mongodb.DBCollection;
 import com.mongodb.DBCursor;
 import com.mongodb.DBObject;
 import com.mongodb.MongoClient;
+import com.mongodb.MongoClientOptions;
+import com.mongodb.ServerAddress;
 import com.mongodb.WriteResult;
 import com.mongodb.gridfs.GridFS;
 
@@ -66,8 +68,10 @@ public class MongoImpl implements Mongo {
 		String[] list = server.split(":");
 		String host = list[0];
 		int port = Integer.parseInt(list[1]);
+		int connectTimeout = 1000 * 60;
+		MongoClientOptions options = new MongoClientOptions.Builder().connectTimeout(connectTimeout).build();
 		try {
-			client = new MongoClient(host, port);
+			client = new MongoClient(new ServerAddress(host, port), options);
 		}
 		catch (UnknownHostException e) {
 			throw new RuntimeException(e.getMessage(), e);
