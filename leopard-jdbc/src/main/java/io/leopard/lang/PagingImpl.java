@@ -116,7 +116,7 @@ public class PagingImpl<E> implements Paging<E> {
 
 	@Override
 	public Boolean isNextPage() {
-		if (nextPage == null) {
+		if (nextPage == null && pageSize != null) {
 			int size = (list == null) ? 0 : list.size();
 			return (size >= this.pageSize);
 		}
