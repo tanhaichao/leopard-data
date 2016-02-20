@@ -36,6 +36,7 @@ public class ThumbnailServiceSizeImpl implements ThumbnailService {
 		ByteArrayOutputStream output = new ByteArrayOutputStream();
 		ByteArrayInputStream input = new ByteArrayInputStream(data);
 		Thumbnails.of(input).size(width, height).toOutputStream(output);
+
 		// http://rensanning.iteye.com/blog/1545708 Java生成缩略图之Thumbnailator
 
 		// Thumbnails.of(input).asBufferedImage();
