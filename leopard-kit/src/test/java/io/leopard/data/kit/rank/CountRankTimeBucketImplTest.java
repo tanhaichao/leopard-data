@@ -41,6 +41,7 @@ public class CountRankTimeBucketImplTest {
 
 	@Test
 	public void incr() {
+		rank.clean();
 		Assert.assertEquals(1, rank.incr("member1", 1));
 		Assert.assertEquals(2, rank.incr("member1", 1));
 		Assert.assertEquals(1, rank.incr("member2", 1));

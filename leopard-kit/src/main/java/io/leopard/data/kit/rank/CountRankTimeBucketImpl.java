@@ -7,8 +7,6 @@ import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
-import org.apache.commons.lang.StringUtils;
-
 import io.leopard.redis.Redis;
 import redis.clients.jedis.Tuple;
 
@@ -107,13 +105,14 @@ public class CountRankTimeBucketImpl implements CountRank, Runnable {
 
 	@Override
 	public boolean clean() {
+		boolean success = totalImpl.clean();
 		Set<String> keySet = redis.keys(this.key + ":*");
 		if (keySet != null) {
 			for (String key : keySet) {
 				redis.del(key);
 			}
 		}
-		return totalImpl.clean();
+		return success;
 	}
 
 	@Override
