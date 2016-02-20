@@ -21,11 +21,11 @@ public class CountRankTimeBucketImpl implements CountRank, Runnable {
 	private CountRankImpl totalImpl;// 总数
 	private CountRankImpl currentImpl;// 当前(最后一个时间段)
 
-	private Redis redis;
+	protected Redis redis;
 
-	private String key;
+	protected String key;
 
-	private TimeBucket timeBucket;
+	protected TimeBucket timeBucket;
 
 	public void setRedis(Redis redis) {
 		this.redis = redis;
