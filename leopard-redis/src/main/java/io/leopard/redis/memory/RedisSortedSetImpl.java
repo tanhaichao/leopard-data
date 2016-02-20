@@ -131,7 +131,8 @@ public class RedisSortedSetImpl implements IRedisSortedSet {
 			total = 0D;
 		}
 		total += score;
-		this.zadd(key, score, member);
+		// System.out.println("zincrby total:" + total + " score:" + score);
+		this.zadd(key, total, member);
 		return total;
 	}
 
@@ -175,6 +176,7 @@ public class RedisSortedSetImpl implements IRedisSortedSet {
 
 	protected List<Map.Entry<String, Double>> revlist(String key) {
 		Map<String, Double> map = this.getMap(key);
+		System.out.println("map:" + map);
 		List<Map.Entry<String, Double>> list = new ArrayList<Map.Entry<String, Double>>(map.entrySet());
 		Collections.sort(list, new Comparator<Map.Entry<String, Double>>() {
 			public int compare(Map.Entry<String, Double> o1, Map.Entry<String, Double> o2) {
@@ -479,6 +481,7 @@ public class RedisSortedSetImpl implements IRedisSortedSet {
 	public Set<String> zrevrange(String key, long start, long end) {
 		Set<String> set = new LinkedHashSet<String>();
 		List<Map.Entry<String, Double>> list = this.revlist(key);
+		System.out.println("list:" + list);
 		long index = 0;
 		for (Entry<String, Double> entry : list) {
 			System.out.println("key:" + entry.getKey() + " value:" + entry.getValue());

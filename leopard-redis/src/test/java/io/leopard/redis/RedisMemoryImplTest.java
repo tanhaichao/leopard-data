@@ -222,7 +222,10 @@ public class RedisMemoryImplTest {
 	public void zincrby() {
 		Assert.assertEquals(1D, this.redis.zincrby(key, 1, "member1"), 0);
 		Assert.assertEquals(2D, this.redis.zincrby(key, 1, "member1"), 0);
+		Assert.assertEquals(4D, this.redis.zincrby(key, 2, "member1"), 0);
 
+		
+		Assert.assertEquals(4D, this.redis.zscore(key, "member1"), 0);
 	}
 
 	@Test
