@@ -691,7 +691,7 @@ public class RedisMemoryImpl implements Redis {
 
 	@Override
 	public Set<String> keys(String pattern) {
-		throw new UnsupportedOperationException("Not Implemented");
+		return null;
 	}
 
 	@Override

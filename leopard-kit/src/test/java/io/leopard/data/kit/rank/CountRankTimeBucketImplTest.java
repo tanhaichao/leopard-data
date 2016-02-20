@@ -18,6 +18,8 @@ public class CountRankTimeBucketImplTest {
 		redis = new RedisMemoryImpl();
 		rank.setKey("key");
 		rank.setRedis(redis);
+		rank.setTimeBucket(TimeBucket.HOUR);
+		rank.init();
 	}
 
 	@Test
@@ -50,7 +52,7 @@ public class CountRankTimeBucketImplTest {
 	@Test
 	public void getScore() {
 		// redis.zadd("key", 1, "member1");
-		redis.zincrby("key", 1, "member1");
+		rank.incr("member1", 1);
 		Assert.assertEquals(1D, rank.getScore("member1"), 0);
 
 	}

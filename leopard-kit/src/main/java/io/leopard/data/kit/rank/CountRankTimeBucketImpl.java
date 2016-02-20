@@ -3,6 +3,7 @@ package io.leopard.data.kit.rank;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 import io.leopard.redis.Redis;
 import redis.clients.jedis.Tuple;
@@ -109,38 +110,40 @@ public class CountRankTimeBucketImpl implements CountRank {
 
 	@Override
 	public boolean clean() {
-		// TODO Auto-generated method stub
-		return false;
+		Set<String> keySet = redis.keys(this.key + ":*");
+		if (keySet != null) {
+			for (String key : keySet) {
+				redis.del(key);
+			}
+		}
+		return totalImpl.clean();
 	}
 
 	@Override
 	public boolean delete(String member) {
-		// TODO Auto-generated method stub
-		return false;
+		currentImpl.delete(member);
+		return totalImpl.delete(member);
 	}
 
 	@Override
 	public Double getScore(String member) {
-		// TODO Auto-generated method stub
-		return null;
+		return totalImpl.getScore(member);
 	}
 
 	@Override
 	public List<Tuple> list(int start, int size) {
-		// TODO Auto-generated method stub
-		return null;
+		return totalImpl.list(start, size);
 	}
 
 	@Override
 	public List<String> listMembers(int start, int size) {
-		// TODO Auto-generated method stub
-		return null;
+		return totalImpl.listMembers(start, size);
 	}
 
 	@Override
 	public long incr(String member, long count) {
-		// TODO Auto-generated method stub
-		return 0;
+		this.currentImpl.incr(member, count);
+		return totalImpl.incr(member, count);
 	}
 
 }

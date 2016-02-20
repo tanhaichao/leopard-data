@@ -224,7 +224,6 @@ public class RedisMemoryImplTest {
 		Assert.assertEquals(2D, this.redis.zincrby(key, 1, "member1"), 0);
 		Assert.assertEquals(4D, this.redis.zincrby(key, 2, "member1"), 0);
 
-		
 		Assert.assertEquals(4D, this.redis.zscore(key, "member1"), 0);
 	}
 
@@ -1048,13 +1047,11 @@ public class RedisMemoryImplTest {
 
 	@Test
 	public void keys() {
-		try {
-			redis.keys("pattern");
-			Assert.fail("怎么没有抛异常?");
-		}
-		catch (UnsupportedOperationException e) {
+		redis.zadd("key:1", 1, "member");
+		redis.zadd("key:2", 1, "member");
+		redis.zadd("key", 1, "member");
 
-		}
+		Assert.assertEquals("[key:1, key:2]", redis.keys("key:*").toString());
 	}
 
 	@Test

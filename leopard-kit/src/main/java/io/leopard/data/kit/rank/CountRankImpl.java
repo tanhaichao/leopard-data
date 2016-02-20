@@ -37,25 +37,25 @@ public class CountRankImpl implements CountRank {
 
 	@Override
 	public boolean clean() {
-		Long num = redis.del(key);
+		Long num = redis.del(getKey());
 		return num != null && num > 0;
 	}
 
 	@Override
 	public boolean delete(String member) {
-		Long num = redis.zrem(key, member);
+		Long num = redis.zrem(getKey(), member);
 		return num != null && num > 0;
 	}
 
 	@Override
 	public Double getScore(String member) {
-		return redis.zscore(key, member);
+		return redis.zscore(getKey(), member);
 	}
 
 	@Override
 	public List<Tuple> list(int start, int size) {
 		long end = start + size;
-		Set<Tuple> set = redis.zrevrangeWithScores(key, start, end);
+		Set<Tuple> set = redis.zrevrangeWithScores(getKey(), start, end);
 		if (set == null || set.isEmpty()) {
 			return null;
 		}
@@ -69,7 +69,7 @@ public class CountRankImpl implements CountRank {
 	@Override
 	public List<String> listMembers(int start, int size) {
 		long end = start + size;
-		Set<String> set = redis.zrevrange(key, start, end);
+		Set<String> set = redis.zrevrange(getKey(), start, end);
 		if (set == null || set.isEmpty()) {
 			return null;
 		}
@@ -82,7 +82,7 @@ public class CountRankImpl implements CountRank {
 
 	@Override
 	public long incr(String member, long count) {
-		Double totalCount = redis.zincrby(key, count, member);
+		Double totalCount = redis.zincrby(getKey(), count, member);
 		return totalCount.longValue();
 	}
 
