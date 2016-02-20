@@ -110,8 +110,7 @@ public class CountRankTimeBucketImpl implements CountRank {
 			currentImpl.setRedis(redis);
 			this.currentImpl = currentImpl;
 		}
-
-		TimerUtil.run(new AbstractTimer() {
+		TimerUtil.start(new AbstractTimer() {
 			@Override
 			public boolean isEnabled() {
 				return true;
