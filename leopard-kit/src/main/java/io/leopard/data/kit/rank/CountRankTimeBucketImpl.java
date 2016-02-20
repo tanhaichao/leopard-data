@@ -1,6 +1,7 @@
 package io.leopard.data.kit.rank;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -14,7 +15,7 @@ import redis.clients.jedis.Tuple;
  * @author 阿海
  *
  */
-public class CountRankTimeBucketImpl implements CountRank {
+public class CountRankTimeBucketImpl implements CountRank, Runnable {
 
 	private CountRank totalImpl;// 总数
 	private CountRank currentImpl;// 当前(最后一个时间段)
@@ -63,27 +64,31 @@ public class CountRankTimeBucketImpl implements CountRank {
 	 * @return
 	 */
 	protected String getTimeBucketKey(Date date) {
-		if (this.timeBucket.equals(TimeBucket.MINUTE)) {
+		return getTimeBucketKey(timeBucket, date);
+	}
+
+	protected static String getTimeBucketKey(TimeBucket timeBucket, Date date) {
+		if (timeBucket.equals(TimeBucket.MINUTE)) {
 			return new SimpleDateFormat("yyyyMMddHHmm").format(date);
 		}
-		else if (this.timeBucket.equals(TimeBucket.HOUR)) {
+		else if (timeBucket.equals(TimeBucket.HOUR)) {
 			return new SimpleDateFormat("yyyyMMddHH").format(date);
 		}
-		else if (this.timeBucket.equals(TimeBucket.DAY)) {
+		else if (timeBucket.equals(TimeBucket.DAY)) {
 			return new SimpleDateFormat("yyyyMMdd").format(date);
 		}
-		else if (this.timeBucket.equals(TimeBucket.WEEK)) {
+		else if (timeBucket.equals(TimeBucket.WEEK)) {
 			// return new SimpleDateFormat("yyyy-MM-dd HH:mm").format(new Date());
 			throw new IllegalArgumentException("周时间段未实现.");
 		}
-		else if (this.timeBucket.equals(TimeBucket.MONTH)) {
+		else if (timeBucket.equals(TimeBucket.MONTH)) {
 			return new SimpleDateFormat("yyyyMM").format(date);
 		}
-		else if (this.timeBucket.equals(TimeBucket.YEAR)) {
+		else if (timeBucket.equals(TimeBucket.YEAR)) {
 			return new SimpleDateFormat("yyyy").format(date);
 		}
 		else {
-			throw new IllegalArgumentException("未知时间段[" + this.timeBucket + "].");
+			throw new IllegalArgumentException("未知时间段[" + timeBucket + "].");
 		}
 	}
 
@@ -146,4 +151,26 @@ public class CountRankTimeBucketImpl implements CountRank {
 		return totalImpl.incr(member, count);
 	}
 
+	@Override
+	public void run() {
+
+	}
+
+	public interface TimeBucketKeys {
+		List<String> keys(Date date);
+	}
+
+	public static class TimeBucketKeysHourImpl implements TimeBucketKeys {
+
+		@Override
+		public List<String> keys(Date date) {
+			List<String> list = new ArrayList<String>();
+			for (int i = 0; i < 25; i++) {
+				String key = getTimeBucketKey(TimeBucket.MINUTE, date);
+				list.add(key);
+			}
+			return list;
+		}
+
+	}
 }

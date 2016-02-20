@@ -1,6 +1,7 @@
 package io.leopard.data.kit.rank;
 
 import java.util.Date;
+import java.util.List;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -63,6 +64,12 @@ public class CountRankTimeBucketImplTest {
 		Assert.assertTrue(rank.delete("member1"));
 		Assert.assertFalse(rank.delete("member1"));
 		Assert.assertNull(rank.getScore("member1"));
+	}
+
+	@Test
+	public void keysHour() {
+		List<String> keys = new CountRankTimeBucketImpl.TimeBucketKeysHourImpl().keys(new Date());
+		System.out.println("keys:" + keys);
 	}
 
 }
