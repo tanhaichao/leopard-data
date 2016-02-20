@@ -1,6 +1,7 @@
 package io.leopard.data.kit.rank;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
@@ -13,23 +14,15 @@ import redis.clients.jedis.Tuple;
  * @author 阿海
  *
  */
-public class CountRankImpl implements CountRank {
+public abstract class CountRankImpl implements CountRank {
 
 	private Redis redis;
-
-	private String key;
 
 	public void setRedis(Redis redis) {
 		this.redis = redis;
 	}
 
-	public String getKey() {
-		return key;
-	}
-
-	public void setKey(String key) {
-		this.key = key;
-	}
+	public abstract String getKey(Date posttime);
 
 	public Redis getRedis() {
 		return redis;
@@ -37,25 +30,25 @@ public class CountRankImpl implements CountRank {
 
 	@Override
 	public boolean clean() {
-		Long num = redis.del(getKey());
+		Long num = redis.del(getKey(new Date()));
 		return num != null && num > 0;
 	}
 
 	@Override
 	public boolean delete(String member) {
-		Long num = redis.zrem(getKey(), member);
+		Long num = redis.zrem(getKey(new Date()), member);
 		return num != null && num > 0;
 	}
 
 	@Override
 	public Double getScore(String member) {
-		return redis.zscore(getKey(), member);
+		return redis.zscore(getKey(new Date()), member);
 	}
 
 	@Override
 	public List<Tuple> list(int start, int size) {
 		long end = start + size;
-		Set<Tuple> set = redis.zrevrangeWithScores(getKey(), start, end);
+		Set<Tuple> set = redis.zrevrangeWithScores(getKey(new Date()), start, end);
 		if (set == null || set.isEmpty()) {
 			return null;
 		}
@@ -69,7 +62,7 @@ public class CountRankImpl implements CountRank {
 	@Override
 	public List<String> listMembers(int start, int size) {
 		long end = start + size;
-		Set<String> set = redis.zrevrange(getKey(), start, end);
+		Set<String> set = redis.zrevrange(getKey(new Date()), start, end);
 		if (set == null || set.isEmpty()) {
 			return null;
 		}
@@ -81,8 +74,8 @@ public class CountRankImpl implements CountRank {
 	}
 
 	@Override
-	public long incr(String member, long count) {
-		Double totalCount = redis.zincrby(getKey(), count, member);
+	public long incr(String member, long count, Date posttime) {
+		Double totalCount = redis.zincrby(getKey(posttime), count, member);
 		return totalCount.longValue();
 	}
 

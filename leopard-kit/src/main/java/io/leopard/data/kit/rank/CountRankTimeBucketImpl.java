@@ -84,8 +84,13 @@ public class CountRankTimeBucketImpl implements CountRank, Runnable {
 
 	public void init() {
 		{
-			CountRankImpl totalImpl = new CountRankImpl();
-			totalImpl.setKey(key + ":total");
+			CountRankImpl totalImpl = new CountRankImpl() {
+				@Override
+				public String getKey(Date posttime) {
+					return key + ":total";
+				}
+
+			};
 			totalImpl.setRedis(redis);
 			this.totalImpl = totalImpl;
 		}
@@ -94,13 +99,19 @@ public class CountRankTimeBucketImpl implements CountRank, Runnable {
 
 			CountRankImpl currentImpl = new CountRankImpl() {
 				@Override
-				public String getKey() {
-					return key + ":" + getTimeBucketKey(new Date());
+				public String getKey(Date posttime) {
+					return key + ":" + getTimeBucketKey(posttime);
 				}
 			};
 			currentImpl.setRedis(redis);
 			this.currentImpl = currentImpl;
 		}
+	}
+
+	@Override
+	public long incr(String member, long count, Date posttime) {
+		this.currentImpl.incr(member, count, posttime);
+		return totalImpl.incr(member, count, posttime);
 	}
 
 	@Override
@@ -137,12 +148,6 @@ public class CountRankTimeBucketImpl implements CountRank, Runnable {
 	}
 
 	@Override
-	public long incr(String member, long count) {
-		this.currentImpl.incr(member, count);
-		return totalImpl.incr(member, count);
-	}
-
-	@Override
 	public void run() {
 		List<String> keyList = this.keys(new Date());
 		String[] keys = new String[keyList.size() - 1 - 20];
@@ -157,7 +162,7 @@ public class CountRankTimeBucketImpl implements CountRank, Runnable {
 
 		try {
 			// 如果时间段的只有一个时，zunionstore不会产生tmpkey.
-			redis.rename(tmpkey, totalImpl.getKey());
+			redis.rename(tmpkey, totalImpl.getKey(new Date()));
 		}
 		catch (Exception e) {
 

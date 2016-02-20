@@ -1,5 +1,7 @@
 package io.leopard.data.kit.rank;
 
+import java.util.Date;
+
 /**
  * 数量排名.
  * 
@@ -15,5 +17,5 @@ public interface CountRank extends Rank {
 	 * @param count
 	 * @return
 	 */
-	long incr(String member, long count);
+	long incr(String member, long count, Date posttime);
 }

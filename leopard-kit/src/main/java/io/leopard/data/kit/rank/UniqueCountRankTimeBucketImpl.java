@@ -1,5 +1,7 @@
 package io.leopard.data.kit.rank;
 
+import java.util.Date;
+
 public class UniqueCountRankTimeBucketImpl extends CountRankTimeBucketImpl implements UniqueCountRank {
 
 	protected String getUniqueKey() {
@@ -11,7 +13,7 @@ public class UniqueCountRankTimeBucketImpl extends CountRankTimeBucketImpl imple
 	}
 
 	@Override
-	public long incr(String member, String id, long count) {
+	public long incr(String member, String id, long count, Date posttime) {
 		String key = getUniqueKey();
 		String uniqueId = this.getUniqueId(member, id);
 
@@ -21,7 +23,7 @@ public class UniqueCountRankTimeBucketImpl extends CountRankTimeBucketImpl imple
 			// 当前时间段已经操作过
 			return 0;
 		}
-		long result = this.incr(member, count);
+		long result = this.incr(member, count, posttime);
 
 		redis.zadd(key, System.currentTimeMillis(), uniqueId);
 		return result;

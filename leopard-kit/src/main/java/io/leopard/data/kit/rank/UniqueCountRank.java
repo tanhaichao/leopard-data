@@ -1,5 +1,7 @@
 package io.leopard.data.kit.rank;
 
+import java.util.Date;
+
 /**
  * 唯一数量排名(如每个用户只能增加一次).
  * 
@@ -17,7 +19,7 @@ public interface UniqueCountRank extends CountRank {
 	 * @param count
 	 * @return
 	 */
-	long incr(String member, String id, long count);
+	long incr(String member, String id, long count, Date posttime);
 
 	boolean delete(String member, String id);
 }

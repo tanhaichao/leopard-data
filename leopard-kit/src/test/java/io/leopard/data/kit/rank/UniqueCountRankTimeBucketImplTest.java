@@ -2,6 +2,7 @@ package io.leopard.data.kit.rank;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import org.junit.Assert;
 import org.junit.Test;
@@ -29,10 +30,10 @@ public class UniqueCountRankTimeBucketImplTest {
 	@Test
 	public void incr() {
 		rank.clean();
-		Assert.assertEquals(1, rank.incr("member1", "1", 1));
-		Assert.assertEquals(0, rank.incr("member1", "1", 1));
-		Assert.assertEquals(2, rank.incr("member1", "2", 1));
-		Assert.assertEquals(1, rank.incr("member2", "1", 1));
+		Assert.assertEquals(1, rank.incr("member1", "1", 1, new Date()));
+		Assert.assertEquals(0, rank.incr("member1", "1", 1, new Date()));
+		Assert.assertEquals(2, rank.incr("member1", "2", 1, new Date()));
+		Assert.assertEquals(1, rank.incr("member2", "1", 1, new Date()));
 		Assert.assertEquals(1, rank.getScore("member2").longValue());
 
 		System.out.println(rank.listMembers(0, 10));
