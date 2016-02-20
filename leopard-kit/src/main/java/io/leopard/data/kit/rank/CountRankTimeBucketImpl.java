@@ -8,6 +8,10 @@ import java.util.List;
 import java.util.Set;
 
 import io.leopard.redis.Redis;
+import io.leopard.timer.AbstractTimer;
+import io.leopard.timer.PerHourPeriod;
+import io.leopard.timer.Period;
+import io.leopard.timer.TimerUtil;
 import redis.clients.jedis.Tuple;
 
 /**
@@ -16,7 +20,7 @@ import redis.clients.jedis.Tuple;
  * @author 阿海
  *
  */
-public class CountRankTimeBucketImpl implements CountRank, Runnable {
+public class CountRankTimeBucketImpl implements CountRank {
 
 	private CountRankImpl totalImpl;// 总数
 	private CountRankImpl currentImpl;// 当前(最后一个时间段)
@@ -106,6 +110,23 @@ public class CountRankTimeBucketImpl implements CountRank, Runnable {
 			currentImpl.setRedis(redis);
 			this.currentImpl = currentImpl;
 		}
+
+		TimerUtil.run(new AbstractTimer() {
+			@Override
+			public boolean isEnabled() {
+				return true;
+			}
+
+			@Override
+			public Period getPeriod() {
+				return new PerHourPeriod(0);
+			}
+
+			@Override
+			public void start() {
+				rollTimeBucket();
+			}
+		});
 	}
 
 	@Override
@@ -147,8 +168,7 @@ public class CountRankTimeBucketImpl implements CountRank, Runnable {
 		return totalImpl.listMembers(start, size);
 	}
 
-	@Override
-	public void run() {
+	protected void rollTimeBucket() {
 		List<String> keyList = this.keys(new Date());
 		String[] keys = new String[keyList.size() - 1 - 20];
 		for (int i = 0; i < keys.length; i++) {
