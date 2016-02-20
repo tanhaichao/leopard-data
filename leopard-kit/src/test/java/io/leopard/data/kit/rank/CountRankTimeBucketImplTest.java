@@ -83,4 +83,9 @@ public class CountRankTimeBucketImplTest {
 		List<String> keys = rank.keys(new Date());
 		System.out.println("keys:" + keys);
 	}
+
+	@Test
+	public void run() {
+		rank.run();
+	}
 }
