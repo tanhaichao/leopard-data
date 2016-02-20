@@ -8,6 +8,7 @@ import java.util.Set;
 import io.leopard.redis.Redis;
 import redis.clients.jedis.Tuple;
 
+//TODO ahai 未完整实现
 public class NatureTimeRankRedisImpl implements NatureTimeRank {
 
 	private Redis redis;
