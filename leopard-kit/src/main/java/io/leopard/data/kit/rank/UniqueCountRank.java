@@ -18,4 +18,6 @@ public interface UniqueCountRank extends CountRank {
 	 * @return
 	 */
 	long incr(String member, String id, long count);
+
+	boolean delete(String member, String id);
 }

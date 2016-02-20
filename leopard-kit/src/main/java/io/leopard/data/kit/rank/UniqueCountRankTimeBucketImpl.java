@@ -2,11 +2,18 @@ package io.leopard.data.kit.rank;
 
 public class UniqueCountRankTimeBucketImpl extends CountRankTimeBucketImpl implements UniqueCountRank {
 
+	protected String getUniqueKey() {
+		return this.key + ":unique";
+	}
+
+	protected String getUniqueId(String member, String id) {
+		return member + ":" + id;
+	}
+
 	@Override
 	public long incr(String member, String id, long count) {
-		String key = this.key + ":unique";
-
-		String uniqueId = member + ":" + id;
+		String key = getUniqueKey();
+		String uniqueId = this.getUniqueId(member, id);
 
 		Double time = redis.zscore(key, uniqueId);
 		System.out.println("time:" + time + " id:" + id);
@@ -37,6 +44,19 @@ public class UniqueCountRankTimeBucketImpl extends CountRankTimeBucketImpl imple
 		long timeBucketMillis = this.getTimeBucketMillis();
 		long millls = System.currentTimeMillis() - time.longValue();
 		return millls < timeBucketMillis;
+	}
+
+	@Override
+	public boolean delete(String member, String id) {
+		String key = getUniqueKey();
+		String uniqueId = this.getUniqueId(member, id);
+		Double time = redis.zscore(key, uniqueId);
+		if (!isCurrentTimeBucket(time)) {
+			// 当前时间段已经操作过
+			return false;
+		}
+		Long num = redis.zrem(key, uniqueId);
+		return num != null && num > 0;
 	}
 
 }
