@@ -2,6 +2,7 @@ package io.leopard.data.kit.rank;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -17,8 +18,8 @@ import redis.clients.jedis.Tuple;
  */
 public class CountRankTimeBucketImpl implements CountRank, Runnable {
 
-	private CountRank totalImpl;// 总数
-	private CountRank currentImpl;// 当前(最后一个时间段)
+	private CountRankImpl totalImpl;// 总数
+	private CountRankImpl currentImpl;// 当前(最后一个时间段)
 
 	private Redis redis;
 
@@ -40,14 +41,6 @@ public class CountRankTimeBucketImpl implements CountRank, Runnable {
 
 	public Redis getRedis() {
 		return redis;
-	}
-
-	public CountRank getTotalImpl() {
-		return totalImpl;
-	}
-
-	public void setTotalImpl(CountRank totalImpl) {
-		this.totalImpl = totalImpl;
 	}
 
 	public TimeBucket getTimeBucket() {
@@ -153,7 +146,28 @@ public class CountRankTimeBucketImpl implements CountRank, Runnable {
 
 	@Override
 	public void run() {
+		List<String> keyList = this.keys(new Date());
+		String[] keys = new String[keyList.size() - 1];
+		for (int i = 0; i < keys.length; i++) {
+			keys[i] = key + ":" + keyList.get(i);
+		}
+		String tmpkey = null;
+		redis.zunionstore(tmpkey, keys);
+		redis.rename(tmpkey, totalImpl.getKey());
+		String expiredKey = keyList.get(keyList.size() - 1);
+		redis.del(key + ":" + expiredKey);
+	}
 
+	protected List<String> keys(Date date) {
+		if (timeBucket.equals(TimeBucket.HOUR)) {
+			return new TimeBucketKeysHourImpl().keys(date);
+		}
+		else if (timeBucket.equals(TimeBucket.DAY)) {
+			return new TimeBucketKeysDayImpl().keys(date);
+		}
+		else {
+			throw new IllegalArgumentException("未知时间段[" + timeBucket + "].");
+		}
 	}
 
 	public interface TimeBucketKeys {
@@ -161,16 +175,35 @@ public class CountRankTimeBucketImpl implements CountRank, Runnable {
 	}
 
 	public static class TimeBucketKeysHourImpl implements TimeBucketKeys {
-
 		@Override
 		public List<String> keys(Date date) {
+			Calendar cal = Calendar.getInstance();
+			cal.setTime(date);
+
 			List<String> list = new ArrayList<String>();
-			for (int i = 0; i < 25; i++) {
-				String key = getTimeBucketKey(TimeBucket.MINUTE, date);
+			for (int i = 0; i <= 60; i++) {
+				String key = getTimeBucketKey(TimeBucket.MINUTE, cal.getTime());
 				list.add(key);
+				cal.add(Calendar.MINUTE, -1);
 			}
 			return list;
 		}
 
 	}
+
+	public static class TimeBucketKeysDayImpl implements TimeBucketKeys {
+		@Override
+		public List<String> keys(Date date) {
+			Calendar cal = Calendar.getInstance();
+			cal.setTime(date);
+			List<String> list = new ArrayList<String>();
+			for (int i = 0; i <= 24; i++) {
+				String key = getTimeBucketKey(TimeBucket.HOUR, cal.getTime());
+				list.add(key);
+				cal.add(Calendar.HOUR, -1);
+			}
+			return list;
+		}
+	}
+
 }

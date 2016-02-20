@@ -19,7 +19,7 @@ public class CountRankTimeBucketImplTest {
 		redis = new RedisMemoryImpl();
 		rank.setKey("key");
 		rank.setRedis(redis);
-		rank.setTimeBucket(TimeBucket.HOUR);
+		rank.setTimeBucket(TimeBucket.DAY);
 		rank.init();
 	}
 
@@ -72,4 +72,15 @@ public class CountRankTimeBucketImplTest {
 		System.out.println("keys:" + keys);
 	}
 
+	@Test
+	public void keysDay() {
+		List<String> keys = new CountRankTimeBucketImpl.TimeBucketKeysDayImpl().keys(new Date());
+		System.out.println("keys:" + keys);
+	}
+
+	@Test
+	public void keys() {
+		List<String> keys = rank.keys(new Date());
+		System.out.println("keys:" + keys);
+	}
 }
