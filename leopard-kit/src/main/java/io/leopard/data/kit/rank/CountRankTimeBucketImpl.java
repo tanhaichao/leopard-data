@@ -153,7 +153,7 @@ public class CountRankTimeBucketImpl implements CountRank, Runnable {
 		// System.out.println("keys:" + StringUtils.join(keys, ","));
 		String tmpkey = key + ":union";
 
-		System.out.println("tmpkey:" + tmpkey);
+		// System.out.println("tmpkey:" + tmpkey);
 		redis.zunionstore(tmpkey, keys);
 
 		try {
