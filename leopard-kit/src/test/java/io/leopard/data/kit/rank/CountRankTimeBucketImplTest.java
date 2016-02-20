@@ -87,8 +87,8 @@ public class CountRankTimeBucketImplTest {
 	}
 
 	@Test
-	public void run() {
-		rank.run();
+	public void rollTimeBucket() {
+		rank.rollTimeBucket();
 	}
 
 	@Test
