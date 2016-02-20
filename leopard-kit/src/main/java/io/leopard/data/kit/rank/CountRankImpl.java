@@ -82,7 +82,7 @@ public class CountRankImpl implements CountRank {
 
 	@Override
 	public long incr(String member, long count) {
-		Double totalCount = redis.zincrby(member, count, member);
+		Double totalCount = redis.zincrby(key, count, member);
 		return totalCount.longValue();
 	}
 
