@@ -7,6 +7,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
+import org.apache.commons.lang.StringUtils;
+
 import io.leopard.redis.Redis;
 import redis.clients.jedis.Tuple;
 
@@ -61,24 +63,21 @@ public class CountRankTimeBucketImpl implements CountRank, Runnable {
 	}
 
 	protected static String getTimeBucketKey(TimeBucket timeBucket, Date date) {
-		if (timeBucket.equals(TimeBucket.MINUTE)) {
+		if (timeBucket.equals(TimeBucket.HOUR)) {
 			return new SimpleDateFormat("yyyyMMddHHmm").format(date);
 		}
-		else if (timeBucket.equals(TimeBucket.HOUR)) {
-			return new SimpleDateFormat("yyyyMMddHH").format(date);
-		}
 		else if (timeBucket.equals(TimeBucket.DAY)) {
-			return new SimpleDateFormat("yyyyMMdd").format(date);
+			return new SimpleDateFormat("yyyyMMddHH").format(date);
 		}
 		else if (timeBucket.equals(TimeBucket.WEEK)) {
 			// return new SimpleDateFormat("yyyy-MM-dd HH:mm").format(new Date());
 			throw new IllegalArgumentException("周时间段未实现.");
 		}
 		else if (timeBucket.equals(TimeBucket.MONTH)) {
-			return new SimpleDateFormat("yyyyMM").format(date);
+			return new SimpleDateFormat("yyyyMMdd").format(date);
 		}
 		else if (timeBucket.equals(TimeBucket.YEAR)) {
-			return new SimpleDateFormat("yyyy").format(date);
+			return new SimpleDateFormat("yyyyMM").format(date);
 		}
 		else {
 			throw new IllegalArgumentException("未知时间段[" + timeBucket + "].");
@@ -147,12 +146,16 @@ public class CountRankTimeBucketImpl implements CountRank, Runnable {
 	@Override
 	public void run() {
 		List<String> keyList = this.keys(new Date());
-		String[] keys = new String[keyList.size() - 1];
+		String[] keys = new String[keyList.size() - 1 - 20];
 		for (int i = 0; i < keys.length; i++) {
 			keys[i] = key + ":" + keyList.get(i);
 		}
-		String tmpkey = null;
+		System.out.println("keys:" + StringUtils.join(keys, ","));
+		String tmpkey = key + ":union";
+
+		System.out.println("tmpkey:" + tmpkey);
 		redis.zunionstore(tmpkey, keys);
+
 		redis.rename(tmpkey, totalImpl.getKey());
 		String expiredKey = keyList.get(keyList.size() - 1);
 		redis.del(key + ":" + expiredKey);
@@ -182,13 +185,12 @@ public class CountRankTimeBucketImpl implements CountRank, Runnable {
 
 			List<String> list = new ArrayList<String>();
 			for (int i = 0; i <= 60; i++) {
-				String key = getTimeBucketKey(TimeBucket.MINUTE, cal.getTime());
+				String key = getTimeBucketKey(TimeBucket.HOUR, cal.getTime());
 				list.add(key);
 				cal.add(Calendar.MINUTE, -1);
 			}
 			return list;
 		}
-
 	}
 
 	public static class TimeBucketKeysDayImpl implements TimeBucketKeys {
@@ -198,7 +200,7 @@ public class CountRankTimeBucketImpl implements CountRank, Runnable {
 			cal.setTime(date);
 			List<String> list = new ArrayList<String>();
 			for (int i = 0; i <= 24; i++) {
-				String key = getTimeBucketKey(TimeBucket.HOUR, cal.getTime());
+				String key = getTimeBucketKey(TimeBucket.DAY, cal.getTime());
 				list.add(key);
 				cal.add(Calendar.HOUR, -1);
 			}

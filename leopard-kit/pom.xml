@@ -8,7 +8,7 @@
 	<artifactId>leopard-kit</artifactId>
 	<name>Leopard-Kit</name>
 	<description>常见数据源组合操作组件，如：新数量计数器(日、周、月等)、按自然时间的数量排名等。</description>
-	
+
 	<dependencies>
 		<dependency>
 			<groupId>io.leopard</groupId>
@@ -19,5 +19,13 @@
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 		</dependency>
+
+		<dependency>
+			<groupId>commons-lang</groupId>
+			<artifactId>commons-lang</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+
 	</dependencies>
 </project>

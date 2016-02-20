@@ -8,6 +8,7 @@ import org.junit.Test;
 
 import io.leopard.redis.Redis;
 import io.leopard.redis.RedisMemoryImpl;
+import io.leopard.redis.util.RedisFactory;
 
 public class CountRankTimeBucketImplTest {
 
@@ -17,7 +18,9 @@ public class CountRankTimeBucketImplTest {
 
 	public CountRankTimeBucketImplTest() {
 		redis = new RedisMemoryImpl();
-		rank.setKey("key");
+		redis = RedisFactory.create("112.126.75.27:6311");
+
+		rank.setKey("CountRankTimeBucket");
 		rank.setRedis(redis);
 		rank.setTimeBucket(TimeBucket.DAY);
 		rank.init();
@@ -26,8 +29,6 @@ public class CountRankTimeBucketImplTest {
 	@Test
 	public void getTimeBucketKey() {
 		Date date = new Date();
-		rank.setTimeBucket(TimeBucket.MINUTE);
-		Assert.assertEquals("201602202315", rank.getTimeBucketKey(date));
 		rank.setTimeBucket(TimeBucket.HOUR);
 		Assert.assertEquals("2016022023", rank.getTimeBucketKey(date));
 		rank.setTimeBucket(TimeBucket.DAY);
@@ -88,4 +89,10 @@ public class CountRankTimeBucketImplTest {
 	public void run() {
 		rank.run();
 	}
+
+	@Test
+	public void zunionstore() {
+		redis.zunionstore("CountRankTimeBucket:union", "CountRankTimeBucket:total", "CountRankTimeBucket:20160221", "CountRankTimeBucket:20160221xxx");
+	}
+
 }
