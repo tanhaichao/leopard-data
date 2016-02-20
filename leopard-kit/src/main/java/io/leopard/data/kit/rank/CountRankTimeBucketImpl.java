@@ -150,13 +150,20 @@ public class CountRankTimeBucketImpl implements CountRank, Runnable {
 		for (int i = 0; i < keys.length; i++) {
 			keys[i] = key + ":" + keyList.get(i);
 		}
-		System.out.println("keys:" + StringUtils.join(keys, ","));
+		// System.out.println("keys:" + StringUtils.join(keys, ","));
 		String tmpkey = key + ":union";
 
 		System.out.println("tmpkey:" + tmpkey);
 		redis.zunionstore(tmpkey, keys);
 
-		redis.rename(tmpkey, totalImpl.getKey());
+		try {
+			// 如果时间段的只有一个时，zunionstore不会产生tmpkey.
+			redis.rename(tmpkey, totalImpl.getKey());
+		}
+		catch (Exception e) {
+
+		}
+
 		String expiredKey = keyList.get(keyList.size() - 1);
 		redis.del(key + ":" + expiredKey);
 	}
