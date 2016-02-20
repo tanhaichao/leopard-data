@@ -7,13 +7,17 @@ public class PagingImpl<E> implements Paging<E> {
 
 	private List<E> list = null;
 
-	private Boolean nextPage;
-	private Integer totalCount;
-	private Integer pageCount;
-	private Integer pageSize;
+	private Boolean nextPage;// 是否有下一页
+	private Integer totalCount;// 记录总数
+	private Integer pageCount;// 总页数
+	private Integer pageSize;// 一页显示的记录条数.
 
 	public PagingImpl() {
 
+	}
+
+	public PagingImpl(int pageSize) {
+		this.pageSize = pageSize;
 	}
 
 	public PagingImpl(Paging<?> paging) {
@@ -112,6 +116,10 @@ public class PagingImpl<E> implements Paging<E> {
 
 	@Override
 	public Boolean isNextPage() {
+		if (nextPage == null) {
+			int size = (list == null) ? 0 : list.size();
+			return (size >= this.pageSize);
+		}
 		return nextPage;
 	}
 
