@@ -70,12 +70,9 @@ public class MongoImpl implements Mongo {
 		int port = Integer.parseInt(list[1]);
 		int connectTimeout = 1000 * 60;
 		MongoClientOptions options = new MongoClientOptions.Builder().connectTimeout(connectTimeout).build();
-		try {
+
 			client = new MongoClient(new ServerAddress(host, port), options);
-		}
-		catch (UnknownHostException e) {
-			throw new RuntimeException(e.getMessage(), e);
-		}
+
 		this.db = client.getDB(this.database);
 		this.collection = db.getCollection(collectionName);
 	}
