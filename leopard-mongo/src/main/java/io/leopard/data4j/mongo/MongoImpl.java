@@ -64,6 +64,7 @@ public class MongoImpl implements Mongo {
 		this.collectionName = collectionName;
 	}
 
+	@SuppressWarnings("deprecation")
 	public void init() {
 		String[] list = server.split(":");
 		String host = list[0];
@@ -71,7 +72,7 @@ public class MongoImpl implements Mongo {
 		int connectTimeout = 1000 * 60;
 		MongoClientOptions options = new MongoClientOptions.Builder().connectTimeout(connectTimeout).build();
 
-			client = new MongoClient(new ServerAddress(host, port), options);
+		client = new MongoClient(new ServerAddress(host, port), options);
 
 		this.db = client.getDB(this.database);
 		this.collection = db.getCollection(collectionName);
