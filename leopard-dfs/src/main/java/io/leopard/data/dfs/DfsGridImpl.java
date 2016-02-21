@@ -3,7 +3,6 @@ package io.leopard.data.dfs;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.UnknownHostException;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.commons.logging.Log;
@@ -63,16 +62,10 @@ public class DfsGridImpl implements Dfs, InitializingBean, DisposableBean {
 
 		int connectTimeout = 1000 * 60;
 		MongoClientOptions options = new MongoClientOptions.Builder().connectTimeout(connectTimeout).build();
-		try {
-			client = new MongoClient(new ServerAddress(host, port), options);
-		}
-		//
-		// try {
-		// client = new MongoClient(host, port);
-		// }
-		catch (UnknownHostException e) {
-			throw new RuntimeException(e.getMessage(), e);
-		}
+
+		client = new MongoClient(new ServerAddress(host, port), options);
+
+		@SuppressWarnings("deprecation")
 		DB db = client.getDB("dfs");
 		return new GridFS(db, "fs");
 	}
