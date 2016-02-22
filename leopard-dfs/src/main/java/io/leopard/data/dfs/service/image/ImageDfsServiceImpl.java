@@ -24,7 +24,7 @@ public class ImageDfsServiceImpl implements ImageDfsService {
 	private DfsService dfsService;
 
 	@Override
-	public String save(long uid, String folder, MultipartFile file, String sizeList, boolean asyncSave) throws IOException {
+	public String save(long uid, String folder, MultipartFile file, String sizeList) throws IOException {
 		if (file == null || file.isEmpty()) {
 			return null;
 		}
@@ -33,25 +33,29 @@ public class ImageDfsServiceImpl implements ImageDfsService {
 			uri = ((UrlMultipartFile) file).getName();
 		}
 		else {
-			uri = this.save(uid, folder, file.getBytes(), sizeList, asyncSave);
+			uri = this.save(uid, folder, file.getBytes(), sizeList);
 		}
 		return uri;
 	}
 
 	@Override
-	public List<String> save(long uid, String folder, List<MultipartFile> pictureList, String sizeList, boolean asyncSave) throws IOException {
+	public List<String> save(long uid, String folder, List<MultipartFile> pictureList, String sizeList) throws IOException {
 		List<String> imageUrlList = new ArrayList<String>();
 		if (pictureList != null) {
 			for (MultipartFile file : pictureList) {
-				if (file.isEmpty()) {
+				// if (file.isEmpty()) {
+				// continue;
+				// }
+				// String uri;
+				// if (file instanceof UrlMultipartFile) {
+				// uri = ((UrlMultipartFile) file).getName();
+				// }
+				// else {
+				// uri = this.save(uid, folder, file.getBytes(), sizeList);
+				// }
+				String uri = this.save(uid, folder, file, sizeList);
+				if (uri == null) {
 					continue;
-				}
-				String uri;
-				if (file instanceof UrlMultipartFile) {
-					uri = ((UrlMultipartFile) file).getName();
-				}
-				else {
-					uri = this.save(uid, folder, file.getBytes(), sizeList, asyncSave);
 				}
 				imageUrlList.add(uri);
 			}
@@ -60,41 +64,13 @@ public class ImageDfsServiceImpl implements ImageDfsService {
 	}
 
 	@Override
-	public String save(long uid, String folder, byte[] data, String sizeList, boolean asyncSave) throws IOException {
-		if (asyncSave) {
-			return this.asyncSave(uid, folder, data, sizeList);
-		}
-		else {
-			final String uri = folder + uuid() + ".jpg";
-			this.save(uid, uri, data, sizeList);
-			return uri;
-		}
-	}
-
-	protected String asyncSave(final long uid, final String folder, final byte[] data, final String sizeList) throws IOException {
+	public String save(long uid, String folder, byte[] data, String sizeList) throws IOException {
 		final String uri = folder + uuid() + ".jpg";
-
-		new Thread() {
-			@Override
-			public void run() {
-				try {
-					save(uid, uri, data, sizeList);
-					logger.info("save:" + uri);
-				}
-				catch (IOException e) {
-					logger.error(e.getMessage(), e);
-				}
-			};
-		}.start();
-
+		this.saveByUri(uid, uri, data, sizeList);
 		return uri;
 	}
 
-	public static String uuid() {
-		return UUID.randomUUID().toString().replaceAll("-", "").toLowerCase();
-	}
-
-	protected String save(long uid, String uri, byte[] data, String sizeList) throws IOException {
+	protected String saveByUri(long uid, String uri, byte[] data, String sizeList) throws IOException {
 		dfsService.write(uri, data, uid);
 		if (sizeList != null && sizeList.length() > 0) {
 			String[] list = sizeList.split(",");
@@ -106,4 +82,23 @@ public class ImageDfsServiceImpl implements ImageDfsService {
 		return uri;
 	}
 
+	public static String uuid() {
+		return UUID.randomUUID().toString().replaceAll("-", "").toLowerCase();
+	}
+
+	@Override
+	public String save(long uid, String folder, MultipartFile file, String sizeList, int width, int height) throws IOException {
+		if (file == null || file.isEmpty()) {
+			return null;
+		}
+		if (file instanceof UrlMultipartFile) {
+			return ((UrlMultipartFile) file).getName();
+		}
+
+		String uri = save(uid, folder, file.getBytes(), sizeList);
+		if (width > 0 && height > 0) {
+			uri += "#" + width + "_" + height;
+		}
+		return uri;
+	}
 }
