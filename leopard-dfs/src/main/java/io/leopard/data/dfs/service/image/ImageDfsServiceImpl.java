@@ -29,6 +29,7 @@ public class ImageDfsServiceImpl extends ImageDfsServiceSyncImpl {
 				}
 			};
 		}.start();
+//		saveByUri(uid, uri, data, sizeList);
 		return uri;
 	}
 }
