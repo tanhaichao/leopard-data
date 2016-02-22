@@ -16,7 +16,7 @@ public class ImageDfsServiceImpl extends ImageDfsServiceSyncImpl {
 	@Override
 	public String save(final long uid, final String folder, final byte[] data, final String sizeList) throws IOException {
 		final String uri = folder + uuid() + ".jpg";
-
+		logger.info("async save:" + uri);
 		new Thread() {
 			@Override
 			public void run() {
@@ -29,7 +29,6 @@ public class ImageDfsServiceImpl extends ImageDfsServiceSyncImpl {
 				}
 			};
 		}.start();
-
 		return uri;
 	}
 }
