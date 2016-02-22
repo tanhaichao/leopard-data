@@ -22,6 +22,17 @@ public class ImageDfsServiceSyncImpl implements ImageDfsService {
 	private DfsService dfsService;
 
 	@Override
+	public String save(long uid, String folder, MultipartFile file, String sizeList, int width, int height) throws IOException {
+		String uri = save(uid, folder, file, sizeList);
+		if (uri != null) {
+			if (width > 0 && height > 0) {
+				uri += "#" + width + "_" + height;
+			}
+		}
+		return uri;
+	}
+
+	@Override
 	public String save(long uid, String folder, MultipartFile file, String sizeList) throws IOException {
 		if (file == null || file.isEmpty()) {
 			return null;
@@ -84,19 +95,4 @@ public class ImageDfsServiceSyncImpl implements ImageDfsService {
 		return UUID.randomUUID().toString().replaceAll("-", "").toLowerCase();
 	}
 
-	@Override
-	public String save(long uid, String folder, MultipartFile file, String sizeList, int width, int height) throws IOException {
-		if (file == null || file.isEmpty()) {
-			return null;
-		}
-		if (file instanceof UrlMultipartFile) {
-			return ((UrlMultipartFile) file).getName();
-		}
-
-		String uri = save(uid, folder, file.getBytes(), sizeList);
-		if (width > 0 && height > 0) {
-			uri += "#" + width + "_" + height;
-		}
-		return uri;
-	}
 }
