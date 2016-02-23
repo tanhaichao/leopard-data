@@ -448,22 +448,22 @@ public class RedisImpl extends AbstractRedis implements Redis {
 			return invoker.execute(jedis);
 		}
 		catch (JedisConnectionException e) {
-			// this.returnBrokenResource(jedis);
+			this.returnBrokenResource(jedis);
 			String message = this.getErrorMessage(e);
 			// message += " key:" + key;
 			throw new JedisConnectionException(message, e);
 		}
 		catch (RuntimeException e) {
-			// this.returnBrokenResource(jedis);
+			this.returnBrokenResource(jedis);
 			throw e;
 		}
 		catch (Exception e) {
-			// this.returnBrokenResource(jedis);
+			this.returnBrokenResource(jedis);
 			throw new RuntimeException(e.getMessage(), e);
 		}
 		finally {
-			jedis.close();
-			// this.returnResource(jedis);
+			// jedis.close();
+			this.returnResource(jedis);
 		}
 	}
 
