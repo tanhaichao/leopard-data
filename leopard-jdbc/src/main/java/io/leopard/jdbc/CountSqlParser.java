@@ -12,6 +12,9 @@ public class CountSqlParser {
 
 	private String countSql;
 
+	private Integer start;
+	private Integer size;
+
 	public CountSqlParser(String sql, StatementParameter param) {
 		this.sql = sql;
 		this.param = param;
@@ -32,13 +35,43 @@ public class CountSqlParser {
 			}
 		}
 		{
+			// 这里在orderby解析后面使用else
 			Matcher m = LIMIT_PATTERN.matcher(sql);
+
 			if (m.find()) {
-				sql = sql.substring(0, m.start());
+				int index = m.start();
+				sql = sql.substring(0, index);
+
 			}
 		}
-
+		parseLimitValue();
 		this.countSql = sql;
+	}
+
+	/**
+	 * 解析start和size值
+	 */
+	protected void parseLimitValue() {
+		Matcher m = LIMIT_PATTERN.matcher(sql);
+		if (!m.find()) {
+			return;
+		}
+		int index = m.start();
+		String limitSql = sql.substring(index);
+//		System.out.println("limitSql:" + limitSql);
+		int count = StringUtils.countOccurrencesOf(limitSql, "?");
+
+		int paramCount = param.size();
+		if (count == 1) {
+			this.size = param.getInt(paramCount - 1);
+		}
+		else if (count == 2) {
+			this.start = param.getInt(paramCount - 2);
+			this.size = param.getInt(paramCount - 1);
+		}
+		else {
+			throw new IllegalArgumentException("怎么limit参数是" + count + "个?");
+		}
 	}
 
 	public String getCountSql() {
@@ -55,4 +88,13 @@ public class CountSqlParser {
 		}
 		return param;
 	}
+
+	public Integer getStart() {
+		return start;
+	}
+
+	public Integer getSize() {
+		return size;
+	}
+
 }

@@ -13,9 +13,21 @@ public class CountSqlParserTest {
 
 	@Test
 	public void getCountSql() {
-		CountSqlParser parser = new CountSqlParser("select * from user where uid=? and user=? order by postime desc limit ?,?", null);
+		StatementParameter param = new StatementParameter();
+		param.setLong(1L);
+		param.setString("user");
+		param.setInt(0);
+		param.setInt(10);
+		CountSqlParser parser = new CountSqlParser("select * from user where uid=? and user=? order by postime desc limit ?,?", param);
 
 		System.out.println("sql:" + parser.getCountSql());
+		System.out.println("start:" + parser.getStart());
+		System.out.println("size:" + parser.getSize());
+	}
+
+	@Test
+	public void CountSqlParser() {
+
 	}
 
 }

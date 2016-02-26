@@ -219,8 +219,7 @@ public class StatementParameter {
 	/**
 	 * 返回索引对应的Date类型参数值.
 	 * 
-	 * @param index
-	 *            索引
+	 * @param index 索引
 	 * @return 参数值
 	 */
 	public Date getDate(int index) {
@@ -231,8 +230,7 @@ public class StatementParameter {
 	/**
 	 * 返回索引对应的Timestamp类型参数值.
 	 * 
-	 * @param index
-	 *            索引
+	 * @param index 索引
 	 * @return 参数值
 	 */
 	public Timestamp getTimestamp(int index) {
@@ -243,8 +241,7 @@ public class StatementParameter {
 	/**
 	 * 返回索引对应的String类型参数值.
 	 * 
-	 * @param index
-	 *            索引
+	 * @param index 索引
 	 * @return 参数值
 	 */
 	public String getString(int index) {
@@ -255,8 +252,7 @@ public class StatementParameter {
 	/**
 	 * 返回索引对应的int类型参数值.
 	 * 
-	 * @param index
-	 *            索引
+	 * @param index 索引
 	 * @return 参数值
 	 */
 	public int getInt(int index) {
@@ -267,8 +263,7 @@ public class StatementParameter {
 	/**
 	 * 返回索引对应的float类型参数值.
 	 * 
-	 * @param index
-	 *            索引
+	 * @param index 索引
 	 * @return 参数值
 	 */
 	public float getFloat(int index) {
@@ -279,8 +274,7 @@ public class StatementParameter {
 	/**
 	 * 返回索引对应的long类型参数值.
 	 * 
-	 * @param index
-	 *            索引
+	 * @param index 索引
 	 * @return 参数值
 	 */
 	public long getLong(int index) {
@@ -296,8 +290,7 @@ public class StatementParameter {
 	/**
 	 * 返回索引对应的double类型参数值.
 	 * 
-	 * @param index
-	 *            索引
+	 * @param index 索引
 	 * @return 参数值
 	 */
 	public double getDouble(int index) {
@@ -308,8 +301,7 @@ public class StatementParameter {
 	/**
 	 * 返回索引对应的boolean类型参数值.
 	 * 
-	 * @param index
-	 *            索引
+	 * @param index 索引
 	 * @return 参数值
 	 */
 	public Boolean getBool(int index) {
@@ -332,8 +324,7 @@ public class StatementParameter {
 	/**
 	 * 返回索引对应的参数.
 	 * 
-	 * @param index
-	 *            索引
+	 * @param index 索引
 	 * @return 参数
 	 */
 	public Object getObject(int index) {
@@ -347,8 +338,7 @@ public class StatementParameter {
 	/**
 	 * 返回索引对应参数的类型.
 	 * 
-	 * @param index
-	 *            索引
+	 * @param index 索引
 	 * @return 参数类型
 	 */
 	// private int getTypes(int index) {
@@ -509,8 +499,7 @@ public class StatementParameter {
 	/**
 	 * 将参数列表添加到PreparedStatementSetter对象中.
 	 * 
-	 * @param pstmt
-	 *            PreparedStatementSetter对象
+	 * @param pstmt PreparedStatementSetter对象
 	 * @throws SQLException
 	 */
 	public void setValues(PreparedStatement pstmt) throws SQLException {

@@ -375,8 +375,7 @@ public class JdbcMysqlImpl implements Jdbc {
 	/**
 	 * 将参数列表转成StatementParameter.
 	 * 
-	 * @param params
-	 *            参数列表
+	 * @param params 参数列表
 	 * @return 转换后的StatementParameter
 	 */
 	@SuppressWarnings("rawtypes")
@@ -590,25 +589,33 @@ public class JdbcMysqlImpl implements Jdbc {
 	public <T> Paging<T> queryForPaging(String sql, Class<T> elementType, Object... params) {
 		StatementParameter param = toStatementParameter(sql, params);
 		List<T> list = this.queryForList(sql, elementType, param);
-		CountSqlParser countSqlParser = new CountSqlParser(sql, param);
-		System.err.println("countSQL:" + countSqlParser.getCountSql());
-		int totalCount = this.queryForInt(countSqlParser.getCountSql(), countSqlParser.getCountParam());
+		CountSqlParser parser = new CountSqlParser(sql, param);
+
+		// System.err.println("countSQL:" + countSqlParser.getCountSql());
+		int totalCount = this.queryForInt(parser.getCountSql(), parser.getCountParam());
 
 		PagingImpl<T> paging = new PagingImpl<T>();
 		paging.setTotalCount(totalCount);
 		paging.setList(list);
+
+		if (parser.getSize() != null) {
+			paging.setPageSize(parser.getSize());
+		}
 		return paging;
 	}
 
 	@Override
 	public <T> Paging<T> queryForPaging(String sql, Class<T> elementType, StatementParameter param) {
 		List<T> list = this.queryForList(sql, elementType, param);
-		CountSqlParser countSqlParser = new CountSqlParser(sql, param);
-		int totalCount = this.queryForInt(countSqlParser.getCountSql(), countSqlParser.getCountParam());
+		CountSqlParser parser = new CountSqlParser(sql, param);
+		int totalCount = this.queryForInt(parser.getCountSql(), parser.getCountParam());
 
 		PagingImpl<T> paging = new PagingImpl<T>();
 		paging.setTotalCount(totalCount);
 		paging.setList(list);
+		if (parser.getSize() != null) {
+			paging.setPageSize(parser.getSize());
+		}
 		return paging;
 	}
 
@@ -620,6 +627,9 @@ public class JdbcMysqlImpl implements Jdbc {
 		PagingImpl<T> paging = new PagingImpl<T>();
 		paging.setTotalCount(totalCount);
 		paging.setList(list);
+
+		paging.setPageSize(size);
+
 		return paging;
 	}
 
