@@ -101,6 +101,7 @@ public class PagingImpl<E> implements Paging<E> {
 	@Override
 	public Integer getPageCount() {
 		if (pageCount == null && pageSize != null && totalCount != null) {
+			// TODO ahai 代码未测试
 			int diff = (totalCount % pageSize);
 			int pageCount = totalCount / pageSize;
 			if (diff > 0) {
