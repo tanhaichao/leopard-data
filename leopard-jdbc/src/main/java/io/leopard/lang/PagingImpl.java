@@ -100,6 +100,14 @@ public class PagingImpl<E> implements Paging<E> {
 
 	@Override
 	public Integer getPageCount() {
+		if (pageCount == null && pageSize != null && totalCount != null) {
+			int diff = (totalCount % pageSize);
+			int pageCount = totalCount / pageSize;
+			if (diff > 0) {
+				pageCount++;
+			}
+			return pageCount;
+		}
 		return this.pageCount;
 	}
 
