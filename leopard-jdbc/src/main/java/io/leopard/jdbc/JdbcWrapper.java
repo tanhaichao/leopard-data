@@ -250,8 +250,7 @@ public class JdbcWrapper implements Jdbc {
 
 	@Override
 	public boolean insertForBoolean(InsertBuilder builder) {
-		// TODO Auto-generated method stub
-		return false;
+		return this.jdbc.insertForBoolean(builder);
 	}
 
 	@Override
