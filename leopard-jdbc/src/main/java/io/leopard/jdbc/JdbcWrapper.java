@@ -250,7 +250,7 @@ public class JdbcWrapper implements Jdbc {
 
 	@Override
 	public boolean insertForBoolean(InsertBuilder builder) {
-		return this.jdbc.insertForBoolean(builder);
+		return this.getJdbc().insertForBoolean(builder);
 	}
 
 	@Override
