@@ -227,9 +227,8 @@ public class JdbcMysqlImpl implements Jdbc {
 	@Override
 	public Long queryForLong(String sql) {
 		try {
-			@SuppressWarnings("deprecation")
-			long result = this.getJdbcTemplate().queryForLong(sql);
-			return result;
+			Number number = this.getJdbcTemplate().queryForObject(sql, Long.class);
+			return (number != null ? number.longValue() : 0);
 		}
 		catch (EmptyResultDataAccessException e) {
 			return null;
@@ -241,9 +240,8 @@ public class JdbcMysqlImpl implements Jdbc {
 		Object[] args = param.getArgs();
 		int[] argTypes = param.getArgTypes();
 		try {
-			@SuppressWarnings("deprecation")
-			long result = this.getJdbcTemplate().queryForLong(sql, args, argTypes);
-			return result;
+			Number number = this.getJdbcTemplate().queryForObject(sql, args, argTypes, Long.class);
+			return (number != null ? number.longValue() : 0);
 		}
 		catch (EmptyResultDataAccessException e) {
 			return null;
@@ -375,7 +373,8 @@ public class JdbcMysqlImpl implements Jdbc {
 	/**
 	 * 将参数列表转成StatementParameter.
 	 * 
-	 * @param params 参数列表
+	 * @param params
+	 *            参数列表
 	 * @return 转换后的StatementParameter
 	 */
 	@SuppressWarnings("rawtypes")
