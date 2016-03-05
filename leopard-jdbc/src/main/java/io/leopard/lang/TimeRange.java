@@ -19,6 +19,14 @@ public class TimeRange {
 	 */
 	private Date endTime;
 
+	public TimeRange() {
+	}
+
+	public TimeRange(Date startTime, Date endTime) {
+		this.startTime = startTime;
+		this.endTime = endTime;
+	}
+
 	public Date getStartTime() {
 		return startTime;
 	}
