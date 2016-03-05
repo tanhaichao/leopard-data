@@ -45,9 +45,18 @@ public class QueryBuilder {
 		StringBuilder where = new StringBuilder();
 		sb.append("select * from " + tableName);
 		if (this.range != null) {
-			where.append(this.rangeFieldName + ">=? and " + this.rangeFieldName + "<?");
-			param.setDate(range.getStartTime());
-			param.setDate(range.getEndTime());
+			if (range.getStartTime() != null) {
+				where.append(this.rangeFieldName + ">=?");
+				param.setDate(range.getStartTime());
+			}
+
+			if (range.getEndTime() != null) {
+				if (where.length() > 0) {
+					where.append(" and ");
+				}
+				where.append(this.rangeFieldName + "<?");
+				param.setDate(range.getEndTime());
+			}
 		}
 
 		if (where.length() > 0) {
