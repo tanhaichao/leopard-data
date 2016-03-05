@@ -118,7 +118,7 @@ public class CountRankTimeBucketImpl implements CountRank {
 
 			@Override
 			public Period getPeriod() {
-				return new PerHourPeriod(0);
+				return new PerHourPeriod(0);// TODO ahai 这有问题
 			}
 
 			@Override
@@ -169,7 +169,7 @@ public class CountRankTimeBucketImpl implements CountRank {
 
 	protected void rollTimeBucket() {
 		List<String> keyList = this.keys(new Date());
-		String[] keys = new String[keyList.size() - 1 - 20];
+		String[] keys = new String[keyList.size() - 1];
 		for (int i = 0; i < keys.length; i++) {
 			keys[i] = key + ":" + keyList.get(i);
 		}
@@ -191,7 +191,7 @@ public class CountRankTimeBucketImpl implements CountRank {
 		redis.del(key + ":" + expiredKey);
 	}
 
-	protected List<String> keys(Date date) {
+	public List<String> keys(Date date) {
 		if (timeBucket.equals(TimeBucket.HOUR)) {
 			return new TimeBucketKeysHourImpl().keys(date);
 		}
@@ -229,7 +229,7 @@ public class CountRankTimeBucketImpl implements CountRank {
 			Calendar cal = Calendar.getInstance();
 			cal.setTime(date);
 			List<String> list = new ArrayList<String>();
-			for (int i = 0; i <= 24; i++) {
+			for (int i = 0; i <= 48; i++) {
 				String key = getTimeBucketKey(TimeBucket.DAY, cal.getTime());
 				list.add(key);
 				cal.add(Calendar.HOUR, -1);
