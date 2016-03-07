@@ -96,7 +96,7 @@ public class QueryBuilder {
 			if (rangeSQL.length() > 0) {
 				where.append(rangeSQL);
 			}
-			String whereSQL = this.getRangeSQL(param);
+			String whereSQL = this.getWhereSQL(param);
 			if (whereSQL.length() > 0) {
 				if (where.length() > 0) {
 					where.append(" and ");
