@@ -1,5 +1,9 @@
 package io.leopard.jdbc.builder;
 
+import java.util.LinkedHashMap;
+import java.util.Map;
+import java.util.Map.Entry;
+
 import io.leopard.jdbc.Jdbc;
 import io.leopard.jdbc.StatementParameter;
 import io.leopard.lang.Paging;
@@ -17,6 +21,8 @@ public class QueryBuilder {
 	private Integer limitStart;
 	private Integer limitSize;
 
+	private Map<String, Object> whereMap = new LinkedHashMap<String, Object>();
+
 	public QueryBuilder(String tableName) {
 		this.tableName = tableName;
 	}
@@ -24,6 +30,11 @@ public class QueryBuilder {
 	public QueryBuilder range(String fieldName, TimeRange range) {
 		this.rangeFieldName = fieldName;
 		this.range = range;
+		return this;
+	}
+
+	public QueryBuilder addWhere(String fieldName, String value) {
+		whereMap.put(fieldName, value);
 		return this;
 	}
 
@@ -38,37 +49,76 @@ public class QueryBuilder {
 		return this;
 	}
 
-	public <T> Paging<T> queryForPaging(Jdbc jdbc, Class<T> elementType) {
-		StatementParameter param = new StatementParameter();
-		StringBuilder sb = new StringBuilder();
-
-		StringBuilder where = new StringBuilder();
-		sb.append("select * from " + tableName);
+	protected String getRangeSQL(StatementParameter param) {
+		StringBuilder rangeSQL = new StringBuilder();
 		if (this.range != null) {
 			if (range.getStartTime() != null) {
-				where.append(this.rangeFieldName + ">=?");
+				rangeSQL.append(this.rangeFieldName + ">=?");
 				param.setDate(range.getStartTime());
 			}
 
 			if (range.getEndTime() != null) {
+				if (rangeSQL.length() > 0) {
+					rangeSQL.append(" and ");
+				}
+				rangeSQL.append(this.rangeFieldName + "<?");
+				param.setDate(range.getEndTime());
+			}
+		}
+
+		return rangeSQL.toString();
+	}
+
+	protected String getWhereSQL(StatementParameter param) {
+		StringBuilder whereSQL = new StringBuilder();
+		for (Entry<String, Object> entry : this.whereMap.entrySet()) {
+			String fieldName = entry.getKey();
+			Object value = entry.getValue();
+			if (whereSQL.length() > 0) {
+				whereSQL.append(" and ");
+			}
+			whereSQL.append(fieldName).append("=?");
+			param.setObject(value.getClass().getClass(), value);
+		}
+
+		return whereSQL.toString();
+	}
+
+	public <T> Paging<T> queryForPaging(Jdbc jdbc, Class<T> elementType) {
+		StatementParameter param = new StatementParameter();
+		StringBuilder sb = new StringBuilder();
+
+		sb.append("select * from " + tableName);
+		StringBuilder where = new StringBuilder();
+
+		{
+			String rangeSQL = this.getRangeSQL(param);
+			if (rangeSQL.length() > 0) {
+				where.append(rangeSQL);
+			}
+			String whereSQL = this.getRangeSQL(param);
+			if (whereSQL.length() > 0) {
 				if (where.length() > 0) {
 					where.append(" and ");
 				}
-				where.append(this.rangeFieldName + "<?");
-				param.setDate(range.getEndTime());
+				where.append(whereSQL);
 			}
+
 		}
 
 		if (where.length() > 0) {
 			sb.append(" where " + where.toString());
 		}
+
 		sb.append(" order by " + orderFieldName + " desc");
 
 		sb.append(" limit ?,?");
 		param.setInt(limitStart);
 		param.setInt(limitSize);
 
-		return jdbc.queryForPaging(sb.toString(), elementType, param);
+		String sql = sb.toString();
+		System.out.println("sql:" + sql);
+		return jdbc.queryForPaging(sql, elementType, param);
 
 	}
 
