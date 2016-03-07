@@ -78,7 +78,7 @@ public class QueryBuilder {
 				whereSQL.append(" and ");
 			}
 			whereSQL.append(fieldName).append("=?");
-			param.setObject(value.getClass().getClass(), value);
+			param.setObject(value.getClass(), value);
 		}
 
 		return whereSQL.toString();

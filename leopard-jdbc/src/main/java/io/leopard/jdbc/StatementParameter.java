@@ -86,19 +86,19 @@ public class StatementParameter {
 		if (type.equals(String.class)) {
 			this.setString((String) value);
 		}
-		else if (type.equals(Integer.class)) {
+		else if (type.equals(Integer.class) || type.equals(int.class)) {
 			this.setInt((Integer) value);
 		}
-		else if (type.equals(Long.class)) {
+		else if (type.equals(Long.class) || type.equals(long.class)) {
 			this.setLong((Long) value);
 		}
-		else if (type.equals(Float.class)) {
+		else if (type.equals(Float.class) || type.equals(float.class)) {
 			this.setFloat((Float) value);
 		}
-		else if (type.equals(Double.class)) {
+		else if (type.equals(Double.class) || type.equals(double.class)) {
 			this.setDouble((Double) value);
 		}
-		else if (type.equals(Boolean.class)) {
+		else if (type.equals(Boolean.class) || type.equals(boolean.class)) {
 			if (value instanceof Integer) {
 				int num = (Integer) value;
 				this.setBool(num == 1);
