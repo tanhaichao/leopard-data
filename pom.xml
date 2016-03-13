@@ -23,7 +23,7 @@
 		<dependencies>
 			<dependency>
 				<groupId>io.leopard</groupId>
-				<artifactId>autounit</artifactId>
+				<artifactId>autounit-core</artifactId>
 				<version>0.3-SNAPSHOT</version>
 				<scope>provided</scope>
 			</dependency>

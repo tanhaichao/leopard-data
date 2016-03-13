@@ -1,5 +1,12 @@
 package io.leopard.redis;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.Set;
+import java.util.concurrent.ConcurrentHashMap;
+
 import io.leopard.redis.memory.IRedisHashes;
 import io.leopard.redis.memory.IRedisList;
 import io.leopard.redis.memory.IRedisSet;
@@ -11,16 +18,6 @@ import io.leopard.redis.memory.RedisSetImpl;
 import io.leopard.redis.memory.RedisSortedSetImpl;
 import io.leopard.redis.memory.RedisStringImpl;
 import io.leopard.redis.util.IJedisPool;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.Set;
-import java.util.concurrent.ConcurrentHashMap;
-
-import org.springframework.util.StringUtils;
-
 import redis.clients.jedis.BinaryClient.LIST_POSITION;
 import redis.clients.jedis.BitPosParams;
 import redis.clients.jedis.GeoCoordinate;
@@ -209,7 +206,7 @@ public class RedisMemoryImpl implements Redis {
 	@Override
 	public String getrange(String key, long startOffset, long endOffset) {
 		String value = this.get(key);
-		if (StringUtils.isEmpty(value)) {
+		if (value == null || value.isEmpty()) {
 			return null;
 		}
 

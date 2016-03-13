@@ -1,15 +1,12 @@
 package io.leopard.redis;
 
-import io.leopard.redis.util.IJedisPool;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
-import org.springframework.util.StringUtils;
-
+import io.leopard.redis.util.IJedisPool;
 import redis.clients.jedis.BinaryClient.LIST_POSITION;
 import redis.clients.jedis.BitPosParams;
 import redis.clients.jedis.GeoCoordinate;
@@ -52,8 +49,7 @@ public class RedisHashImpl extends AbstractRedis implements Redis {
 
 	/**
 	 * 
-	 * @param hashType
-	 *            string,long,default,其他自定义实现类名.
+	 * @param hashType string,long,default,其他自定义实现类名.
 	 */
 	public void setHashType(String hashType) {
 		String className = getHashTypeClassName(hashType);
@@ -83,7 +79,7 @@ public class RedisHashImpl extends AbstractRedis implements Redis {
 		else if ("default".equalsIgnoreCase(hashType)) {
 			className = DefaultHashType.class.getName();
 		}
-		else if (StringUtils.isEmpty(hashType)) {
+		else if (hashType == null || hashType.isEmpty()) {
 			className = DefaultHashType.class.getName();
 		}
 		else {
