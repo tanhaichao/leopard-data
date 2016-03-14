@@ -61,6 +61,7 @@ public class ImageController {
 		response.setStatus(status);
 		response.setContentLength(contentLength);
 		response.setContentType(contentType);
+		response.setDateHeader("Expires", System.currentTimeMillis() + 1000 * 3600 * 1);
 
 		try {
 			ServletOutputStream out = response.getOutputStream();
