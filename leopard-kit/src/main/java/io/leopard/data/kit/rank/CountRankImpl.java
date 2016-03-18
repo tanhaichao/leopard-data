@@ -61,7 +61,7 @@ public abstract class CountRankImpl implements CountRank {
 
 	@Override
 	public List<String> listMembers(int start, int size) {
-		long end = start + size;
+		long end = start + size - 1;
 		Set<String> set = redis.zrevrange(getKey(new Date()), start, end);
 		if (set == null || set.isEmpty()) {
 			return null;
