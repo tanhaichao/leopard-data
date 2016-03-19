@@ -61,7 +61,7 @@ public class QueryBuilder {
 				if (rangeSQL.length() > 0) {
 					rangeSQL.append(" and ");
 				}
-				rangeSQL.append(this.rangeFieldName + "<?");
+				rangeSQL.append(this.rangeFieldName + "<=?");
 				param.setDate(range.getEndTime());
 			}
 		}
