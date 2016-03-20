@@ -325,26 +325,22 @@ public class JdbcWrapper implements Jdbc {
 
 	@Override
 	public <T> Paging<T> queryForPaging(String sql, Class<T> elementType) {
-		// TODO Auto-generated method stub
-		return null;
+		return this.getJdbc().queryForPaging(sql, elementType);
 	}
 
 	@Override
 	public <T> Paging<T> queryForPaging(String sql, Class<T> elementType, Object... params) {
-		// TODO Auto-generated method stub
-		return null;
+		return this.getJdbc().queryForPaging(sql, elementType, params);
 	}
 
 	@Override
 	public <T> Paging<T> queryForPaging(String sql, Class<T> elementType, StatementParameter param) {
-		// TODO Auto-generated method stub
-		return null;
+		return this.getJdbc().queryForPaging(sql, elementType, param);
 	}
 
 	@Override
 	public <T> Paging<T> queryForPaging(String sql, Class<T> elementType, StatementParameter param, int start, int size) {
-		// TODO Auto-generated method stub
-		return null;
+		return this.getJdbc().queryForPaging(sql, elementType, param, start, size);
 	}
 
 }
