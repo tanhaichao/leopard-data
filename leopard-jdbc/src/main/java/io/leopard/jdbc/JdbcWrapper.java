@@ -79,8 +79,7 @@ public class JdbcWrapper implements Jdbc {
 
 	@Override
 	public List<Map<String, Object>> queryForMaps(String sql) {
-		// TODO Auto-generated method stub
-		return null;
+		return this.getJdbc().queryForMaps(sql);
 	}
 
 	@Override
@@ -100,152 +99,127 @@ public class JdbcWrapper implements Jdbc {
 
 	@Override
 	public <T> List<T> queryForList(String sql, Class<T> elementType, StatementParameter param, int start, int size) {
-		// TODO Auto-generated method stub
-		return null;
+		return this.getJdbc().queryForList(sql, elementType, param, start, size);
 	}
 
 	@Override
 	public List<Long> queryForLongs(String sql, StatementParameter param) {
-		// TODO Auto-generated method stub
-		return null;
+		return this.getJdbc().queryForLongs(sql, param);
 	}
 
 	@Override
 	public List<Long> queryForLongs(String sql, StatementParameter param, int start, int size) {
-		// TODO Auto-generated method stub
-		return null;
+		return this.getJdbc().queryForLongs(sql, param, start, size);
 	}
 
 	@Override
 	public List<Integer> queryForInts(String sql, StatementParameter param) {
-		// TODO Auto-generated method stub
-		return null;
+		return this.getJdbc().queryForInts(sql, param);
 	}
 
 	@Override
 	public List<Integer> queryForInts(String sql, StatementParameter param, int start, int size) {
-		// TODO Auto-generated method stub
-		return null;
+		return this.getJdbc().queryForInts(sql, param, start, size);
 	}
 
 	@Override
 	public List<String> queryForStrings(String sql) {
-		// TODO Auto-generated method stub
-		return null;
+		return this.getJdbc().queryForStrings(sql);
 	}
 
 	@Override
 	public List<String> queryForStrings(String sql, int start, int size) {
-		// TODO Auto-generated method stub
-		return null;
+		return this.getJdbc().queryForStrings(sql, start, size);
 	}
 
 	@Override
 	public List<String> queryForStrings(String sql, StatementParameter param) {
-		// TODO Auto-generated method stub
-		return null;
+		return this.getJdbc().queryForStrings(sql, param);
 	}
 
 	@Override
 	public List<String> queryForStrings(String sql, StatementParameter param, int start, int size) {
-		// TODO Auto-generated method stub
-		return null;
+		return this.getJdbc().queryForStrings(sql, param, start, size);
 	}
 
 	@Override
 	public Long queryForLong(String sql) {
-		// TODO Auto-generated method stub
-		return null;
+		return this.getJdbc().queryForLong(sql);
 	}
 
 	@Override
 	public Long queryForLong(String sql, StatementParameter param) {
-		// TODO Auto-generated method stub
-		return null;
+		return this.getJdbc().queryForLong(sql, param);
 	}
 
 	@Override
 	public Long queryForLong(String sql, Object... params) {
-		// TODO Auto-generated method stub
-		return null;
+		return this.getJdbc().queryForLong(sql, params);
 	}
 
 	@Override
 	public Integer queryForInt(String sql) {
-		// TODO Auto-generated method stub
-		return null;
+		return this.getJdbc().queryForInt(sql);
 	}
 
 	@Override
 	public Integer queryForInt(String sql, StatementParameter param) {
-		// TODO Auto-generated method stub
-		return null;
+		return this.getJdbc().queryForInt(sql, param);
 	}
 
 	@Override
 	public Integer queryForInt(String sql, Object... params) {
-		// TODO Auto-generated method stub
-		return null;
+		return this.getJdbc().queryForInt(sql, params);
 	}
 
 	@Override
 	public Date queryForDate(String sql) {
-		// TODO Auto-generated method stub
-		return null;
+		return this.getJdbc().queryForDate(sql);
 	}
 
 	@Override
 	public Date queryForDate(String sql, StatementParameter param) {
-		// TODO Auto-generated method stub
-		return null;
+		return this.getJdbc().queryForDate(sql, param);
 	}
 
 	@Override
 	public String queryForString(String sql) {
-		// TODO Auto-generated method stub
-		return null;
+		return this.getJdbc().queryForString(sql);
 	}
 
 	@Override
 	public String queryForString(String sql, StatementParameter param) {
-		// TODO Auto-generated method stub
-		return null;
+		return this.getJdbc().queryForString(sql, param);
 	}
 
 	@Override
 	public boolean insertIgnoreForBoolean(InsertBuilder builder) {
-		// TODO Auto-generated method stub
-		return false;
+		return this.getJdbc().insertForBoolean(builder);
 	}
 
 	@Override
 	public boolean insertIgnoreForBoolean(ReplaceBuilder builder) {
-		// TODO Auto-generated method stub
-		return false;
+		return this.getJdbc().insertForBoolean(builder);
 	}
 
 	@Override
 	public boolean insertIgnoreForBoolean(String sql, StatementParameter param) {
-		// TODO Auto-generated method stub
-		return false;
+		return this.getJdbc().insertIgnoreForBoolean(sql, param);
 	}
 
 	@Override
 	public boolean insertForBoolean(String sql, StatementParameter param) {
-		// TODO Auto-generated method stub
-		return false;
+		return this.getJdbc().insertForBoolean(sql, param);
 	}
 
 	@Override
 	public boolean insertForBoolean(String sql, Object... params) {
-		// TODO Auto-generated method stub
-		return false;
+		return this.getJdbc().insertForBoolean(sql, params);
 	}
 
 	@Override
 	public Long incr(String sql, StatementParameter param) {
-		// TODO Auto-generated method stub
-		return null;
+		return this.getJdbc().incr(sql, param);
 	}
 
 	@Override
@@ -255,8 +229,7 @@ public class JdbcWrapper implements Jdbc {
 
 	@Override
 	public boolean insertForBoolean(ReplaceBuilder builder) {
-		// TODO Auto-generated method stub
-		return false;
+		return this.getJdbc().insertForBoolean(builder);
 	}
 
 	@Override
@@ -266,8 +239,7 @@ public class JdbcWrapper implements Jdbc {
 
 	@Override
 	public boolean updateForBoolean(String sql, StatementParameter param) {
-		// TODO Auto-generated method stub
-		return false;
+		return this.getJdbc().updateForBoolean(sql, param);
 	}
 
 	@Override
@@ -277,50 +249,42 @@ public class JdbcWrapper implements Jdbc {
 
 	@Override
 	public int update(SqlBuilder builder) {
-		// TODO Auto-generated method stub
-		return 0;
+		return this.getJdbc().update(builder);
 	}
 
 	@Override
 	public int update(String sql, StatementParameter param) {
-		// TODO Auto-generated method stub
-		return 0;
+		return this.getJdbc().update(sql, param);
 	}
 
 	@Override
 	public int update(String sql) {
-		// TODO Auto-generated method stub
-		return 0;
+		return this.getJdbc().update(sql);
 	}
 
 	@Override
 	public long insertForLastId(String sql, StatementParameter param) {
-		// TODO Auto-generated method stub
-		return 0;
+		return this.getJdbc().insertForLastId(sql, param);
 	}
 
 	@Override
 	public int[] batchUpdate(String[] sqls) {
-		// TODO Auto-generated method stub
-		return null;
+		return this.getJdbc().batchUpdate(sqls);
 	}
 
 	@Override
 	public boolean insert(String tableName, Object bean) {
-		// TODO Auto-generated method stub
-		return false;
+		return this.getJdbc().insert(tableName, bean);
 	}
 
 	@Override
 	public boolean insertByBean(String sql, Object bean) {
-		// TODO Auto-generated method stub
-		return false;
+		return this.getJdbc().insertByBean(sql, bean);
 	}
 
 	@Override
 	public boolean updateByBean(String sql, Object bean) {
-		// TODO Auto-generated method stub
-		return false;
+		return this.getJdbc().updateByBean(sql, bean);
 	}
 
 	@Override
