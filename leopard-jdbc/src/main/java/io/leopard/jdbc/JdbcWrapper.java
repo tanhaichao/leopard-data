@@ -307,4 +307,9 @@ public class JdbcWrapper implements Jdbc {
 		return this.getJdbc().queryForPaging(sql, elementType, param, start, size);
 	}
 
+	@Override
+	public List<Map<String, Object>> queryForMaps(String sql, Object... params) {
+		return this.getJdbc().queryForMaps(sql, params);
+	}
+
 }

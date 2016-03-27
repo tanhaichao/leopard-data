@@ -377,4 +377,9 @@ public class JdbcThreadImpl implements Jdbc {
 		return getJdbc().insert(tableName, bean);
 	}
 
+	@Override
+	public List<Map<String, Object>> queryForMaps(String sql, Object... params) {
+		return this.getJdbc().queryForMaps(sql, params);
+	}
+
 }
