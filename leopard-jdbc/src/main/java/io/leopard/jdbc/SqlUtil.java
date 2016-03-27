@@ -2,16 +2,15 @@ package io.leopard.jdbc;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 public class SqlUtil {
 
 	/**
 	 * 获取拼接参数后的sql.
 	 * 
-	 * @param sql
-	 *            sql
-	 * @param param
-	 *            参数列表
+	 * @param sql sql
+	 * @param param 参数列表
 	 * @return 拼接后的sql
 	 */
 	public static String getSQL(String sql, StatementParameter param) {
@@ -86,4 +85,60 @@ public class SqlUtil {
 		return sql;
 	}
 
+	/**
+	 * 对SQL语句进行转义
+	 * 
+	 * @param param SQL语句
+	 * @return 转义后的字符串
+	 */
+	public static String escapeSQLParam(final String param) {
+		int stringLength = param.length();
+		StringBuilder buf = new StringBuilder((int) (stringLength * 1.1));
+		for (int i = 0; i < stringLength; ++i) {
+			char c = param.charAt(i);
+			switch (c) {
+			case 0: /* Must be escaped for 'mysql' */
+				buf.append('\\');
+				buf.append('0');
+				break;
+			case '\n': /* Must be escaped for logs */
+				buf.append('\\');
+				buf.append('n');
+				break;
+			case '\r':
+				buf.append('\\');
+				buf.append('r');
+				break;
+			case '\\':
+				buf.append('\\');
+				buf.append('\\');
+				break;
+			case '\'':
+				buf.append('\\');
+				buf.append('\'');
+				break;
+			case '"': /* Better safe than sorry */
+				buf.append('\\');
+				buf.append('"');
+				break;
+			case '\032': /* This gives problems on Win32 */
+				buf.append('\\');
+				buf.append('Z');
+				break;
+			default:
+				buf.append(c);
+			}
+		}
+		return buf.toString();
+	}
+
+	public static String toIn(List<String> list) {
+		StringBuilder sb = new StringBuilder();
+		for (String str : list) {
+			str = escapeSQLParam(str);
+			sb.append("'" + str + "',");
+		}
+		sb.deleteCharAt(sb.length() - 1);
+		return sb.toString();
+	}
 }

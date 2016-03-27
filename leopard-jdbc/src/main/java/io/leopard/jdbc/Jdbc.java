@@ -61,10 +61,8 @@ public interface Jdbc {
 	/**
 	 * 输出组装装好的sql,log.info(sql).
 	 * 
-	 * @param sql
-	 *            未替换参数的sql
-	 * @param param
-	 *            参数对象
+	 * @param sql 未替换参数的sql
+	 * @param param 参数对象
 	 * @return 替换参数后的sql
 	 */
 	String printSQL(Log logger, String sql, StatementParameter param);
@@ -72,10 +70,8 @@ public interface Jdbc {
 	/**
 	 * 获得替换参数后的sql.
 	 * 
-	 * @param sql
-	 *            未替换参数的sql
-	 * @param param
-	 *            参数对象
+	 * @param sql 未替换参数的sql
+	 * @param param 参数对象
 	 * @return 替换参数后的sql
 	 */
 	String getSQL(String sql, StatementParameter param);
@@ -83,8 +79,7 @@ public interface Jdbc {
 	/**
 	 * 是否存在sql要查询的数据.
 	 * 
-	 * @param sql
-	 *            sql
+	 * @param sql sql
 	 * @return 如果存在返回true,不存在返回false.
 	 */
 	boolean exist(String sql);
@@ -92,10 +87,8 @@ public interface Jdbc {
 	/**
 	 * 是否存在sql要查询的数据.
 	 * 
-	 * @param sql
-	 *            未替换参数的sql
-	 * @param param
-	 *            参数对象
+	 * @param sql 未替换参数的sql
+	 * @param param 参数对象
 	 * @return 如果存在返回true,不存在返回false.
 	 */
 	boolean exist(String sql, StatementParameter param);
@@ -103,10 +96,8 @@ public interface Jdbc {
 	/**
 	 * 批量执行sql.
 	 * 
-	 * @param sql
-	 *            sql语句
-	 * @param setter
-	 *            需要实现BatchPreparedStatementSetter接口，有setValues，getBatchSize二个接口 . 具体可以参考spring接口.
+	 * @param sql sql语句
+	 * @param setter 需要实现BatchPreparedStatementSetter接口，有setValues，getBatchSize二个接口 . 具体可以参考spring接口.
 	 * @return 数组，返回形如[1,0,1]这样的数组。1表示成功，0表示失败.
 	 */
 	int[] batchUpdate(String sql, BatchPreparedStatementSetter setter);
@@ -115,8 +106,7 @@ public interface Jdbc {
 	 * 根据sql查询数据，返回elementType参数对象.
 	 * 
 	 * @param sql
-	 * @param elementType
-	 *            Class类型
+	 * @param elementType Class类型
 	 * @return 返回查询的单个对象
 	 */
 	<T> T query(String sql, Class<T> elementType);
@@ -125,10 +115,8 @@ public interface Jdbc {
 	 * 根据sql查询数据，返回elementType参数对象.
 	 * 
 	 * @param sql
-	 * @param elementType
-	 *            Class类型
-	 * @param param
-	 *            参数对象
+	 * @param elementType Class类型
+	 * @param param 参数对象
 	 * @return 返回查询的单个对象
 	 */
 	<T> T query(String sql, Class<T> elementType, StatementParameter param);
@@ -137,10 +125,8 @@ public interface Jdbc {
 	 * 根据sql查询数据，返回elementType参数对象.
 	 * 
 	 * @param sql
-	 * @param elementType
-	 *            Class类型
-	 * @param params
-	 *            参数列表
+	 * @param elementType Class类型
+	 * @param params 参数列表
 	 * @return 返回查询的单个对象
 	 */
 	<T> T query(String sql, Class<T> elementType, Object... params);
@@ -154,12 +140,18 @@ public interface Jdbc {
 	List<Map<String, Object>> queryForMaps(String sql);
 
 	/**
-	 * 根据sql查询数据.
+	 * 根据sql查询数据，返回Map对象的List.
 	 * 
 	 * @param sql
-	 *            查询数据的sql
-	 * @param elementType
-	 *            数据对应的model对象
+	 * @return List
+	 */
+	List<Map<String, Object>> queryForMaps(String sql, Object... params);
+
+	/**
+	 * 根据sql查询数据.
+	 * 
+	 * @param sql 查询数据的sql
+	 * @param elementType 数据对应的model对象
 	 * @return 查询的数据
 	 */
 
@@ -183,12 +175,9 @@ public interface Jdbc {
 	/**
 	 * 根据sql查询数据.
 	 * 
-	 * @param sql
-	 *            查询数据的sql
-	 * @param elementType
-	 *            数据对应的model对象
-	 * @param params
-	 *            参数列表
+	 * @param sql 查询数据的sql
+	 * @param elementType 数据对应的model对象
+	 * @param params 参数列表
 	 * @return 查询的数据
 	 */
 	<T> List<T> queryForList(String sql, Class<T> elementType, Object... params);
@@ -196,12 +185,9 @@ public interface Jdbc {
 	/**
 	 * 根据sql查询数据，返回elementType参数对象的List.
 	 * 
-	 * @param sql
-	 *            sql
-	 * @param elementType
-	 *            数据对应的model对象
-	 * @param param
-	 *            参数列表
+	 * @param sql sql
+	 * @param elementType 数据对应的model对象
+	 * @param param 参数列表
 	 * @return 查询的数据
 	 */
 	<T> List<T> queryForList(String sql, Class<T> elementType, StatementParameter param);
@@ -209,16 +195,11 @@ public interface Jdbc {
 	/**
 	 * 根据sql查询数据，返回elementType参数对象的List.
 	 * 
-	 * @param sql
-	 *            sql
-	 * @param elementType
-	 *            数据对应的model对象
-	 * @param param
-	 *            参数列表
-	 * @param start
-	 *            查询起点
-	 * @param size
-	 *            查询条数
+	 * @param sql sql
+	 * @param elementType 数据对应的model对象
+	 * @param param 参数列表
+	 * @param start 查询起点
+	 * @param size 查询条数
 	 * @return 查询的数据
 	 */
 	<T> List<T> queryForList(String sql, Class<T> elementType, StatementParameter param, int start, int size);
@@ -226,10 +207,8 @@ public interface Jdbc {
 	/**
 	 * 根据sql查询数据，返回Long的List.
 	 * 
-	 * @param sql
-	 *            sql
-	 * @param param
-	 *            参数列表
+	 * @param sql sql
+	 * @param param 参数列表
 	 * @return 查询的数据
 	 */
 	List<Long> queryForLongs(String sql, StatementParameter param);
@@ -237,14 +216,10 @@ public interface Jdbc {
 	/**
 	 * 根据sql查询数据，返回Long的List.
 	 * 
-	 * @param sql
-	 *            sql
-	 * @param param
-	 *            参数列表
-	 * @param start
-	 *            查询起点
-	 * @param size
-	 *            查询条数
+	 * @param sql sql
+	 * @param param 参数列表
+	 * @param start 查询起点
+	 * @param size 查询条数
 	 * @return 查询的数据
 	 */
 	List<Long> queryForLongs(String sql, StatementParameter param, int start, int size);
@@ -252,10 +227,8 @@ public interface Jdbc {
 	/**
 	 * 根据sql查询数据，返回Integer的List.
 	 * 
-	 * @param sql
-	 *            sql
-	 * @param param
-	 *            参数列表
+	 * @param sql sql
+	 * @param param 参数列表
 	 * @return 查询的数据
 	 */
 	List<Integer> queryForInts(String sql, StatementParameter param);
@@ -263,14 +236,10 @@ public interface Jdbc {
 	/**
 	 * 根据sql查询数据，返回Integer的List.
 	 * 
-	 * @param sql
-	 *            sql
-	 * @param param
-	 *            参数列表
-	 * @param start
-	 *            查询起点
-	 * @param size
-	 *            查询条数
+	 * @param sql sql
+	 * @param param 参数列表
+	 * @param start 查询起点
+	 * @param size 查询条数
 	 * @return 查询的数据
 	 */
 	List<Integer> queryForInts(String sql, StatementParameter param, int start, int size);
@@ -278,8 +247,7 @@ public interface Jdbc {
 	/**
 	 * 根据sql查询数据，返回String的List.
 	 * 
-	 * @param sql
-	 *            sql
+	 * @param sql sql
 	 * @return 查询的数据
 	 */
 	List<String> queryForStrings(String sql);
@@ -287,12 +255,9 @@ public interface Jdbc {
 	/**
 	 * 根据sql查询数据，返回String的List.
 	 * 
-	 * @param sql
-	 *            sql
-	 * @param start
-	 *            查询起点
-	 * @param size
-	 *            查询条数
+	 * @param sql sql
+	 * @param start 查询起点
+	 * @param size 查询条数
 	 * @return 查询的数据
 	 */
 	List<String> queryForStrings(String sql, int start, int size);
@@ -300,10 +265,8 @@ public interface Jdbc {
 	/**
 	 * 根据sql查询数据，返回String的List.
 	 * 
-	 * @param sql
-	 *            sql
-	 * @param param
-	 *            参数列表
+	 * @param sql sql
+	 * @param param 参数列表
 	 * @return 查询的数据
 	 */
 	List<String> queryForStrings(String sql, StatementParameter param);
@@ -311,14 +274,10 @@ public interface Jdbc {
 	/**
 	 * 根据sql查询数据，返回String的List.
 	 * 
-	 * @param sql
-	 *            sql
-	 * @param param
-	 *            参数列表
-	 * @param start
-	 *            查询起点
-	 * @param size
-	 *            查询条数
+	 * @param sql sql
+	 * @param param 参数列表
+	 * @param start 查询起点
+	 * @param size 查询条数
 	 * @return 查询的数据
 	 */
 	List<String> queryForStrings(String sql, StatementParameter param, int start, int size);
@@ -326,8 +285,7 @@ public interface Jdbc {
 	/**
 	 * 根据sql查询数据，返回long值.
 	 * 
-	 * @param sql
-	 *            sql
+	 * @param sql sql
 	 * @return 查询的数据
 	 */
 	Long queryForLong(String sql);
@@ -335,10 +293,8 @@ public interface Jdbc {
 	/**
 	 * 根据sql查询数据，返回long值.
 	 * 
-	 * @param sql
-	 *            sql
-	 * @param param
-	 *            参数列表
+	 * @param sql sql
+	 * @param param 参数列表
 	 * @return 查询的数据
 	 */
 	Long queryForLong(String sql, StatementParameter param);
@@ -346,10 +302,8 @@ public interface Jdbc {
 	/**
 	 * 根据sql查询数据，返回long值.
 	 * 
-	 * @param sql
-	 *            sql
-	 * @param params
-	 *            参数列表
+	 * @param sql sql
+	 * @param params 参数列表
 	 * @return 查询的数据
 	 */
 	Long queryForLong(String sql, Object... params);
@@ -357,8 +311,7 @@ public interface Jdbc {
 	/**
 	 * 根据sql查询数据，返回int值.
 	 * 
-	 * @param sql
-	 *            sql
+	 * @param sql sql
 	 * @return 查询的数据
 	 */
 	Integer queryForInt(String sql);
@@ -366,10 +319,8 @@ public interface Jdbc {
 	/**
 	 * 根据sql查询数据，返回int值.
 	 * 
-	 * @param sql
-	 *            sql
-	 * @param param
-	 *            params 参数列表
+	 * @param sql sql
+	 * @param param params 参数列表
 	 * @return 查询的数据
 	 */
 	Integer queryForInt(String sql, StatementParameter param);
@@ -377,10 +328,8 @@ public interface Jdbc {
 	/**
 	 * 根据sql查询数据，返回int值.
 	 * 
-	 * @param sql
-	 *            sql
-	 * @param params
-	 *            参数列表
+	 * @param sql sql
+	 * @param params 参数列表
 	 * @return 查询的数据
 	 */
 	Integer queryForInt(String sql, Object... params);
@@ -388,8 +337,7 @@ public interface Jdbc {
 	/**
 	 * 根据sql查询数据，返回Date对象.
 	 * 
-	 * @param sql
-	 *            sql
+	 * @param sql sql
 	 * @return 查询的数据
 	 */
 	java.util.Date queryForDate(String sql);
@@ -398,10 +346,8 @@ public interface Jdbc {
 	 * 
 	 * 根据sql查询数据，返回Date对象.
 	 * 
-	 * @param sql
-	 *            sql
-	 * @param param
-	 *            参数列表
+	 * @param sql sql
+	 * @param param 参数列表
 	 * @return 查询的数据
 	 */
 	java.util.Date queryForDate(String sql, StatementParameter param);
@@ -409,8 +355,7 @@ public interface Jdbc {
 	/**
 	 * 根据sql查询数据，返回String.
 	 * 
-	 * @param sql
-	 *            sql
+	 * @param sql sql
 	 * @return 查询的数据
 	 */
 	String queryForString(String sql);
@@ -418,10 +363,8 @@ public interface Jdbc {
 	/**
 	 * 根据sql查询数据，返回String.
 	 * 
-	 * @param sql
-	 *            sql
-	 * @param param
-	 *            参数列表
+	 * @param sql sql
+	 * @param param 参数列表
 	 * @return 查询的数据
 	 */
 	String queryForString(String sql, StatementParameter param);
@@ -429,8 +372,7 @@ public interface Jdbc {
 	/**
 	 * 执行insert，不抛出DuplicateKeyException.
 	 * 
-	 * @param builder
-	 *            InsertBuilder
+	 * @param builder InsertBuilder
 	 * @return 成功返回true，失败返回false
 	 */
 	@Deprecated
@@ -439,8 +381,7 @@ public interface Jdbc {
 	/**
 	 * 执行replace into，不抛出DuplicateKeyException.
 	 * 
-	 * @param builder
-	 *            ReplaceBuilder
+	 * @param builder ReplaceBuilder
 	 * @return 成功返回true，失败返回false
 	 */
 	@Deprecated
@@ -449,10 +390,8 @@ public interface Jdbc {
 	/**
 	 * 执行insert，不抛出DuplicateKeyException.
 	 * 
-	 * @param sql
-	 *            sql
-	 * @param param
-	 *            参数列表
+	 * @param sql sql
+	 * @param param 参数列表
 	 * @return 成功返回true，失败返回false
 	 */
 	// @Deprecated
@@ -461,10 +400,8 @@ public interface Jdbc {
 	/**
 	 * 执行insert.
 	 * 
-	 * @param sql
-	 *            sql
-	 * @param param
-	 *            参数列表
+	 * @param sql sql
+	 * @param param 参数列表
 	 * @return 成功返回true，失败返回false
 	 */
 	boolean insertForBoolean(String sql, StatementParameter param);
@@ -482,8 +419,7 @@ public interface Jdbc {
 	/**
 	 * 执行insert.
 	 * 
-	 * @param builder
-	 *            InsertBuilder
+	 * @param builder InsertBuilder
 	 * @return 成功返回true，失败返回false
 	 */
 	boolean insertForBoolean(InsertBuilder builder);
@@ -491,8 +427,7 @@ public interface Jdbc {
 	/**
 	 * 执行replace into.
 	 * 
-	 * @param builder
-	 *            ReplaceBuilder
+	 * @param builder ReplaceBuilder
 	 * @return 成功返回true，失败返回false
 	 */
 	boolean insertForBoolean(ReplaceBuilder builder);
@@ -500,10 +435,8 @@ public interface Jdbc {
 	/**
 	 * 执行update.
 	 * 
-	 * @param sql
-	 *            sql
-	 * @param params
-	 *            参数列表
+	 * @param sql sql
+	 * @param params 参数列表
 	 * @return 成功返回true，失败返回false
 	 */
 	boolean updateForBoolean(String sql, Object... params);
@@ -511,10 +444,8 @@ public interface Jdbc {
 	/**
 	 * 执行update.
 	 * 
-	 * @param sql
-	 *            sql
-	 * @param param
-	 *            参数列表
+	 * @param sql sql
+	 * @param param 参数列表
 	 * @return 成功返回true，失败返回false
 	 */
 	boolean updateForBoolean(String sql, StatementParameter param);
@@ -522,8 +453,7 @@ public interface Jdbc {
 	/**
 	 * 执行update.
 	 * 
-	 * @param builder
-	 *            SqlBuilder
+	 * @param builder SqlBuilder
 	 * @return 成功返回true，失败返回false
 	 */
 	boolean updateForBoolean(SqlBuilder builder);
@@ -531,8 +461,7 @@ public interface Jdbc {
 	/**
 	 * 执行update.
 	 * 
-	 * @param builder
-	 *            SqlBuilder
+	 * @param builder SqlBuilder
 	 * @return 返回更新成功的记录数
 	 */
 	int update(SqlBuilder builder);
@@ -540,10 +469,8 @@ public interface Jdbc {
 	/**
 	 * 执行update.
 	 * 
-	 * @param sql
-	 *            sql
-	 * @param param
-	 *            参数列表
+	 * @param sql sql
+	 * @param param 参数列表
 	 * @return 返回更新成功的记录数
 	 */
 	int update(String sql, StatementParameter param);
@@ -559,10 +486,8 @@ public interface Jdbc {
 	/**
 	 * 执行插入sql,并返回id.
 	 * 
-	 * @param sql
-	 *            要执行的sql
-	 * @param param
-	 *            参数对象
+	 * @param sql 要执行的sql
+	 * @param param 参数对象
 	 * @return 执行成功后的id.
 	 */
 	// @Deprecated
@@ -591,4 +516,5 @@ public interface Jdbc {
 	<T> Paging<T> queryForPaging(String sql, Class<T> elementType, StatementParameter param);
 
 	<T> Paging<T> queryForPaging(String sql, Class<T> elementType, StatementParameter param, int start, int size);
+
 }

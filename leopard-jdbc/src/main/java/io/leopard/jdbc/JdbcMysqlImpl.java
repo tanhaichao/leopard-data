@@ -102,10 +102,20 @@ public class JdbcMysqlImpl implements Jdbc {
 	}
 
 	@Override
-
 	public List<Map<String, Object>> queryForMaps(String sql) {
 		try {
 			List<Map<String, Object>> list = this.getJdbcTemplate().queryForList(sql);
+			return list;
+		}
+		catch (EmptyResultDataAccessException e) {
+			return null;
+		}
+	}
+
+	@Override
+	public List<Map<String, Object>> queryForMaps(String sql, Object... params) {
+		try {
+			List<Map<String, Object>> list = this.getJdbcTemplate().queryForList(sql, params);
 			return list;
 		}
 		catch (EmptyResultDataAccessException e) {
@@ -373,8 +383,7 @@ public class JdbcMysqlImpl implements Jdbc {
 	/**
 	 * 将参数列表转成StatementParameter.
 	 * 
-	 * @param params
-	 *            参数列表
+	 * @param params 参数列表
 	 * @return 转换后的StatementParameter
 	 */
 	@SuppressWarnings("rawtypes")
