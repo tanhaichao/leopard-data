@@ -7,7 +7,6 @@ import java.util.Map.Entry;
 import io.leopard.jdbc.Jdbc;
 import io.leopard.jdbc.LeopardBeanFactoryAware;
 import io.leopard.jdbc.builder.InsertBuilder;
-import io.leopard.json.Json;
 
 public class AgentnbTimeLogger {
 
