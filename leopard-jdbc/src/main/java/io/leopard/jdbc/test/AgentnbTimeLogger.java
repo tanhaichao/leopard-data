@@ -12,7 +12,7 @@ import io.leopard.json.Json;
 public class AgentnbTimeLogger {
 
 	public void save(Map<String, Long> timeMap) {
-		Json.printMap(timeMap, "AgentnbTimeLogger timeMap");
+		// Json.printMap(timeMap, "AgentnbTimeLogger timeMap");
 		Jdbc jdbc = LeopardBeanFactoryAware.getBeanFactory().getBean(Jdbc.class);
 		InsertBuilder builder = new InsertBuilder("agentnb_startup");
 		builder.setDate("posttime", new Date());
