@@ -4,10 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import io.leopard.jdbc.CountSqlParser;
 import io.leopard.jdbc.Jdbc;
 import io.leopard.jdbc.SqlUtil;
-import io.leopard.jdbc.StatementParameter;
+import io.leopard.json.Json;
 import io.leopard.lang.Paging;
 import io.leopard.lang.PagingImpl;
 
@@ -16,6 +15,7 @@ public class JoinBuilder {
 	private Integer limitSize;
 
 	private String sql;
+	private String totalSql;
 	private String tableName;
 	private String fieldName;
 
@@ -29,6 +29,11 @@ public class JoinBuilder {
 		return this;
 	}
 
+	public JoinBuilder total(String sql) {
+		this.totalSql = sql;
+		return this;
+	}
+
 	public JoinBuilder limit(int start, int size) {
 		this.limitStart = start;
 		this.limitSize = size;
@@ -39,24 +44,17 @@ public class JoinBuilder {
 		PagingImpl<T> paging = new PagingImpl<T>();
 		List<String> set = new ArrayList<String>();
 		{
-			StatementParameter param = new StatementParameter();
-			param.setInt(this.limitStart);
-			param.setInt(this.limitSize);
-			List<Map<String, Object>> list = jdbc.queryForMaps(sql, param);
+			List<Map<String, Object>> list = jdbc.queryForMaps(sql, limitStart, limitSize);
 			if (list != null) {
 				for (Map<String, Object> map : list) {
 					String value = map.get(this.fieldName).toString();
 					set.add(value);
 				}
 			}
-
-			CountSqlParser parser = new CountSqlParser(sql, param);
-			int totalCount = jdbc.queryForInt(parser.getCountSql(), parser.getCountParam());
+			// Json.printList(list, "list");
+			int totalCount = jdbc.queryForInt(totalSql);
 			paging.setTotalCount(totalCount);
-
-			if (parser.getSize() != null) {
-				paging.setPageSize(parser.getSize());
-			}
+			paging.setPageSize(limitSize);
 		}
 		if (!set.isEmpty()) {
 			String sql = "select * from " + tableName + " where " + this.fieldName + " in (" + SqlUtil.toIn(set) + ")";
