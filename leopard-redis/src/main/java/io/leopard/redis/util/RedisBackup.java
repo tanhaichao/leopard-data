@@ -7,7 +7,6 @@ import java.util.TimerTask;
 
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
-import org.springframework.util.StringUtils;
 
 import io.leopard.redis.Redis;
 
@@ -66,7 +65,7 @@ public class RedisBackup {
 	public Date getLastBackupTime() {
 		long time = System.currentTimeMillis();
 		String lastBackupTime = redis.getSet(KEY, Long.toString(time));
-		if (StringUtils.isEmpty(lastBackupTime)) {
+		if (lastBackupTime == null || lastBackupTime.length() == 0) {
 			return null;
 		}
 		long backupTime = Long.parseLong(lastBackupTime);

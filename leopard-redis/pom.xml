@@ -13,7 +13,6 @@
 		<dependency>
 			<groupId>redis.clients</groupId>
 			<artifactId>jedis</artifactId>
-			<version>2.8.0</version>
 		</dependency>
 		<dependency>
 			<groupId>commons-logging</groupId>
@@ -28,11 +27,6 @@
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
 			<scope>test</scope>
-		</dependency>
-		<dependency>
-			<groupId>io.leopard</groupId>
-			<artifactId>autounit-core</artifactId>
-			<scope>provided</scope>
 		</dependency>
 
 	</dependencies>
