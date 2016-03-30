@@ -1,9 +1,8 @@
 package io.leopard.jdbc;
 
-import io.leopard.jdbc.test.JdbcFactory;
-import io.leopard.lang.Paging;
-
 import org.junit.Test;
+
+import io.leopard.lang.Paging;
 
 public class JdbcMysqlImplTest {
 	// udb.jdbc.driverClass=org.gjt.mm.mysql.Driver

@@ -1,4 +1,4 @@
-package io.leopard.jdbc.test;
+package io.leopard.jdbc;
 
 import io.leopard.jdbc.JdbcMysqlImpl;
 import io.leopard.jdbc.MysqlDsnDataSource;
