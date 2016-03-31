@@ -14,6 +14,8 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.JdbcUtils;
 import org.springframework.util.Assert;
 
+import io.leopard.json.Json;
+
 public class LeopardBeanPropertyRowMapper<T> implements RowMapper<T> {
 
 	private Class<T> mappedClass;
