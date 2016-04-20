@@ -21,18 +21,7 @@
 
 	<dependencyManagement>
 		<dependencies>
-			<dependency>
-				<groupId>io.leopard</groupId>
-				<artifactId>autounit-core</artifactId>
-				<version>0.3-SNAPSHOT</version>
-				<scope>provided</scope>
-			</dependency>
-			<dependency>
-				<groupId>io.leopard</groupId>
-				<artifactId>autounit-web</artifactId>
-				<version>0.3-SNAPSHOT</version>
-				<scope>provided</scope>
-			</dependency>
+			
 		</dependencies>
 	</dependencyManagement>
 
