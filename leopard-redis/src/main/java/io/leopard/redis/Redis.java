@@ -13,6 +13,8 @@ import redis.clients.jedis.ZParams;
 /**
  * Redis接口.
  * 
+ * Redis操作.
+ * 
  * @category public
  * 
  * @author 阿海
