@@ -13,6 +13,8 @@ import redis.clients.jedis.ZParams;
 /**
  * Redis接口.
  * 
+ * @category public
+ * 
  * @author 阿海
  * 
  */
@@ -45,12 +47,9 @@ public interface Redis extends JedisCommands {
 	/**
 	 * 将value追加到key的末尾，若key不存在，则把key的值设为value，事务安全的.
 	 * 
-	 * @param key
-	 *            key
-	 * @param value
-	 *            value
-	 * @param seconds
-	 *            客户端超时时长
+	 * @param key key
+	 * @param value value
+	 * @param seconds 客户端超时时长
 	 * @return
 	 */
 	boolean append(String key, String value, int seconds);
@@ -58,10 +57,8 @@ public interface Redis extends JedisCommands {
 	/**
 	 * 将 key 改名为 newkey
 	 * 
-	 * @param oldkey
-	 *            旧key
-	 * @param newkey
-	 *            新key
+	 * @param oldkey 旧key
+	 * @param newkey 新key
 	 * @return
 	 */
 	boolean rename(String oldkey, String newkey);
@@ -201,10 +198,8 @@ public interface Redis extends JedisCommands {
 	/**
 	 * 计算给定的一个或多个有序集的交集，并将该交集(结果集)储存到 dstkey.
 	 * 
-	 * @param dstkey
-	 *            结果集
-	 * @param sets
-	 *            有续集
+	 * @param dstkey 结果集
+	 * @param sets 有续集
 	 * @return
 	 */
 	Long zinterstore(String dstkey, final String... sets);
@@ -212,12 +207,9 @@ public interface Redis extends JedisCommands {
 	/**
 	 * 计算给定的一个或多个有序集的交集，将该交集(结果集)储存到 dstkey，并指定交集的结果集的聚合方式.
 	 * 
-	 * @param dstkey
-	 *            结果集
-	 * @param params
-	 *            聚合方式
-	 * @param sets
-	 *            有续集
+	 * @param dstkey 结果集
+	 * @param params 聚合方式
+	 * @param sets 有续集
 	 * @return
 	 */
 	Long zinterstore(final String dstkey, final ZParams params, final String... sets);
@@ -225,8 +217,7 @@ public interface Redis extends JedisCommands {
 	/**
 	 * 查找所有符合给定模式 pattern 的 key.
 	 * 
-	 * @param pattern
-	 *            模式
+	 * @param pattern 模式
 	 * @return
 	 */
 	Set<String> keys(String pattern);
@@ -354,8 +345,7 @@ public interface Redis extends JedisCommands {
 	/**
 	 * 根据给定的 sha1校验码，对缓存在服务器中的脚本进行求值.
 	 * 
-	 * @param script
-	 *            sha1 校验码
+	 * @param script sha1 校验码
 	 * @return
 	 */
 	Object evalsha(String script);
@@ -363,8 +353,7 @@ public interface Redis extends JedisCommands {
 	/**
 	 * 输入脚本进行求值.
 	 * 
-	 * @param script
-	 *            脚本
+	 * @param script 脚本
 	 * @return
 	 */
 	Object eval(String script);
@@ -372,12 +361,9 @@ public interface Redis extends JedisCommands {
 	/**
 	 * 输入脚本进行求值.
 	 * 
-	 * @param script
-	 *            脚本
-	 * @param keyCount
-	 *            键名参数的个数
-	 * @param params
-	 *            非键名参数的附加参数
+	 * @param script 脚本
+	 * @param keyCount 键名参数的个数
+	 * @param params 非键名参数的附加参数
 	 * @return
 	 */
 	Object eval(String script, int keyCount, String... params);
@@ -385,12 +371,9 @@ public interface Redis extends JedisCommands {
 	/**
 	 * 根据给定的sha1校验码，对缓存在服务器中的脚本进行求值.
 	 * 
-	 * @param sha1
-	 *            sha1校验码
-	 * @param keys
-	 *            键名参数
-	 * @param args
-	 *            非键名参数的附加参数
+	 * @param sha1 sha1校验码
+	 * @param keys 键名参数
+	 * @param args 非键名参数的附加参数
 	 * @return
 	 */
 	Object evalsha(String sha1, List<String> keys, List<String> args);
@@ -398,12 +381,9 @@ public interface Redis extends JedisCommands {
 	/**
 	 * 根据给定的sha1校验码，对缓存在服务器中的脚本进行求值.
 	 * 
-	 * @param sha1
-	 *            sha1校验码
-	 * @param keyCount
-	 *            键名参数的个数
-	 * @param params
-	 *            非键名参数的附加参数
+	 * @param sha1 sha1校验码
+	 * @param keyCount 键名参数的个数
+	 * @param params 非键名参数的附加参数
 	 * @return
 	 */
 	Object evalsha(String sha1, int keyCount, String... params);
@@ -418,8 +398,7 @@ public interface Redis extends JedisCommands {
 	/**
 	 * 对脚本进行求值，并返回对脚本进行sha1加密后的值.
 	 * 
-	 * @param script
-	 *            脚本
+	 * @param script 脚本
 	 * @return
 	 */
 	String evalReturnSha(String script);
@@ -427,10 +406,8 @@ public interface Redis extends JedisCommands {
 	/**
 	 * 判断脚本进行sha1加密后的值是否与给定的sha1校验码相同，相同则对脚本进行求值.
 	 * 
-	 * @param sha
-	 *            sha1校验码
-	 * @param script
-	 *            脚本
+	 * @param sha sha1校验码
+	 * @param script 脚本
 	 * @return
 	 */
 	Object evalAssertSha(String sha, String script);
