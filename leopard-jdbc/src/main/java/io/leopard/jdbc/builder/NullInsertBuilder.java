@@ -2,6 +2,12 @@ package io.leopard.jdbc.builder;
 
 import java.util.Date;
 
+/**
+ * 允许参数传递Null.
+ * 
+ * @author 阿海
+ *
+ */
 public class NullInsertBuilder extends InsertBuilder {
 
 	public NullInsertBuilder(String tableName) {
