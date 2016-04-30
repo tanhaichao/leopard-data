@@ -2,10 +2,14 @@ package io.leopard.jdbc.builder;
 
 import java.util.Date;
 
-public class NonNullUpdateBuilder extends UpdateBuilder {
+public class NullInsertBuilder extends InsertBuilder {
 
-	public NonNullUpdateBuilder(String tableName) {
+	public NullInsertBuilder(String tableName) {
 		super(tableName);
+	}
+
+	public NullInsertBuilder(String tableName, boolean insertIgnore) {
+		super(tableName, insertIgnore);
 	}
 
 	@Override
@@ -49,4 +53,5 @@ public class NonNullUpdateBuilder extends UpdateBuilder {
 			super.setString(fieldName, value);
 		}
 	}
+
 }
