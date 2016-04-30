@@ -2,20 +2,10 @@ package io.leopard.jdbc.builder;
 
 import java.util.Date;
 
-/**
- * 允许参数传递Null.
- * 
- * @author 阿海
- *
- */
-public class NullInsertBuilder extends InsertBuilder {
+public class NonNullUpdateBuilder extends UpdateBuilder {
 
-	public NullInsertBuilder(String tableName) {
+	public NonNullUpdateBuilder(String tableName) {
 		super(tableName);
-	}
-
-	public NullInsertBuilder(String tableName, boolean insertIgnore) {
-		super(tableName, insertIgnore);
 	}
 
 	@Override
@@ -59,5 +49,4 @@ public class NullInsertBuilder extends InsertBuilder {
 			super.setString(fieldName, value);
 		}
 	}
-
 }
