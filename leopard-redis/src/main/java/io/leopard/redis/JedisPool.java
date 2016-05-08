@@ -10,8 +10,16 @@ public class JedisPool extends io.leopard.jedis.JedisPool {
 
 	protected RedisConnectionListener redisConnectionListener;
 
+	// public JedisPool(final GenericObjectPoolConfig poolConfig, final String host, int port, int timeout, final String password) {
+	// public JedisPool(final GenericObjectPoolConfig poolConfig, final String host, int port, int timeout, final String password, final int database) {
+	// public JedisPool(final GenericObjectPoolConfig poolConfig, final String host, int port, int timeout, final String password, final int database, final String clientName) {
+
 	public JedisPool(final JedisPoolConfig poolConfig, final String host, final int port, final int timeout) {
-		super(poolConfig, host, port, timeout);
+		this(poolConfig, host, port, timeout, null);
+	}
+
+	public JedisPool(final JedisPoolConfig poolConfig, final String host, final int port, final int timeout, String password) {
+		super(poolConfig, host, port, timeout, password);
 		this.initRedisConnectionListener(poolConfig, host, port, timeout);
 
 		AbandonedConfig abandonedConfig = new AbandonedConfig();

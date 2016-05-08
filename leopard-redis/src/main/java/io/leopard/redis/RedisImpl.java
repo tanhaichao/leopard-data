@@ -43,6 +43,7 @@ public class RedisImpl extends AbstractRedis implements Redis {
 	private IJedisPool pool;
 
 	protected String server;
+	private String password;
 
 	public RedisImpl() {
 
@@ -59,12 +60,9 @@ public class RedisImpl extends AbstractRedis implements Redis {
 	/**
 	 * 构造redis客户端对象.
 	 * 
-	 * @param server
-	 *            服务器
-	 * @param maxActive
-	 *            连接池最大连接数
-	 * @param enableBackup
-	 *            是否开启备份
+	 * @param server 服务器
+	 * @param maxActive 连接池最大连接数
+	 * @param enableBackup 是否开启备份
 	 */
 	public RedisImpl(String server, int maxActive, int initialPoolSize, boolean enableBackup, String backupTime, int timeout) {
 		this.setServer(server);
@@ -77,6 +75,10 @@ public class RedisImpl extends AbstractRedis implements Redis {
 
 	public void setServer(String server) {
 		this.server = server;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 	private interface Invoker {
@@ -438,8 +440,7 @@ public class RedisImpl extends AbstractRedis implements Redis {
 	/**
 	 * 执行jedis的操作.
 	 * 
-	 * @param invoker
-	 *            调度接口
+	 * @param invoker 调度接口
 	 * @return
 	 */
 	protected Object execute(Invoker invoker) {
