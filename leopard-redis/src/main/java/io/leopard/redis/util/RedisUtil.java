@@ -30,7 +30,7 @@ public class RedisUtil {
 	 */
 	public static IJedisPool createJedisPool(String server, int timeout) {
 		int maxActive = 32;
-		return createJedisPool(server, timeout, maxActive);
+		return createJedisPool(server, timeout, maxActive, null);
 	}
 
 	/**
@@ -41,7 +41,7 @@ public class RedisUtil {
 	 * @param maxActive 最大连接数
 	 * @return
 	 */
-	public static IJedisPool createJedisPool(String server, int timeout, int maxActive) {
+	public static IJedisPool createJedisPool(String server, int timeout, int maxActive, String password) {
 		if (maxActive <= 0) {
 			maxActive = 128;
 		}
@@ -59,9 +59,10 @@ public class RedisUtil {
 			logger.error("redis server:" + server);
 			throw e;
 		}
-		String password = null;
-		if (serverInfo.length > 2) {
-			password = serverInfo[2].trim();
+		if (password == null || password.length() == 0) {
+			if (serverInfo.length > 2) {
+				password = serverInfo[2].trim();
+			}
 		}
 		// return new JedisPoolStatImpl(host, port, timeout, maxActive);
 		return new JedisPoolApacheImpl(host, port, timeout, maxActive, password);

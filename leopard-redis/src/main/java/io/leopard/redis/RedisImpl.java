@@ -43,6 +43,7 @@ public class RedisImpl extends AbstractRedis implements Redis {
 	private IJedisPool pool;
 
 	protected String server;
+	protected String password;
 
 	public RedisImpl() {
 
@@ -76,6 +77,10 @@ public class RedisImpl extends AbstractRedis implements Redis {
 		this.server = server;
 	}
 
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
 	private interface Invoker {
 		public Object execute(Jedis jedis);
 	}
@@ -85,7 +90,7 @@ public class RedisImpl extends AbstractRedis implements Redis {
 	public void init() {
 		// System.err.println("RedisImpl server:" + server);
 		try {
-			this.pool = RedisUtil.createJedisPool(server, timeout, maxActive);
+			this.pool = RedisUtil.createJedisPool(server, timeout, maxActive, password);
 		}
 		catch (RuntimeException e) {
 			System.err.println("server:" + server + " timeout:" + timeout);
