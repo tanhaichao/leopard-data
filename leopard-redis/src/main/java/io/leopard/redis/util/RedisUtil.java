@@ -28,9 +28,9 @@ public class RedisUtil {
 	 * @param timeout 超时时间
 	 * @return
 	 */
-	public static IJedisPool createJedisPool(String server, int timeout, String password) {
+	public static IJedisPool createJedisPool(String server, int timeout) {
 		int maxActive = 32;
-		return createJedisPool(server, timeout, maxActive, password);
+		return createJedisPool(server, timeout, maxActive);
 	}
 
 	/**
@@ -41,7 +41,7 @@ public class RedisUtil {
 	 * @param maxActive 最大连接数
 	 * @return
 	 */
-	public static IJedisPool createJedisPool(String server, int timeout, int maxActive, String password) {
+	public static IJedisPool createJedisPool(String server, int timeout, int maxActive) {
 		if (maxActive <= 0) {
 			maxActive = 128;
 		}
@@ -52,19 +52,17 @@ public class RedisUtil {
 		String[] serverInfo = server.split(":");
 		String host = serverInfo[0].trim();
 		int port;
-		if (serverInfo.length == 1) {
-			port = 6379;
+		try {
+			port = Integer.parseInt(serverInfo[1].trim());
 		}
-		else {
-			try {
-				port = Integer.parseInt(serverInfo[1].trim());
-			}
-			catch (NumberFormatException e) {
-				logger.error("redis server:" + server);
-				throw e;
-			}
+		catch (NumberFormatException e) {
+			logger.error("redis server:" + server);
+			throw e;
 		}
-
+		String password = null;
+		if (serverInfo.length > 2) {
+			password = serverInfo[2].trim();
+		}
 		// return new JedisPoolStatImpl(host, port, timeout, maxActive);
 		return new JedisPoolApacheImpl(host, port, timeout, maxActive, password);
 

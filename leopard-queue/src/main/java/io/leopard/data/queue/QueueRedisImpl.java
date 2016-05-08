@@ -37,7 +37,7 @@ public class QueueRedisImpl implements Queue, InitializingBean, DisposableBean {
 
 	@Override
 	public void afterPropertiesSet() throws Exception {
-		redis = new RedisImpl(server, 16, 1000 * 10, password);
+		redis = new RedisImpl(server, 16, 1000 * 10);
 		redis.init();
 	}
 

@@ -18,7 +18,6 @@ import javax.annotation.PreDestroy;
 public class MemcacheRedisImpl extends AbstractRedis implements Memcache {
 	protected Redis redis;
 	private String server;
-	private String password;
 
 	// public MemcacheRedisImpl() {
 	// new Exception().printStackTrace();
@@ -32,13 +31,6 @@ public class MemcacheRedisImpl extends AbstractRedis implements Memcache {
 		return server;
 	}
 
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
 
 	public Redis getRedis() {
 		return redis;
@@ -50,7 +42,7 @@ public class MemcacheRedisImpl extends AbstractRedis implements Memcache {
 		if (server == null || server.length() == 0) {
 			throw new IllegalArgumentException("属性server没有设置.");
 		}
-		this.redis = new RedisImpl(server, this.maxActive, this.initialPoolSize, false, this.timeout, password);
+		this.redis = new RedisImpl(server, this.maxActive, this.initialPoolSize, false, this.timeout);
 		redis.init();
 		// System.err.println("MemcacheRedisImpl.redis:" + this.redis);
 	}
