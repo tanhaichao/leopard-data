@@ -12,7 +12,7 @@ public class JedisPoolApacheImplTest {
 	public void JedisPoolApacheImpl() throws Exception {
 		JedisPool jedisPoolMock = Mockito.mock(JedisPool.class);
 
-		JedisPoolApacheImpl jedisPool = new JedisPoolApacheImpl("host", 6311, 3000, 16);
+		JedisPoolApacheImpl jedisPool = new JedisPoolApacheImpl("host", 6311, 3000, 16, null);
 		// LeopardMockito.setProperty(jedisPool, jedisPoolMock, "pool");
 		jedisPool.getResource();
 		jedisPool.returnBrokenResource(null);

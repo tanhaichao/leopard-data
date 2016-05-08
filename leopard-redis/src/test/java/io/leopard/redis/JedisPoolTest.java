@@ -18,7 +18,7 @@ public class JedisPoolTest {
 		String host = "172.17.1.236";
 		int port = 6311;
 		int timeout = 3000;
-		JedisPool pool = new JedisPool(poolConfig, host, port, timeout);
+		JedisPool pool = new JedisPool(poolConfig, host, port, timeout, null);
 		{
 			Jedis jedis = pool.getResource();
 			pool.returnBrokenResource(jedis);

@@ -24,29 +24,24 @@ public class RedisUtil {
 	/**
 	 * 创建连接池.
 	 * 
-	 * @param server
-	 *            服务器
-	 * @param timeout
-	 *            超时时间
+	 * @param server 服务器
+	 * @param timeout 超时时间
 	 * @return
 	 */
-	public static IJedisPool createJedisPool(String server, int timeout) {
+	public static IJedisPool createJedisPool(String server, int timeout, String password) {
 		int maxActive = 32;
-		return createJedisPool(server, timeout, maxActive);
+		return createJedisPool(server, timeout, maxActive, password);
 	}
 
 	/**
 	 * 创建连接池.
 	 * 
-	 * @param server
-	 *            服务器
-	 * @param timeout
-	 *            超时时间
-	 * @param maxActive
-	 *            最大连接数
+	 * @param server 服务器
+	 * @param timeout 超时时间
+	 * @param maxActive 最大连接数
 	 * @return
 	 */
-	public static IJedisPool createJedisPool(String server, int timeout, int maxActive) {
+	public static IJedisPool createJedisPool(String server, int timeout, int maxActive, String password) {
 		if (maxActive <= 0) {
 			maxActive = 128;
 		}
@@ -71,7 +66,7 @@ public class RedisUtil {
 		}
 
 		// return new JedisPoolStatImpl(host, port, timeout, maxActive);
-		return new JedisPoolApacheImpl(host, port, timeout, maxActive);
+		return new JedisPoolApacheImpl(host, port, timeout, maxActive, password);
 
 	}
 
@@ -100,10 +95,8 @@ public class RedisUtil {
 	/**
 	 * 判断key-value对List是否为空.
 	 * 
-	 * @param keyList
-	 *            key列表
-	 * @param valueList
-	 *            value列表
+	 * @param keyList key列表
+	 * @param valueList value列表
 	 * @return
 	 */
 	public static boolean checkList(List<String> keyList, List<String> valueList) {
@@ -124,8 +117,7 @@ public class RedisUtil {
 	/**
 	 * 返回AGGREGATE参数选项.
 	 * 
-	 * @param params
-	 *            参数
+	 * @param params 参数
 	 * @return
 	 */
 	public static ZParams.Aggregate getAggregate(ZParams params) {
@@ -142,8 +134,7 @@ public class RedisUtil {
 	/**
 	 * 返回WEIGHTS参数列表.
 	 * 
-	 * @param params
-	 *            参数
+	 * @param params 参数
 	 * @return
 	 */
 	public static List<Double> getWeights(ZParams params) {
@@ -201,8 +192,7 @@ public class RedisUtil {
 	/**
 	 * 将有序集转成List.
 	 * 
-	 * @param set
-	 *            有序集
+	 * @param set 有序集
 	 * @return
 	 */
 	public static List<Entry<String, Double>> toEntryList(Set<Tuple> set) {

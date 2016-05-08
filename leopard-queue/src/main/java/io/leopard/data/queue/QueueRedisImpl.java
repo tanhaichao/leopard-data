@@ -17,6 +17,7 @@ public class QueueRedisImpl implements Queue, InitializingBean, DisposableBean {
 	private RedisImpl redis;
 
 	protected String server;
+	protected String password;
 
 	public String getServer() {
 		return server;
@@ -26,9 +27,17 @@ public class QueueRedisImpl implements Queue, InitializingBean, DisposableBean {
 		this.server = server;
 	}
 
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
 	@Override
 	public void afterPropertiesSet() throws Exception {
-		redis = new RedisImpl(server, 16, 1000 * 10);
+		redis = new RedisImpl(server, 16, 1000 * 10, password);
 		redis.init();
 	}
 

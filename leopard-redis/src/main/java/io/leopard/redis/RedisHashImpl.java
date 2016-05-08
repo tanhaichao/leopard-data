@@ -102,7 +102,7 @@ public class RedisHashImpl extends AbstractRedis implements Redis {
 	}
 
 	protected Redis initRedis(String server) {
-		RedisImpl redis = new RedisImpl(server, maxActive, initialPoolSize, enableBackup, backupTime, timeout);
+		RedisImpl redis = new RedisImpl(server, maxActive, initialPoolSize, enableBackup, backupTime, timeout, null);// TODO ahai 没有Redis密码
 		redis.init();
 		return redis;
 

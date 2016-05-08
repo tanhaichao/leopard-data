@@ -14,7 +14,7 @@ public class NatureTimeRankRedisImplTest {
 	private NatureTimeRankRedisImpl natureTimeRankRedisImpl = new NatureTimeRankRedisImpl();
 
 	public NatureTimeRankRedisImplTest() {
-		Redis redis = RedisFactory.create("112.126.75.27:6311");
+		Redis redis = RedisFactory.create("112.126.75.27:6311", null);
 		natureTimeRankRedisImpl.setRedis(redis);
 		natureTimeRankRedisImpl.setKey("time_rank");
 		natureTimeRankRedisImpl.setNatureTime(NatureTimeRank.MINUTE_MILLIS);
@@ -29,7 +29,7 @@ public class NatureTimeRankRedisImplTest {
 		System.out.println("member count:" + this.natureTimeRankRedisImpl.count("shareId1"));
 		natureTimeRankRedisImpl.add("shareId2", "1", new Date());
 		System.out.println("member count:" + this.natureTimeRankRedisImpl.count("shareId2"));
-		
+
 		this.list();
 	}
 

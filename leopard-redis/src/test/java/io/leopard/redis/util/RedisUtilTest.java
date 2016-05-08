@@ -16,7 +16,7 @@ public class RedisUtilTest {
 
 	@Test
 	public void createJedisPool() {
-		Assert.assertNotNull(RedisUtil.createJedisPool("server", 10));
+		Assert.assertNotNull(RedisUtil.createJedisPool("server", 10, null));
 	}
 
 	@Test

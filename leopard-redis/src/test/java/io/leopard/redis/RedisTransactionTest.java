@@ -17,7 +17,7 @@ import redis.clients.jedis.Transaction;
  * 
  */
 public class RedisTransactionTest {
-	private RedisImpl redis = RedisFactory.create("113.108.228.100:6311");
+	private RedisImpl redis = RedisFactory.create("113.108.228.100:6311", null);
 
 	private String KEY_PREFIX = "prefix_";
 

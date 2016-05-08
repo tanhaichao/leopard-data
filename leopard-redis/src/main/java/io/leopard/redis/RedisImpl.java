@@ -49,12 +49,12 @@ public class RedisImpl extends AbstractRedis implements Redis {
 
 	}
 
-	public RedisImpl(String server, int maxActive, int timeout) {
-		this(server, maxActive, 0, false, timeout);
+	public RedisImpl(String server, int maxActive, int timeout, String password) {
+		this(server, maxActive, 0, false, timeout, password);
 	}
 
-	public RedisImpl(String server, int maxActive, int initialPoolSize, boolean enableBackup, int timeout) {
-		this(server, maxActive, initialPoolSize, enableBackup, "04:01", timeout);
+	public RedisImpl(String server, int maxActive, int initialPoolSize, boolean enableBackup, int timeout, String password) {
+		this(server, maxActive, initialPoolSize, enableBackup, "04:01", timeout, password);
 	}
 
 	/**
@@ -64,13 +64,14 @@ public class RedisImpl extends AbstractRedis implements Redis {
 	 * @param maxActive 连接池最大连接数
 	 * @param enableBackup 是否开启备份
 	 */
-	public RedisImpl(String server, int maxActive, int initialPoolSize, boolean enableBackup, String backupTime, int timeout) {
+	public RedisImpl(String server, int maxActive, int initialPoolSize, boolean enableBackup, String backupTime, int timeout, String password) {
 		this.setServer(server);
 		this.setMaxActive(maxActive);
 		this.setInitialPoolSize(initialPoolSize);
 		this.setEnableBackup(enableBackup);
 		this.setBackupTime(backupTime);
 		this.setTimeout(timeout);
+		this.setPassword(password);
 	}
 
 	public void setServer(String server) {
@@ -90,7 +91,7 @@ public class RedisImpl extends AbstractRedis implements Redis {
 	public void init() {
 		// System.err.println("RedisImpl server:" + server);
 		try {
-			this.pool = RedisUtil.createJedisPool(server, timeout, maxActive);
+			this.pool = RedisUtil.createJedisPool(server, timeout, maxActive, password);
 		}
 		catch (RuntimeException e) {
 			System.err.println("server:" + server + " timeout:" + timeout);

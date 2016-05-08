@@ -28,7 +28,7 @@ import redis.clients.jedis.ZParams;
 //@Ignore
 public class RedisImplTest {
 
-	private RedisImpl redis = RedisFactory.create("112.126.75.27:6311");
+	private RedisImpl redis = RedisFactory.create("112.126.75.27:6311", null);
 
 	private RedisImpl redisTransactionImpl = redis;
 	private final String key = "key";

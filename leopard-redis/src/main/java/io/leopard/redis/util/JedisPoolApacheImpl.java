@@ -7,7 +7,7 @@ import redis.clients.jedis.JedisPoolConfig;
 public class JedisPoolApacheImpl implements IJedisPool {
 	private JedisPool pool;
 
-	public JedisPoolApacheImpl(String host, int port, int timeout, int maxActive) {
+	public JedisPoolApacheImpl(String host, int port, int timeout, int maxActive, String password) {
 
 		JedisPoolConfig poolConfig = new JedisPoolConfig();
 		// poolConfig.setMaxActive(maxActive);
@@ -17,7 +17,7 @@ public class JedisPoolApacheImpl implements IJedisPool {
 		poolConfig.setMinEvictableIdleTimeMillis(-1);// ahai 20131024 已建立的连接不回收，高并发时建立连接会很耗资源
 		// poolConfig.setTimeBetweenEvictionRunsMillis(-1);
 
-		pool = new JedisPool(poolConfig, host, port, timeout);
+		pool = new JedisPool(poolConfig, host, port, timeout, password);
 		// System.err.println("pool:"+pool);
 	}
 

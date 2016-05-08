@@ -10,7 +10,7 @@ public class RedisFactoryTest {
 
 	@Test
 	public void create() throws Exception {
-		RedisImpl redis = RedisFactory.create("server");
+		RedisImpl redis = RedisFactory.create("server", null);
 		Assert.assertEquals("server", redis.getServerInfo());
 		// Assert.assertTrue(redis.equals(this.redis));
 	}
