@@ -31,7 +31,6 @@ public class MemcacheRedisImpl extends AbstractRedis implements Memcache {
 		return server;
 	}
 
-
 	public Redis getRedis() {
 		return redis;
 	}
