@@ -19,7 +19,7 @@ public class JedisPool extends io.leopard.jedis.JedisPool {
 	// }
 
 	public JedisPool(final JedisPoolConfig poolConfig, final String host, final int port, final int timeout, String password) {
-		super(poolConfig, host, port, timeout, password);
+		super(poolConfig, host, port, timeout, formatPassword(password));
 		this.initRedisConnectionListener(poolConfig, host, port, timeout);
 
 		AbandonedConfig abandonedConfig = new AbandonedConfig();
@@ -27,6 +27,16 @@ public class JedisPool extends io.leopard.jedis.JedisPool {
 		abandonedConfig.setRemoveAbandonedOnBorrow(true);
 		abandonedConfig.setRemoveAbandonedOnMaintenance(true);
 		internalPool.setAbandonedConfig(abandonedConfig);
+	}
+
+	protected static String formatPassword(String password) {
+		if (password == null) {
+			return null;
+		}
+		if (password.length() == 0) {
+			return null;
+		}
+		return password;
 	}
 
 	protected void initRedisConnectionListener(JedisPoolConfig poolConfig, String host, int port, int timeout) {
