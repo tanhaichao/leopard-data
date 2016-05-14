@@ -25,6 +25,9 @@ public class MongoImpl implements Mongo {
 	private String database;
 	private String collectionName;
 
+	// private String username;
+	// private String password;
+
 	private MongoClient client;
 	private DBCollection collection;
 	private DB db;
@@ -70,10 +73,13 @@ public class MongoImpl implements Mongo {
 		int port = Integer.parseInt(list[1]);
 		int connectTimeout = 1000 * 60;
 		MongoClientOptions options = new MongoClientOptions.Builder().connectTimeout(connectTimeout).build();
-
 		client = new MongoClient(new ServerAddress(host, port), options);
-
 		this.db = client.getDB(this.database);
+		// if (username != null && username.length() > 0) {
+		// if (password != null && password.length() > 0) {
+		// db.addUser(username, password.toCharArray());
+		// }
+		// }
 		this.collection = db.getCollection(collectionName);
 	}
 
