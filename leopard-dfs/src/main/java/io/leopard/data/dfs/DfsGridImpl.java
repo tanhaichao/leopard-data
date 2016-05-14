@@ -24,6 +24,9 @@ public class DfsGridImpl implements Dfs, InitializingBean, DisposableBean {
 
 	private String server;
 
+	private String username;
+	private String password;
+
 	private MongoClient client;
 
 	private GridFS fs;
@@ -40,6 +43,22 @@ public class DfsGridImpl implements Dfs, InitializingBean, DisposableBean {
 		this.server = server;
 	}
 
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
 	@Override
 	public void afterPropertiesSet() throws Exception {
 
@@ -52,6 +71,7 @@ public class DfsGridImpl implements Dfs, InitializingBean, DisposableBean {
 		return fs;
 	}
 
+	@SuppressWarnings("deprecation")
 	private synchronized GridFS loadGridFS() {
 		if (fs != null) {
 			return fs;
@@ -65,8 +85,13 @@ public class DfsGridImpl implements Dfs, InitializingBean, DisposableBean {
 
 		client = new MongoClient(new ServerAddress(host, port), options);
 
-		@SuppressWarnings("deprecation")
+		// @SuppressWarnings("deprecation")
 		DB db = client.getDB("dfs");
+		if (username != null && username.length() > 0) {
+			if (password != null && password.length() > 0) {
+				db.addUser(username, password.toCharArray());
+			}
+		}
 		return new GridFS(db, "fs");
 	}
 
