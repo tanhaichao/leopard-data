@@ -25,8 +25,8 @@ public class MongoImpl implements Mongo {
 	private String database;
 	private String collectionName;
 
-	// private String username;
-	// private String password;
+	private String username;
+	private String password;
 
 	private MongoClient client;
 	private DBCollection collection;
@@ -66,6 +66,22 @@ public class MongoImpl implements Mongo {
 		this.collectionName = collectionName;
 	}
 
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
 	@SuppressWarnings("deprecation")
 	public void init() {
 		String[] list = server.split(":");
@@ -75,11 +91,11 @@ public class MongoImpl implements Mongo {
 		MongoClientOptions options = new MongoClientOptions.Builder().connectTimeout(connectTimeout).build();
 		client = new MongoClient(new ServerAddress(host, port), options);
 		this.db = client.getDB(this.database);
-		// if (username != null && username.length() > 0) {
-		// if (password != null && password.length() > 0) {
-		// db.addUser(username, password.toCharArray());
-		// }
-		// }
+		if (username != null && username.length() > 0) {
+			if (password != null && password.length() > 0) {
+				db.addUser(username, password.toCharArray());
+			}
+		}
 		this.collection = db.getCollection(collectionName);
 	}
 
