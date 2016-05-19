@@ -64,7 +64,7 @@ public class RedisStringImpl implements IRedisString {
 	public Long incrBy(String key, long integer) {
 		String value = this.get(key);
 		// long num = NumberUtils.toLong(value);
-		long num = value == null ? Long.parseLong(value) : 0;
+		long num = value == null ? 0 : Long.parseLong(value);
 		num += integer;
 		this.set(key, Long.toString(num));
 		return num;

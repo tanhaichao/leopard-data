@@ -1,7 +1,5 @@
 package io.leopard.redis.memory;
 
-import io.leopard.redis.memory.RedisStringImpl;
-
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -54,6 +52,11 @@ public class RedisStringImplTest {
 
 	@Test
 	public void incrBy() {
+
+		RedisStringImpl redis = new RedisStringImpl();
+		redis.incrBy("key", 1);
+		Assert.assertEquals("1", redis.get("key"));
+
 	}
 
 	@Test
