@@ -8,6 +8,7 @@
 	<artifactId>leopard-mongo</artifactId>
 	<name>Leopard-Mongo</name>
 	<description>MongoDB操作，基于mongo-java-driver封装，简化MongoDB操作.</description>
+
 	<dependencies>
 		<dependency>
 			<groupId>org.mongodb</groupId>
