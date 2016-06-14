@@ -28,12 +28,12 @@
 			<dependency>
 				<groupId>io.leopard</groupId>
 				<artifactId>leopard-json</artifactId>
-				<version>${project.version}</version>
+				<version>${leopard.unified.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>io.leopard</groupId>
 				<artifactId>leopard-timer</artifactId>
-				<version>${project.version}</version>
+				<version>${leopard.unified.version}</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
