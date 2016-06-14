@@ -18,22 +18,19 @@
 		<connection>scm:svn:https://github.com/tanhaichao/leopard-data/trunk</connection>
 		<developerConnection>scm:svn:https://github.com/tanhaichao/leopard-data/trunk</developerConnection>
 	</scm>
-	
-	<properties>
-		<leopard.unified.version>${project.verion}</leopard.unified.version>
-	</properties>
+
 
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
 				<groupId>io.leopard</groupId>
 				<artifactId>leopard-json</artifactId>
-				<version>${leopard.unified.version}</version>
+				<version>${project.version}</version>
 			</dependency>
 			<dependency>
 				<groupId>io.leopard</groupId>
 				<artifactId>leopard-timer</artifactId>
-				<version>${leopard.unified.version}</version>
+				<version>${project.version}</version>
 			</dependency>
 		</dependencies>
 	</dependencyManagement>
