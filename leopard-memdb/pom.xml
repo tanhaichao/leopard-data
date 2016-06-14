@@ -3,7 +3,7 @@
 	<parent>
 		<groupId>io.leopard</groupId>
 		<artifactId>leopard-data-parent</artifactId>
-		<version>0.8</version>
+		<version>0.9-SNAPSHOT</version>
 	</parent>
 	<artifactId>leopard-memdb</artifactId>
 	<name>Leopard-Memdb</name>
@@ -21,7 +21,7 @@
 		<dependency>
 			<groupId>io.leopard</groupId>
 			<artifactId>leopard-redis</artifactId>
-			<version>0.8</version>
+			<version>0.9-SNAPSHOT</version>
 			<scope>provided</scope>
 		</dependency>
 
