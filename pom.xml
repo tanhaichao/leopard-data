@@ -10,7 +10,7 @@
 	<parent>
 		<groupId>io.leopard.depend</groupId>
 		<artifactId>depend</artifactId>
-		<version>0.5</version>
+		<version>0.6</version>
 	</parent>
 
 	<scm>
@@ -21,7 +21,7 @@
 
 	<dependencyManagement>
 		<dependencies>
-			
+
 		</dependencies>
 	</dependencyManagement>
 
@@ -36,5 +36,5 @@
 		<module>leopard-dfs</module>
 		<module>leopard-kit</module>
 	</modules>
-	
+
 </project>
