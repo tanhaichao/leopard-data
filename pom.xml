@@ -19,7 +19,10 @@
 		<developerConnection>scm:svn:https://github.com/tanhaichao/leopard-data/trunk</developerConnection>
 	</scm>
 
-
+	<properties>
+		<leopard.unified.version>${project.version}</leopard.unified.version>
+	</properties>
+	
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
