@@ -30,7 +30,6 @@
 		<dependency>
 			<groupId>io.leopard</groupId>
 			<artifactId>leopard-timer</artifactId>
-			<version>0.0.4-SNAPSHOT</version>
 		</dependency>
 	</dependencies>
 </project>
