@@ -35,7 +35,7 @@
 		<dependency>
 			<groupId>org.mongodb</groupId>
 			<artifactId>mongo-java-driver</artifactId>
-			<version>3.2.2</version>
+			<version>3.2.2</version><!--$NO-MVN-MAN-VER$-->
 		</dependency>
 
 		<dependency>
