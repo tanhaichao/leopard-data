@@ -3,7 +3,7 @@
 	<parent>
 		<groupId>io.leopard</groupId>
 		<artifactId>leopard-data-parent</artifactId>
-		<version>0.0.4-SNAPSHOT</version>
+		<version>0.8</version>
 	</parent>
 	<artifactId>leopard-dfs</artifactId>
 	<name>Leopard-Dfs</name>
@@ -51,7 +51,7 @@
 		<dependency>
 			<groupId>io.leopard</groupId>
 			<artifactId>leopard-jdbc</artifactId>
-			<version>0.0.4-SNAPSHOT</version>
+			<version>0.8</version>
 			<scope>provided</scope>
 		</dependency>
 		<dependency>
