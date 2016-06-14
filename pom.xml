@@ -2,7 +2,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>io.leopard</groupId>
 	<artifactId>leopard-data-parent</artifactId>
-	<version>0.9.5-SNAPSHOT</version>
+	<version>0.9.6</version>
 	<packaging>pom</packaging>
 	<name>Leopard-Data</name>
 	<description>MySQL、Memcached、Redis、Queue、MongoDB、内存数据库、Cache等</description>
@@ -14,9 +14,9 @@
 	</parent>
 
 	<scm>
-		<url>https://github.com/tanhaichao/leopard-data</url>
-		<connection>scm:svn:https://github.com/tanhaichao/leopard-data/trunk</connection>
-		<developerConnection>scm:svn:https://github.com/tanhaichao/leopard-data/trunk</developerConnection>
+		<url>https://github.com/tanhaichao/leopard-data/tags/leopard-data-0.9.6</url>
+		<connection>scm:svn:https://github.com/tanhaichao/leopard-data/tags/leopard-data-0.9.6</connection>
+		<developerConnection>scm:svn:https://github.com/tanhaichao/leopard-data/tags/leopard-data-0.9.6</developerConnection>
 	</scm>
 
 	<properties>
