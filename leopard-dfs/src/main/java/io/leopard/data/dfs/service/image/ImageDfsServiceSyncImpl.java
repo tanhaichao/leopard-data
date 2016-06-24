@@ -34,6 +34,7 @@ public class ImageDfsServiceSyncImpl implements ImageDfsService {
 
 	@Override
 	public String save(long uid, String folder, MultipartFile file, String sizeList) throws IOException {
+		// logger.info("save:" + file);
 		if (file == null || file.isEmpty()) {
 			return null;
 		}

@@ -2,10 +2,13 @@ package io.leopard.data.dfs;
 
 import java.io.IOException;
 
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.springframework.beans.factory.DisposableBean;
 import org.springframework.beans.factory.InitializingBean;
 
 public class DfsCacheImpl implements Dfs, InitializingBean, DisposableBean {
+	protected Log logger = LogFactory.getLog(this.getClass());
 
 	private DfsGridImpl dfsGridImpl;
 	private DfsFileImpl dfsFileImpl;
@@ -38,6 +41,7 @@ public class DfsCacheImpl implements Dfs, InitializingBean, DisposableBean {
 
 	@Override
 	public boolean create(String filename, byte[] data) {
+		// logger.info("create:" + filename);
 		dfsFileImpl.create(filename, data);
 		return dfsGridImpl.create(filename, data);
 	}

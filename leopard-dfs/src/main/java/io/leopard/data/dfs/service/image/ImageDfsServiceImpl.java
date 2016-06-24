@@ -2,7 +2,9 @@ package io.leopard.data.dfs.service.image;
 
 import java.io.IOException;
 
+import org.apache.commons.lang.SystemUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.util.SystemPropertyUtils;
 
 /**
  * 异步实现.
@@ -15,6 +17,9 @@ public class ImageDfsServiceImpl extends ImageDfsServiceSyncImpl {
 
 	@Override
 	public String save(final long uid, final String folder, final byte[] data, final String sizeList) throws IOException {
+		if (SystemUtils.IS_OS_WINDOWS) {
+			return super.save(uid, folder, data, sizeList);
+		}
 		final String uri = folder + uuid() + ".jpg";
 		logger.info("async save:" + uri);
 		new Thread() {
@@ -29,7 +34,7 @@ public class ImageDfsServiceImpl extends ImageDfsServiceSyncImpl {
 				}
 			};
 		}.start();
-//		saveByUri(uid, uri, data, sizeList);
+		// saveByUri(uid, uri, data, sizeList);
 		return uri;
 	}
 }
