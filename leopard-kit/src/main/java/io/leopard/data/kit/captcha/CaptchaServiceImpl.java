@@ -4,8 +4,11 @@ import java.util.Date;
 import java.util.UUID;
 
 import javax.annotation.PostConstruct;
+import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.util.Assert;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import io.leopard.core.exception.forbidden.CaptchaWrongException;
 import io.leopard.jdbc.Jdbc;
@@ -118,7 +121,17 @@ public class CaptchaServiceImpl implements CaptchaService {
 		}
 		content = content.replaceFirst("{captcha}", captcha);
 		// DebugUtil.setDebug(content);
+		this.debug(content);
 		return captcha;
+	}
+
+	private void debug(String content) {
+		ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+		if (attr == null) {
+			return;
+		}
+		HttpServletRequest request = attr.getRequest();
+		request.setAttribute("debug", content);
 	}
 
 	@Override
