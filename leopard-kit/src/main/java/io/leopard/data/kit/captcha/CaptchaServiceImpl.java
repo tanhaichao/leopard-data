@@ -114,6 +114,16 @@ public class CaptchaServiceImpl implements CaptchaService {
 	}
 
 	@Override
+	public String sendCaptcha(String account, String type, String target) {
+		return this.send(account, CaptchaCategory.CAPTCHA, type, target, "您的验证码:{captcha}");
+	}
+
+	@Override
+	public String sendSeccode(String account, String type, String target) {
+		return this.send(account, CaptchaCategory.SECCODE, type, target, "您的验证码:{captcha}");
+	}
+
+	@Override
 	public String sendCaptcha(String account, String type, String target, String content) {
 		return this.send(account, CaptchaCategory.CAPTCHA, type, target, content);
 	}

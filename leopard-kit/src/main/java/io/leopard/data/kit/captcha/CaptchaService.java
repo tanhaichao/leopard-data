@@ -28,4 +28,8 @@ public interface CaptchaService {
 
 	String sendSeccode(String account, String type, String target, String content);
 
+	String sendCaptcha(String account, String type, String target);
+
+	String sendSeccode(String account, String type, String target);
+
 }
