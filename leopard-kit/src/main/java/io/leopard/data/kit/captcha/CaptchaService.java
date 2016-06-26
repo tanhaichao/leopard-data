@@ -24,4 +24,8 @@ public interface CaptchaService {
 	 */
 	String send(String account, String category, String type, String target, String content);
 
+	String sendCaptcha(String account, String type, String target, String content);
+
+	String sendSeccode(String account, String type, String target, String content);
+
 }

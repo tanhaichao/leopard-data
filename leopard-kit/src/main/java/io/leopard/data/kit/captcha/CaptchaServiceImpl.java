@@ -112,4 +112,14 @@ public class CaptchaServiceImpl implements CaptchaService {
 		// DebugUtil.setDebug(content);
 		return captcha;
 	}
+
+	@Override
+	public String sendCaptcha(String account, String type, String target, String content) {
+		return this.send(account, CaptchaCategory.CAPTCHA, type, target, content);
+	}
+
+	@Override
+	public String sendSeccode(String account, String type, String target, String content) {
+		return this.send(account, CaptchaCategory.SECCODE, type, target, content);
+	}
 }
