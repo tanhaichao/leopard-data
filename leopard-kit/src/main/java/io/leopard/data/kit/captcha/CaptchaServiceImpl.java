@@ -119,7 +119,8 @@ public class CaptchaServiceImpl implements CaptchaService {
 			captcha = str.substring(str.length() - 4);
 			this.add(account, category, type, target, captcha);
 		}
-		content = content.replaceFirst("\\{captcha\\}", captcha);
+		content = content.replace("{captcha}", captcha);
+
 		// DebugUtil.setDebug(content);
 		this.httpDebug(content);
 		return captcha;
