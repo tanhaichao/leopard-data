@@ -77,7 +77,7 @@ public class CaptchaServiceImpl implements CaptchaService {
 		return captchaId;
 	}
 
-	protected String lastSecurityCode(String account, String category, String type, String target) {
+	protected String lastCaptcha(String account, String category, String type, String target) {
 		Captcha captcha = this.last(account, category, type, target);
 		if (captcha == null) {
 			return null;
@@ -100,4 +100,16 @@ public class CaptchaServiceImpl implements CaptchaService {
 		return captchaDao.updateUsed(captchaId, used);
 	}
 
+	@Override
+	public String send(String account, String category, String type, String target, String content) {
+		String captcha = lastCaptcha(account, category, type, target);
+		if (captcha == null) {
+			String str = Long.toString(System.nanoTime());
+			captcha = str.substring(str.length() - 4);
+			this.add(account, category, type, target, captcha);
+		}
+		content = content.replaceFirst("{captcha}", captcha);
+		// DebugUtil.setDebug(content);
+		return captcha;
+	}
 }
