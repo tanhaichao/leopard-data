@@ -113,6 +113,11 @@ public class CaptchaServiceImpl implements CaptchaService {
 
 	@Override
 	public String send(String account, String category, String type, String target, String content) {
+		Assert.hasText(account, "参数account不能为空");
+		Assert.hasText(category, "参数category不能为空");
+		Assert.hasText(type, "参数type不能为空");
+		Assert.hasText(target, "参数target不能为空");
+
 		String captcha = lastCaptcha(account, category, target);
 		if (captcha == null) {
 			String str = Long.toString(System.nanoTime());
