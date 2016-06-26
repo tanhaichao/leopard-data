@@ -5,8 +5,24 @@ import java.util.Date;
 public class Captcha {
 
 	private String captchaId;
+
 	private String account;
+
+	/**
+	 * 类别:图片、文字
+	 */
+	private String category;
+
+	/**
+	 * 类型:手机、邮件
+	 */
 	private String type;
+
+	/**
+	 * 在哪里使用
+	 */
+	private String target;
+
 	private String captcha;
 	private Date posttime;
 
@@ -58,6 +74,22 @@ public class Captcha {
 
 	public void setUsed(boolean used) {
 		this.used = used;
+	}
+
+	public String getCategory() {
+		return category;
+	}
+
+	public void setCategory(String category) {
+		this.category = category;
+	}
+
+	public String getTarget() {
+		return target;
+	}
+
+	public void setTarget(String target) {
+		this.target = target;
 	}
 
 }

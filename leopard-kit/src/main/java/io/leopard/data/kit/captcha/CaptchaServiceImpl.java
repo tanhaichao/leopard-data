@@ -18,16 +18,6 @@ public class CaptchaServiceImpl implements CaptchaService {
 
 	private Jdbc jdbc;
 
-	private String category;
-
-	public String getCategory() {
-		return category;
-	}
-
-	public void setCategory(String category) {
-		this.category = category;
-	}
-
 	public void setJdbc(Jdbc jdbc) {
 		this.jdbc = jdbc;
 	}
@@ -38,14 +28,13 @@ public class CaptchaServiceImpl implements CaptchaService {
 	public void init() {
 		CaptchaDaoMysqlImpl captchaDaoMysqlImpl = new CaptchaDaoMysqlImpl();
 		captchaDaoMysqlImpl.setJdbc(jdbc);
-		captchaDaoMysqlImpl.setCategory(category);
 		this.captchaDao = captchaDaoMysqlImpl;
 	}
 
 	@Override
-	public Captcha check(String account, String type, String captcha) throws CaptchaWrongException {
+	public Captcha check(String account, String category, String type, String target, String captcha) throws CaptchaWrongException {
 		// String securityCode2 = lastSecurityCode(mobile, type);
-		Captcha bean = this.last(account, type);
+		Captcha bean = this.last(account, category, type, target);
 		if (bean == null) {
 			// System.err.println("class:" + this);
 			throw new CaptchaWrongException(captcha);
@@ -57,7 +46,7 @@ public class CaptchaServiceImpl implements CaptchaService {
 	}
 
 	@Override
-	public String add(String account, String type, String captcha) {
+	public String add(String account, String category, String type, String target, String captcha) {
 		String captchaId = UUID.randomUUID().toString().replaceAll("-", "").toLowerCase();
 
 		Captcha bean = new Captcha();
@@ -72,8 +61,8 @@ public class CaptchaServiceImpl implements CaptchaService {
 		return captchaId;
 	}
 
-	protected String lastSecurityCode(String account, String type) {
-		Captcha captcha = this.last(account, type);
+	protected String lastSecurityCode(String account, String category, String type, String target) {
+		Captcha captcha = this.last(account, category, type, target);
 		if (captcha == null) {
 			return null;
 		}
@@ -81,8 +70,8 @@ public class CaptchaServiceImpl implements CaptchaService {
 	}
 
 	@Override
-	public Captcha last(String account, String type) {
-		return this.captchaDao.last(account, type);
+	public Captcha last(String account, String category, String type, String target) {
+		return this.captchaDao.last(account, category, type, target);
 	}
 
 	@Override

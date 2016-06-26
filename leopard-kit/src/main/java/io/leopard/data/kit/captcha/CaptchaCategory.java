@@ -1,6 +1,12 @@
 package io.leopard.data.kit.captcha;
 
-public class CaptchaType {
+/**
+ * 验证码类别(图片、文字)
+ * 
+ * @author 谭海潮
+ *
+ */
+public class CaptchaCategory {
 
 	/**
 	 * 图片验证码

@@ -10,8 +10,6 @@ public class CaptchaDaoMysqlImpl implements CaptchaDao {
 
 	private Jdbc jdbc;
 
-	private String category;
-
 	public Jdbc getJdbc() {
 		return jdbc;
 	}
@@ -20,20 +18,14 @@ public class CaptchaDaoMysqlImpl implements CaptchaDao {
 		this.jdbc = jdbc;
 	}
 
-	public String getCategory() {
-		return category;
-	}
-
-	public void setCategory(String category) {
-		this.category = category;
-	}
-
 	@Override
 	public boolean add(Captcha captcha) {
-		InsertBuilder builder = new InsertBuilder(category);
+		InsertBuilder builder = new InsertBuilder("captcha");
 
 		builder.setString("captchaId", captcha.getCaptchaId());
+		builder.setString("category", captcha.getCategory());
 		builder.setString("type", captcha.getType());
+		builder.setString("target", captcha.getTarget());
 		builder.setString("account", captcha.getAccount());
 		builder.setString("captcha", captcha.getCaptcha());
 		builder.setBool("used", captcha.isUsed());
@@ -43,14 +35,14 @@ public class CaptchaDaoMysqlImpl implements CaptchaDao {
 	}
 
 	@Override
-	public Captcha last(String account, String type) {
-		String sql = "select * from " + category + " where account=? and type=? and used=0 order by posttime desc limit 1";
-		return this.jdbc.query(sql, Captcha.class, account, type);
+	public Captcha last(String account, String category, String type, String target) {
+		String sql = "select * from captcha where account=? and category=? and type=? and target=? and used=0 order by posttime desc limit 1";
+		return this.jdbc.query(sql, Captcha.class, account, category, type, target);
 	}
 
 	@Override
 	public boolean updateUsed(String captchaId, boolean used) {
-		String sql = "update " + category + " set used=? where captchaId=?";
+		String sql = "update captcha set used=? where captchaId=?";
 		return this.jdbc.updateForBoolean(sql, used, captchaId);
 	}
 
