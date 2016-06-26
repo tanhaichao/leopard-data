@@ -34,7 +34,7 @@ public class CaptchaDaoMysqlImpl implements CaptchaDao {
 
 		builder.setString("captchaId", captcha.getCaptchaId());
 		builder.setString("type", captcha.getType());
-		builder.setString("mobile", captcha.getAccount());
+		builder.setString("account", captcha.getAccount());
 		builder.setString("captcha", captcha.getCaptcha());
 		builder.setBool("used", captcha.isUsed());
 		builder.setDate("posttime", captcha.getPosttime());
@@ -43,9 +43,9 @@ public class CaptchaDaoMysqlImpl implements CaptchaDao {
 	}
 
 	@Override
-	public Captcha last(String mobile, String type) {
-		String sql = "select * from " + category + " where mobile=? and type=? and used=0 order by posttime desc limit 1";
-		return this.jdbc.query(sql, Captcha.class, mobile, type);
+	public Captcha last(String account, String type) {
+		String sql = "select * from " + category + " where account=? and type=? and used=0 order by posttime desc limit 1";
+		return this.jdbc.query(sql, Captcha.class, account, type);
 	}
 
 	@Override
