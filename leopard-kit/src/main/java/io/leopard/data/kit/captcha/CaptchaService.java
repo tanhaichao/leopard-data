@@ -4,6 +4,13 @@ import io.leopard.core.exception.forbidden.CaptchaWrongException;
 
 public interface CaptchaService {
 
+	/**
+	 * 获取类别.
+	 * 
+	 * @return
+	 */
+	String getCategory();
+
 	String add(String email, String type, String captcha);
 
 	Captcha last(String email, String type);

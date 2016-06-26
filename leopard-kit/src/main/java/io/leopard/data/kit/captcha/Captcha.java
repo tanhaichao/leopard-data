@@ -5,7 +5,7 @@ import java.util.Date;
 public class Captcha {
 
 	private String captchaId;
-	private String mobile;
+	private String account;
 	private String type;
 	private String captcha;
 	private Date posttime;
@@ -20,12 +20,12 @@ public class Captcha {
 		this.captchaId = captchaId;
 	}
 
-	public String getMobile() {
-		return mobile;
+	public String getAccount() {
+		return account;
 	}
 
-	public void setMobile(String mobile) {
-		this.mobile = mobile;
+	public void setAccount(String account) {
+		this.account = account;
 	}
 
 	public String getType() {
