@@ -121,11 +121,11 @@ public class CaptchaServiceImpl implements CaptchaService {
 		}
 		content = content.replaceFirst("{captcha}", captcha);
 		// DebugUtil.setDebug(content);
-		this.debug(content);
+		this.httpDebug(content);
 		return captcha;
 	}
 
-	private void debug(String content) {
+	private void httpDebug(String content) {
 		ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
 		if (attr == null) {
 			return;
