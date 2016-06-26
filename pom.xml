@@ -22,12 +22,17 @@
 	<properties>
 		<leopard.unified.version>${project.version}</leopard.unified.version>
 	</properties>
-	
+
 	<dependencyManagement>
 		<dependencies>
 			<dependency>
 				<groupId>io.leopard</groupId>
 				<artifactId>leopard-json</artifactId>
+				<version>${leopard.unified.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>io.leopard</groupId>
+				<artifactId>leopard-exception</artifactId>
 				<version>${leopard.unified.version}</version>
 			</dependency>
 			<dependency>
