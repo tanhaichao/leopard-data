@@ -35,9 +35,9 @@ public class CaptchaDaoMysqlImpl implements CaptchaDao {
 	}
 
 	@Override
-	public Captcha last(String account, String category, String type, String target) {
-		String sql = "select * from captcha where account=? and category=? and type=? and target=? and used=0 order by posttime desc limit 1";
-		return this.jdbc.query(sql, Captcha.class, account, category, type, target);
+	public Captcha last(String account, String category, String target) {
+		String sql = "select * from captcha where account=? and category=? and target=? and used=0 order by posttime desc limit 1";
+		return this.jdbc.query(sql, Captcha.class, account, category, target);
 	}
 
 	@Override

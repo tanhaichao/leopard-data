@@ -6,11 +6,15 @@ public interface CaptchaService {
 
 	String add(String account, String category, String type, String target, String captcha);
 
-	Captcha last(String account, String category, String type, String target);
+	Captcha last(String account, String category, String target);
 
 	boolean updateUsed(String captchaId, boolean used);
 
-	Captcha check(String account, String category, String type, String target, String captcha) throws CaptchaWrongException;
+	Captcha check(String account, String category, String target, String captcha) throws CaptchaWrongException;
+
+	Captcha checkCaptcha(String account, String target, String captcha) throws CaptchaWrongException;
+
+	Captcha checkSeccode(String account, String target, String securityCode) throws CaptchaWrongException;
 
 	/**
 	 * 发送验证码
