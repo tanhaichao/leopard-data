@@ -5,6 +5,8 @@ import java.util.UUID;
 
 import javax.annotation.PostConstruct;
 
+import org.springframework.util.Assert;
+
 import io.leopard.core.exception.forbidden.CaptchaWrongException;
 import io.leopard.jdbc.Jdbc;
 
@@ -33,6 +35,12 @@ public class CaptchaServiceImpl implements CaptchaService {
 
 	@Override
 	public Captcha check(String account, String category, String type, String target, String captcha) throws CaptchaWrongException {
+		Assert.hasText(account, "参数account不能为空");
+		Assert.hasText(category, "参数category不能为空");
+		Assert.hasText(type, "参数type不能为空");
+		Assert.hasText(target, "参数target不能为空");
+		Assert.hasText(captcha, "参数captcha不能为空");
+
 		// String securityCode2 = lastSecurityCode(mobile, type);
 		Captcha bean = this.last(account, category, type, target);
 		if (bean == null) {
@@ -47,14 +55,22 @@ public class CaptchaServiceImpl implements CaptchaService {
 
 	@Override
 	public String add(String account, String category, String type, String target, String captcha) {
+		Assert.hasText(account, "参数account不能为空");
+		Assert.hasText(category, "参数category不能为空");
+		Assert.hasText(type, "参数type不能为空");
+		Assert.hasText(target, "参数target不能为空");
+		Assert.hasText(captcha, "参数captcha不能为空");
+
 		String captchaId = UUID.randomUUID().toString().replaceAll("-", "").toLowerCase();
 
 		Captcha bean = new Captcha();
 		bean.setCaptchaId(captchaId);
 		bean.setAccount(account);
+		bean.setCategory(category);
+		bean.setType(type);
+		bean.setTarget(target);
 		bean.setPosttime(new Date());
 		bean.setCaptcha(captcha);
-		bean.setType(type);
 		bean.setUsed(false);
 		captchaDao.add(bean);
 
@@ -71,11 +87,16 @@ public class CaptchaServiceImpl implements CaptchaService {
 
 	@Override
 	public Captcha last(String account, String category, String type, String target) {
+		Assert.hasText(account, "参数account不能为空");
+		Assert.hasText(category, "参数category不能为空");
+		Assert.hasText(type, "参数type不能为空");
+		Assert.hasText(target, "参数target不能为空");
 		return this.captchaDao.last(account, category, type, target);
 	}
 
 	@Override
 	public boolean updateUsed(String captchaId, boolean used) {
+		Assert.hasText(captchaId, "参数captchaId不能为空");
 		return captchaDao.updateUsed(captchaId, used);
 	}
 
