@@ -3,7 +3,7 @@ package io.leopard.data.kit.password;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-public class Sha1PasswordVerify implements PasswordVerify {
+public class Sha1PasswordVerifier implements PasswordVerifier {
 	protected Log logger = LogFactory.getLog(this.getClass());
 
 	@Override

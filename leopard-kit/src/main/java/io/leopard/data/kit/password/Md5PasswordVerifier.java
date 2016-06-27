@@ -2,7 +2,7 @@ package io.leopard.data.kit.password;
 
 import io.leopard.util.EncryptUtil;
 
-public class Md5PasswordVerify implements PasswordVerify {
+public class Md5PasswordVerifier implements PasswordVerifier {
 
 	@Override
 	public boolean verify(String username, String password, String salt, String dbPassword) {
