@@ -3,6 +3,8 @@ package io.leopard.data.kit.password;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.leopard.core.exception.forbidden.PasswordWrongException;
+
 public class PasswordVerifierImpl implements PasswordVerifier {
 
 	private PasswordVerifier[] passwordVerifiers;
@@ -17,13 +19,21 @@ public class PasswordVerifierImpl implements PasswordVerifier {
 	}
 
 	@Override
-	public boolean verify(String username, String password, String salt, String dbPassword) {
+	public boolean verify(String username, String password, String salt, String dbEncryptedPassword) {
 		for (PasswordVerifier verifier : passwordVerifiers) {
-			if (verifier.verify(username, password, salt, dbPassword)) {
+			if (verifier.verify(username, password, salt, dbEncryptedPassword)) {
 				return true;
 			}
 		}
 		return false;
+	}
+
+	@Override
+	public void check(String username, String password, String salt, String dbEncryptedPassword) throws PasswordWrongException {
+		boolean correctPassword = this.verify(username, password, salt, dbEncryptedPassword);
+		if (!correctPassword) {
+			throw new PasswordWrongException("密码[" + username + "]不正确.");
+		}
 	}
 
 }

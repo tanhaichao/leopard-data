@@ -1,5 +1,7 @@
 package io.leopard.data.kit.password;
 
+import io.leopard.core.exception.forbidden.PasswordWrongException;
+
 /**
  * 密码检验器.
  * 
@@ -8,5 +10,7 @@ package io.leopard.data.kit.password;
  */
 public interface PasswordVerifier {
 
-	boolean verify(String username, String password, String salt, String dbPassword);
+	boolean verify(String username, String password, String salt, String dbEncryptedPassword);
+
+	void check(String username, String password, String salt, String dbEncryptedPassword) throws PasswordWrongException;
 }
