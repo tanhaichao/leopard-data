@@ -25,4 +25,9 @@ public class Md5PasswordVerifier implements PasswordVerifier {
 		throw new NotImplementedException();
 	}
 
+	@Override
+	public String makeToken(String dbEncryptedPassword) {
+		throw new NotImplementedException();
+	}
+
 }

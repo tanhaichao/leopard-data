@@ -13,4 +13,7 @@ public interface PasswordVerifier {
 	boolean verify(String username, String password, String salt, String dbEncryptedPassword);
 
 	void check(String username, String password, String salt, String dbEncryptedPassword) throws PasswordWrongException;
+
+	String makeToken(String dbEncryptedPassword);
+
 }

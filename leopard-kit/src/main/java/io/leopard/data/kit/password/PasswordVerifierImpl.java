@@ -36,4 +36,9 @@ public class PasswordVerifierImpl implements PasswordVerifier {
 		}
 	}
 
+	@Override
+	public String makeToken(String dbEncryptedPassword) {
+		return PassportTokenUtil.makeToken(dbEncryptedPassword);
+	}
+
 }

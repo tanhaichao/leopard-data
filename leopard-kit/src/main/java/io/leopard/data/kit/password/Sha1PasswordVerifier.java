@@ -30,4 +30,9 @@ public class Sha1PasswordVerifier implements PasswordVerifier {
 		throw new NotImplementedException();
 	}
 
+	@Override
+	public String makeToken(String dbEncryptedPassword) {
+		throw new NotImplementedException();
+	}
+
 }
