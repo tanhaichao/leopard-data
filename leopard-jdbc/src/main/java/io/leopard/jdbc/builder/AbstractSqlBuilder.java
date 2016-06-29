@@ -15,10 +15,8 @@ public abstract class AbstractSqlBuilder implements SqlBuilder {
 	/**
 	 * 设置String类型参数.
 	 * 
-	 * @param fieldName
-	 *            参数名
-	 * @param value
-	 *            参数值
+	 * @param fieldName 参数名
+	 * @param value 参数值
 	 */
 	public void setString(String fieldName, String value) {
 		if (value == null) {
@@ -32,10 +30,8 @@ public abstract class AbstractSqlBuilder implements SqlBuilder {
 	/**
 	 * 设置List类型参数.
 	 * 
-	 * @param fieldName
-	 *            参数名
-	 * @param value
-	 *            参数值
+	 * @param fieldName 参数名
+	 * @param value 参数值
 	 */
 	public void setList(String fieldName, List<?> value) {
 		if (value == null) {
@@ -47,12 +43,25 @@ public abstract class AbstractSqlBuilder implements SqlBuilder {
 	}
 
 	/**
+	 * 设置List类型参数.
+	 * 
+	 * @param fieldName 参数名
+	 * @param value 参数值
+	 */
+	public void setObject(String fieldName, Object value) {
+		if (value == null) {
+			// list默认允许传入null
+			return;
+		}
+		fieldList.add(fieldName);
+		statementParameter.setObject(value);
+	}
+
+	/**
 	 * 设置Timestamp类型参数.
 	 * 
-	 * @param fieldName
-	 *            参数名
-	 * @param value
-	 *            参数值
+	 * @param fieldName 参数名
+	 * @param value 参数值
 	 */
 	public void setTimestamp(String fieldName, Timestamp value) {
 		if (value == null) {
@@ -78,10 +87,8 @@ public abstract class AbstractSqlBuilder implements SqlBuilder {
 	/**
 	 * 设置boolean类型参数.
 	 * 
-	 * @param fieldName
-	 *            参数名
-	 * @param value
-	 *            参数值
+	 * @param fieldName 参数名
+	 * @param value 参数值
 	 */
 	public void setBool(String fieldName, Boolean value) {
 		if (value == null) {
@@ -94,10 +101,8 @@ public abstract class AbstractSqlBuilder implements SqlBuilder {
 	/**
 	 * 设置int类型参数.
 	 * 
-	 * @param fieldName
-	 *            参数名
-	 * @param value
-	 *            参数值
+	 * @param fieldName 参数名
+	 * @param value 参数值
 	 */
 	public void setInt(String fieldName, Integer value) {
 		if (value == null) {
@@ -110,10 +115,8 @@ public abstract class AbstractSqlBuilder implements SqlBuilder {
 	/**
 	 * 设置Date类型参数.
 	 * 
-	 * @param fieldName
-	 *            参数名
-	 * @param value
-	 *            参数值
+	 * @param fieldName 参数名
+	 * @param value 参数值
 	 */
 	public void setDate(String fieldName, Date value) {
 		if (value == null) {
@@ -126,10 +129,8 @@ public abstract class AbstractSqlBuilder implements SqlBuilder {
 	/**
 	 * 设置long类型参数.
 	 * 
-	 * @param fieldName
-	 *            参数名
-	 * @param value
-	 *            参数值
+	 * @param fieldName 参数名
+	 * @param value 参数值
 	 */
 	public void setLong(String fieldName, Long value) {
 		if (value == null) {
@@ -150,10 +151,8 @@ public abstract class AbstractSqlBuilder implements SqlBuilder {
 	/**
 	 * 设置float类型参数.
 	 * 
-	 * @param fieldName
-	 *            参数名
-	 * @param value
-	 *            参数值
+	 * @param fieldName 参数名
+	 * @param value 参数值
 	 */
 	public void setFloat(String fieldName, Float value) {
 		if (value == null) {
@@ -166,10 +165,8 @@ public abstract class AbstractSqlBuilder implements SqlBuilder {
 	/**
 	 * 设置double类型参数.
 	 * 
-	 * @param fieldName
-	 *            参数名
-	 * @param value
-	 *            参数值
+	 * @param fieldName 参数名
+	 * @param value 参数值
 	 */
 	public void setDouble(String fieldName, Double value) {
 		if (value == null) {

@@ -156,6 +156,17 @@ public class StatementParameter {
 	}
 
 	/**
+	 * 设置Object类型参数.
+	 * 
+	 * @param value
+	 */
+	public void setObject(Object obj) {
+		this.checkNull(obj);
+		this.list.add(obj);
+		this.type.add(Object.class);
+	}
+
+	/**
 	 * 设置Boolean类型参数.
 	 * 
 	 * @param value

@@ -138,7 +138,9 @@ public class LeopardBeanPropertyRowMapper<T> implements RowMapper<T> {
 			}
 		}
 		else {
-			throw new SQLException("未知数据类型[" + requiredType.getName() + "].");
+			String json = rs.getString(index);
+			value = Json.toObject(json, requiredType);
+			// throw new SQLException("未知数据类型[" + requiredType.getName() + "].");
 		}
 		return value;
 	}
