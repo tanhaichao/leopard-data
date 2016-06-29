@@ -418,7 +418,8 @@ public class StatementParameter {
 			return value;
 		}
 		else {
-			throw new IllegalArgumentException("未知类型[" + type.getName() + "].");
+			// throw new IllegalArgumentException("未知类型[" + type.getName() + "].");
+			return value;
 		}
 	}
 
@@ -557,7 +558,8 @@ public class StatementParameter {
 			pstmt.setString(i, Json.toJson(value));
 		}
 		else {
-			throw new InvalidParamDataAccessException("未知参数类型[" + i + ":" + type.getName() + "].");
+			pstmt.setString(i, Json.toJson(value));
+			// throw new InvalidParamDataAccessException("未知参数类型[" + i + ":" + type.getName() + "].");
 		}
 	}
 }
