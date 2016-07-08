@@ -70,9 +70,7 @@ public class DfsGridImpl implements Dfs, InitializingBean, DisposableBean {
 
 		int connectTimeout = 1000 * 60;
 		MongoClientOptions options = new MongoClientOptions.Builder().connectTimeout(connectTimeout).build();
-
 		client = new MongoClient(new ServerAddress(host, port), options);
-
 		// @SuppressWarnings("deprecation")
 		DB db = client.getDB("dfs");
 		if (username != null && username.length() > 0) {

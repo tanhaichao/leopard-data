@@ -32,6 +32,7 @@ public class DfsFileImpl implements Dfs, InitializingBean, DisposableBean {
 	@Override
 	public byte[] read(String filename) throws IOException {
 		File file = new File(rootDir, filename);
+		logger.info("read:" + file.getAbsolutePath());
 		return FileUtils.readFileToByteArray(file);
 	}
 
