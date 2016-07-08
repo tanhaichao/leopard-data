@@ -2,9 +2,12 @@ package io.leopard.data.dfs.service.image;
 
 import java.io.IOException;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.apache.commons.lang.SystemUtils;
 import org.springframework.stereotype.Service;
-import org.springframework.util.SystemPropertyUtils;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 /**
  * 异步实现.
@@ -15,10 +18,29 @@ import org.springframework.util.SystemPropertyUtils;
 @Service
 public class ImageDfsServiceImpl extends ImageDfsServiceSyncImpl {
 
+	/**
+	 * 是否web环境
+	 * 
+	 * @return
+	 */
+	protected boolean isWeb() {
+		ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+		if (attributes == null) {
+			return false;
+		}
+		HttpServletRequest request = attributes.getRequest();
+		if (request == null) {
+			return false;
+		}
+		return true;
+	}
+
 	@Override
 	public String save(final long uid, final String folder, final byte[] data, final String sizeList) throws IOException {
 		if (SystemUtils.IS_OS_WINDOWS) {
-			return super.save(uid, folder, data, sizeList);
+			if (!this.isWeb()) {
+				return super.save(uid, folder, data, sizeList);
+			}
 		}
 		final String uri = folder + uuid() + ".jpg";
 		logger.info("async save:" + uri);
