@@ -23,6 +23,8 @@ public class QueryBuilder {
 
 	private Map<String, Object> whereMap = new LinkedHashMap<String, Object>();
 
+	private Map<String, String> likeMap = new LinkedHashMap<String, String>();
+
 	public QueryBuilder(String tableName) {
 		this.tableName = tableName;
 	}
@@ -35,6 +37,11 @@ public class QueryBuilder {
 
 	public QueryBuilder addWhere(String fieldName, String value) {
 		whereMap.put(fieldName, value);
+		return this;
+	}
+
+	public QueryBuilder addLike(String fieldName, String value) {
+		likeMap.put(fieldName, value);
 		return this;
 	}
 
@@ -84,6 +91,67 @@ public class QueryBuilder {
 		return whereSQL.toString();
 	}
 
+	protected String getLikeSQL(StatementParameter param) {
+		StringBuilder whereSQL = new StringBuilder();
+		for (Entry<String, String> entry : this.likeMap.entrySet()) {
+			String fieldName = entry.getKey();
+			String value = entry.getValue();
+			if (whereSQL.length() > 0) {
+				whereSQL.append(" and ");
+			}
+			whereSQL.append(fieldName).append("like '%" + escapeSQLParam(value) + "'%");
+		}
+
+		return whereSQL.toString();
+	}
+
+	/**
+	 * 对SQL语句进行转义
+	 * 
+	 * @param param SQL语句
+	 * @return 转义后的字符串
+	 */
+	private static String escapeSQLParam(final String param) {
+		int stringLength = param.length();
+		StringBuilder buf = new StringBuilder((int) (stringLength * 1.1));
+		for (int i = 0; i < stringLength; ++i) {
+			char c = param.charAt(i);
+			switch (c) {
+			case 0: /* Must be escaped for 'mysql' */
+				buf.append('\\');
+				buf.append('0');
+				break;
+			case '\n': /* Must be escaped for logs */
+				buf.append('\\');
+				buf.append('n');
+				break;
+			case '\r':
+				buf.append('\\');
+				buf.append('r');
+				break;
+			case '\\':
+				buf.append('\\');
+				buf.append('\\');
+				break;
+			case '\'':
+				buf.append('\\');
+				buf.append('\'');
+				break;
+			case '"': /* Better safe than sorry */
+				buf.append('\\');
+				buf.append('"');
+				break;
+			case '\032': /* This gives problems on Win32 */
+				buf.append('\\');
+				buf.append('Z');
+				break;
+			default:
+				buf.append(c);
+			}
+		}
+		return buf.toString();
+	}
+
 	public <T> Paging<T> queryForPaging(Jdbc jdbc, Class<T> elementType) {
 		StatementParameter param = new StatementParameter();
 		StringBuilder sb = new StringBuilder();
@@ -96,14 +164,24 @@ public class QueryBuilder {
 			if (rangeSQL.length() > 0) {
 				where.append(rangeSQL);
 			}
-			String whereSQL = this.getWhereSQL(param);
-			if (whereSQL.length() > 0) {
-				if (where.length() > 0) {
-					where.append(" and ");
+			{
+				String whereSQL = this.getWhereSQL(param);
+				if (whereSQL.length() > 0) {
+					if (where.length() > 0) {
+						where.append(" and ");
+					}
+					where.append(whereSQL);
 				}
-				where.append(whereSQL);
 			}
-
+			{
+				String whereSQL = this.getLikeSQL(param);
+				if (whereSQL.length() > 0) {
+					if (where.length() > 0) {
+						where.append(" and ");
+					}
+					where.append(whereSQL);
+				}
+			}
 		}
 
 		if (where.length() > 0) {
