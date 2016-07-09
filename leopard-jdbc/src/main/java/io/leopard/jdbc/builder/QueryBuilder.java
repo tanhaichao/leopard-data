@@ -195,7 +195,7 @@ public class QueryBuilder {
 		param.setInt(limitSize);
 
 		String sql = sb.toString();
-		// System.err.println("sql:" + sql);
+		System.err.println("sql:" + sql);
 		return jdbc.queryForPaging(sql, elementType, param);
 
 	}
