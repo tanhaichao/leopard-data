@@ -99,7 +99,7 @@ public class QueryBuilder {
 			if (whereSQL.length() > 0) {
 				whereSQL.append(" and ");
 			}
-			whereSQL.append(fieldName).append("like '%" + escapeSQLParam(value) + "'%");
+			whereSQL.append(fieldName).append(" like '%" + escapeSQLParam(value) + "%'");
 		}
 
 		return whereSQL.toString();
@@ -195,7 +195,7 @@ public class QueryBuilder {
 		param.setInt(limitSize);
 
 		String sql = sb.toString();
-		// System.out.println("sql:" + sql);
+		System.err.println("sql:" + sql);
 		return jdbc.queryForPaging(sql, elementType, param);
 
 	}
