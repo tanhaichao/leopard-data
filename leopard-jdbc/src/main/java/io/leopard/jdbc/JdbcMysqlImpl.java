@@ -423,7 +423,8 @@ public class JdbcMysqlImpl implements Jdbc {
 			// param.setString(((Month) p).toString());
 			// }
 			else {
-				throw new IllegalArgumentException("未知数据类型[" + p.getClass().getName() + "].");
+				param.setObject(p);
+				// throw new IllegalArgumentException("未知数据类型[" + p.getClass().getName() + "].");
 			}
 		}
 		return param;
