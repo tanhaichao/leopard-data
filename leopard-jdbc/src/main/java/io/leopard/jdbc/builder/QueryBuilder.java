@@ -35,7 +35,7 @@ public class QueryBuilder {
 		return this;
 	}
 
-	public QueryBuilder addWhere(String fieldName, String value) {
+	public QueryBuilder addWhere(String fieldName, Object value) {
 		whereMap.put(fieldName, value);
 		return this;
 	}
