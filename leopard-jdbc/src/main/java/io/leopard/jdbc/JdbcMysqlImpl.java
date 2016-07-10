@@ -332,6 +332,11 @@ public class JdbcMysqlImpl implements Jdbc {
 	}
 
 	@Override
+	public String queryForString(String sql, Object... params) {
+		return this.queryForString(sql, this.toStatementParameter(sql, params));
+	}
+
+	@Override
 	public String queryForString(String sql, StatementParameter param) {
 		Object[] args = param.getArgs();
 		int[] argTypes = param.getArgTypes();

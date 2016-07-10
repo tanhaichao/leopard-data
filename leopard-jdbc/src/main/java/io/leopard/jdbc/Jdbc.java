@@ -361,6 +361,15 @@ public interface Jdbc {
 	String queryForString(String sql);
 
 	/**
+	 * 根据sql查询数据，返回String值.
+	 * 
+	 * @param sql sql
+	 * @param params 参数列表
+	 * @return 查询的数据
+	 */
+	String queryForString(String sql, Object... params);
+
+	/**
 	 * 根据sql查询数据，返回String.
 	 * 
 	 * @param sql sql
