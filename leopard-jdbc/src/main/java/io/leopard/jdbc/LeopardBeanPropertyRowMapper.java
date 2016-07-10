@@ -15,6 +15,7 @@ import org.springframework.jdbc.support.JdbcUtils;
 import org.springframework.util.Assert;
 
 import io.leopard.json.Json;
+import io.leopard.json.JsonException;
 
 public class LeopardBeanPropertyRowMapper<T> implements RowMapper<T> {
 
@@ -139,7 +140,13 @@ public class LeopardBeanPropertyRowMapper<T> implements RowMapper<T> {
 		}
 		else {
 			String json = rs.getString(index);
-			value = Json.toObject(json, requiredType);
+			try {
+				value = Json.toObject(json, requiredType);
+			}
+			catch (JsonException e) {
+				System.err.println("JsonException fieldName:" + field.getName() + " " + requiredType.getName() + " json:" + json);
+				throw e;
+			}
 			// throw new SQLException("未知数据类型[" + requiredType.getName() + "].");
 		}
 		return value;
