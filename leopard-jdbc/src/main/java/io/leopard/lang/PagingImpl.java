@@ -5,7 +5,7 @@ import java.util.List;
 
 public class PagingImpl<E> implements Paging<E> {
 
-	private List<E> list = null;
+	private List<E> list = new ArrayList<E>();
 
 	private Boolean nextPage;// 是否有下一页
 	private Integer totalCount;// 记录总数
