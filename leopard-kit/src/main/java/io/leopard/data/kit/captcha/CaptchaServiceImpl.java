@@ -18,13 +18,13 @@ public class CaptchaServiceImpl implements CaptchaService {
 	 * 
 	 */
 
-	private Jdbc jdbc;
+	protected Jdbc jdbc;
 
 	public void setJdbc(Jdbc jdbc) {
 		this.jdbc = jdbc;
 	}
 
-	private CaptchaDao captchaDao;
+	protected CaptchaDao captchaDao;
 
 	@PostConstruct
 	public void init() {
@@ -96,6 +96,11 @@ public class CaptchaServiceImpl implements CaptchaService {
 
 	@Override
 	public Captcha last(String account, String category, String target) {
+		Jdbc jdbc = ((CaptchaDaoMysqlImpl) captchaDao).getJdbc();
+		if (jdbc == null) {
+			throw new NullPointerException("jdbc还没有初始化.");
+		}
+
 		Assert.hasText(account, "参数account不能为空");
 		Assert.hasText(category, "参数category不能为空");
 		Assert.hasText(target, "参数target不能为空");
