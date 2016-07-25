@@ -35,6 +35,12 @@ public class TokenServiceImpl implements TokenService {
 
 	@Override
 	public String add(String account, String category, String target, String token) {
+		Date expiryTime = new Date();
+		return this.add(account, category, target, token, expiryTime);
+	}
+
+	@Override
+	public String add(String account, String category, String target, String token, Date expiryTime) {
 		Assert.hasText(account, "参数account不能为空");
 		Assert.hasText(category, "参数category不能为空");
 		Assert.hasText(target, "参数target不能为空");
@@ -42,12 +48,15 @@ public class TokenServiceImpl implements TokenService {
 
 		String tokenId = UUID.randomUUID().toString().replaceAll("-", "").toLowerCase();
 
+		Date posttime = new Date();
 		Token bean = new Token();
 		bean.setTokenId(tokenId);
 		bean.setAccount(account);
 		bean.setCategory(category);
 		bean.setTarget(target);
-		bean.setPosttime(new Date());
+		bean.setPosttime(posttime);
+		bean.setExpiryTime(expiryTime);
+		bean.setLmodify(posttime);
 		bean.setToken(token);
 		bean.setUsed(false);
 		tokenDao.add(bean);

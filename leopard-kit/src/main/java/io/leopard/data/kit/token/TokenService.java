@@ -1,5 +1,7 @@
 package io.leopard.data.kit.token;
 
+import java.util.Date;
+
 import io.leopard.core.exception.forbidden.TokenWrongException;
 
 public interface TokenService {
@@ -13,5 +15,7 @@ public interface TokenService {
 	String makeToken(String account, String category, String target);
 
 	Token check(String account, String category, String target, String token) throws TokenWrongException;
+
+	String add(String account, String category, String target, String token, Date expiryTime);
 
 }
