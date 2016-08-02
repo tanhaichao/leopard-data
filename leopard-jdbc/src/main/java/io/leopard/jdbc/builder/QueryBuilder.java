@@ -123,6 +123,7 @@ public class QueryBuilder {
 			if (whereSQL.length() > 0) {
 				whereSQL.append(" and ");
 			}
+			value = value.replace("%", "");
 			whereSQL.append(fieldName).append(" like '%" + escapeSQLParam(value) + "%'");
 		}
 
