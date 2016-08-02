@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
+import org.springframework.util.StringUtils;
+
 import io.leopard.jdbc.Jdbc;
 import io.leopard.jdbc.StatementParameter;
 import io.leopard.lang.Paging;
@@ -42,6 +44,13 @@ public class QueryBuilder {
 	}
 
 	public QueryBuilder addLike(String fieldName, String value) {
+		if (StringUtils.isEmpty(value)) {
+			throw new IllegalArgumentException("参数不能为空.");
+		}
+		value = value.replace("%", "");
+		if (StringUtils.isEmpty(value)) {
+			throw new IllegalArgumentException("参数不能为空.");
+		}
 		likeMap.put(fieldName, value);
 		return this;
 	}
@@ -123,7 +132,6 @@ public class QueryBuilder {
 			if (whereSQL.length() > 0) {
 				whereSQL.append(" and ");
 			}
-			value = value.replace("%", "");
 			whereSQL.append(fieldName).append(" like '%" + escapeSQLParam(value) + "%'");
 		}
 
