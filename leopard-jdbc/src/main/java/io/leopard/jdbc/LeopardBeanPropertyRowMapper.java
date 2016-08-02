@@ -134,7 +134,7 @@ public class LeopardBeanPropertyRowMapper<T> implements RowMapper<T> {
 			else {
 				Class<?> clazz = (Class<?>) type.getActualTypeArguments()[0];
 				// System.out.println("clazz:" + clazz.getName());
-				value = Json.toListObject(json, clazz);
+				value = Json.toListObject(json, clazz, true);
 				// throw new IllegalArgumentException("未知数据类型[" + elementClassName + "].");
 			}
 		}
