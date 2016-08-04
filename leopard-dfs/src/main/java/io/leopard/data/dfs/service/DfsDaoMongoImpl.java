@@ -30,7 +30,7 @@ public class DfsDaoMongoImpl implements DfsDao {
 	@Override
 	public byte[] read(String filename) throws IOException {
 		byte[] data = this.gridFs.read(filename);
-		logger.info("read filename:" + filename + " data size:" + data.length);
+		// logger.info("read filename:" + filename + " data size:" + data.length);
 		if (data.length <= 0) {
 			logger.error("怎么会有空文件[" + filename + "].");
 			throw new FileNotFoundException(filename);
