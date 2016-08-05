@@ -36,7 +36,7 @@ public class ImageDfsServiceSyncImpl implements ImageDfsService {
 	public String save(long uid, String folder, MultipartFile file, String sizeList) throws IOException {
 		// logger.info("save:" + file);
 		if (file == null || file.isEmpty()) {
-			return null;
+			throw new IllegalArgumentException("文件不能为空.");
 		}
 		String uri;
 		if (file instanceof UrlMultipartFile) {
