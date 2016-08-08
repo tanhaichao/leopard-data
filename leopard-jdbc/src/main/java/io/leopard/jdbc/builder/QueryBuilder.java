@@ -1,5 +1,6 @@
 package io.leopard.jdbc.builder;
 
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -26,6 +27,8 @@ public class QueryBuilder {
 
 	private Map<String, Object> whereMap = new LinkedHashMap<String, Object>();
 
+	private List<String> whereExpressionList = new ArrayList<String>();
+
 	private Map<String, String> likeMap = new LinkedHashMap<String, String>();
 
 	public QueryBuilder(String tableName) {
@@ -35,6 +38,11 @@ public class QueryBuilder {
 	public QueryBuilder range(String fieldName, TimeRange range) {
 		this.rangeFieldName = fieldName;
 		this.range = range;
+		return this;
+	}
+
+	public QueryBuilder addWhere(String expression) {
+		whereExpressionList.add(expression);
 		return this;
 	}
 
@@ -84,6 +92,20 @@ public class QueryBuilder {
 		}
 
 		return rangeSQL.toString();
+	}
+
+	protected String getWhereExpressionSQL() {
+		if (this.whereExpressionList.isEmpty()) {
+			return "";
+		}
+		StringBuilder whereSQL = new StringBuilder();
+		for (String expression : this.whereExpressionList) {
+			if (whereSQL.length() > 0) {
+				whereSQL.append(" and ");
+			}
+			whereSQL.append(expression);
+		}
+		return whereSQL.toString();
 	}
 
 	protected String getWhereSQL(StatementParameter param) {
@@ -199,6 +221,15 @@ public class QueryBuilder {
 			}
 			{
 				String whereSQL = this.getWhereSQL(param);
+				if (whereSQL.length() > 0) {
+					if (where.length() > 0) {
+						where.append(" and ");
+					}
+					where.append(whereSQL);
+				}
+			}
+			{
+				String whereSQL = this.getWhereExpressionSQL();
 				if (whereSQL.length() > 0) {
 					if (where.length() > 0) {
 						where.append(" and ");
