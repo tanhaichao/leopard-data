@@ -113,6 +113,7 @@ public class TokenServiceImpl implements TokenService {
 		return this.makeToken(account, category, target, expiryTime);
 	}
 
+	@Override
 	public String makeToken(String account, String category, String target, Date expiryTime) {
 		Assert.hasText(account, "参数account不能为空");
 		Assert.hasText(category, "参数category不能为空");
