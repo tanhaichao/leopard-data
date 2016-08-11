@@ -59,6 +59,7 @@ public class TokenServiceImpl implements TokenService {
 		bean.setLmodify(posttime);
 		bean.setToken(token);
 		bean.setUsed(false);
+		
 		tokenDao.add(bean);
 		return tokenId;
 	}
