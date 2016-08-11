@@ -35,7 +35,7 @@ public class TokenServiceImpl implements TokenService {
 
 	@Override
 	public String add(String account, String category, String target, String token) {
-		Date expiryTime = new Date();
+		Date expiryTime = new Date(System.currentTimeMillis() + 3600 * 1000L);// 1小时过期
 		return this.add(account, category, target, token, expiryTime);
 	}
 
