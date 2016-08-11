@@ -109,13 +109,18 @@ public class TokenServiceImpl implements TokenService {
 
 	@Override
 	public String makeToken(String account, String category, String target) {
+		Date expiryTime = new Date(System.currentTimeMillis() + 3600 * 1000L);// 1小时过期
+		return this.makeToken(account, category, target, expiryTime);
+	}
+
+	public String makeToken(String account, String category, String target, Date expiryTime) {
 		Assert.hasText(account, "参数account不能为空");
 		Assert.hasText(category, "参数category不能为空");
 		Assert.hasText(target, "参数target不能为空");
 
 		String str = System.currentTimeMillis() + ":" + new Random().nextDouble();
 		String token = EncryptUtil.md5(str);
-		this.add(account, category, target, token);
+		this.add(account, category, target, token, expiryTime);
 		return token;
 	}
 
