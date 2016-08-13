@@ -21,6 +21,7 @@ public class QueryBuilder {
 	private TimeRange range;
 
 	private String orderFieldName;
+	private String groupbyFieldName;
 
 	private Integer limitStart;
 	private Integer limitSize;
@@ -65,6 +66,11 @@ public class QueryBuilder {
 
 	public QueryBuilder order(String fieldName) {
 		this.orderFieldName = fieldName;
+		return this;
+	}
+
+	public QueryBuilder groupby(String fieldName) {
+		this.groupbyFieldName = fieldName;
 		return this;
 	}
 
@@ -251,9 +257,13 @@ public class QueryBuilder {
 		if (where.length() > 0) {
 			sb.append(" where " + where.toString());
 		}
-
-		sb.append(" order by " + orderFieldName + " desc");
-
+		System.err.println("groupbyFieldName:" + groupbyFieldName + " orderFieldName:" + orderFieldName);
+		if (groupbyFieldName != null && groupbyFieldName.length() > 0) {
+			sb.append(" group by " + groupbyFieldName);
+		}
+		if (orderFieldName != null && orderFieldName.length() > 0) {
+			sb.append(" order by " + orderFieldName + " desc");
+		}
 		sb.append(" limit ?,?");
 		param.setInt(limitStart);
 		param.setInt(limitSize);
