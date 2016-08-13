@@ -257,7 +257,7 @@ public class QueryBuilder {
 		if (where.length() > 0) {
 			sb.append(" where " + where.toString());
 		}
-		System.err.println("groupbyFieldName:" + groupbyFieldName + " orderFieldName:" + orderFieldName);
+		// System.err.println("groupbyFieldName:" + groupbyFieldName + " orderFieldName:" + orderFieldName);
 		if (groupbyFieldName != null && groupbyFieldName.length() > 0) {
 			sb.append(" group by " + groupbyFieldName);
 		}
