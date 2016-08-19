@@ -58,7 +58,7 @@ public class QueryBuilder {
 		}
 		value = value.replace("%", "");
 		if (StringUtils.isEmpty(value)) {
-			throw new IllegalArgumentException("参数不能为空.");
+			throw new IllegalArgumentException("参数不能包含特殊字符[" + value + "].");
 		}
 		likeMap.put(fieldName, value);
 		return this;
