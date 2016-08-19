@@ -21,6 +21,8 @@ public class QueryBuilder {
 	private TimeRange range;
 
 	private String orderFieldName;
+	// 按desc 还是asc
+	private String orderDirection;
 	private String groupbyFieldName;
 
 	private Integer limitStart;
@@ -65,7 +67,12 @@ public class QueryBuilder {
 	}
 
 	public QueryBuilder order(String fieldName) {
+		return this.order(fieldName, "desc");
+	}
+
+	public QueryBuilder order(String fieldName, String orderDirection) {
 		this.orderFieldName = fieldName;
+		this.orderDirection = orderDirection;
 		return this;
 	}
 
@@ -262,7 +269,7 @@ public class QueryBuilder {
 			sb.append(" group by " + groupbyFieldName);
 		}
 		if (orderFieldName != null && orderFieldName.length() > 0) {
-			sb.append(" order by " + orderFieldName + " desc");
+			sb.append(" order by " + orderFieldName + " " + orderDirection);
 		}
 		sb.append(" limit ?,?");
 		param.setInt(limitStart);
