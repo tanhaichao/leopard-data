@@ -408,6 +408,9 @@ public class StatementParameter {
 		else if (type.equals(Integer.class)) {
 			return value;
 		}
+		else if (type.equals(Short.class)) {
+			return value;
+		}
 		else if (type.equals(Long.class)) {
 			return value;
 		}
@@ -466,6 +469,9 @@ public class StatementParameter {
 			return Types.VARCHAR;
 		}
 		else if (type.equals(Boolean.class)) {
+			return Types.INTEGER;
+		}
+		else if (type.equals(Integer.class)) {
 			return Types.INTEGER;
 		}
 		else if (type.equals(Integer.class)) {
