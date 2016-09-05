@@ -2142,4 +2142,15 @@ public class RedisImpl extends AbstractRedis implements Redis {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public Set<String> sinter(final String... keys) {
+		return (Set<String>) this.execute(new Invoker() {
+			@Override
+			public Object execute(Jedis jedis) {
+				return jedis.sinter(keys);
+			}
+		});
+	}
 }
