@@ -1167,4 +1167,10 @@ public class RedisMemoryImpl implements Redis {
 		// TODO Auto-generated method stub
 		return null;
 	}
+
+	@Override
+	public Set<String> sinter(String... keys) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

@@ -1108,4 +1108,10 @@ public class RedisAllImpl implements Redis {
 		return null;
 	}
 
+	@Override
+	public Set<String> sinter(String... keys) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }
