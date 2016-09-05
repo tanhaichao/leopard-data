@@ -188,6 +188,17 @@ public class StatementParameter {
 		type.add(Integer.class);
 	}
 
+	/**
+	 * 设置Short类型参数.
+	 * 
+	 * @param value
+	 */
+	public void setShort(Short value) {
+		this.checkNull(value);
+		list.add(value);
+		type.add(Short.class);
+	}
+
 	public void setBytes(byte[] value) {
 		this.checkNull(value);
 		list.add(value);
@@ -269,6 +280,17 @@ public class StatementParameter {
 	public int getInt(int index) {
 		Object value = this.getObject(index);
 		return (Integer) value;
+	}
+
+	/**
+	 * 返回索引对应的short类型参数值.
+	 * 
+	 * @param index 索引
+	 * @return 参数值
+	 */
+	public int getShort(int index) {
+		Object value = this.getObject(index);
+		return (Short) value;
 	}
 
 	/**

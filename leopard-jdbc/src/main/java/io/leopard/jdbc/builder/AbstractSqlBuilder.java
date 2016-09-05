@@ -113,6 +113,20 @@ public abstract class AbstractSqlBuilder implements SqlBuilder {
 	}
 
 	/**
+	 * 设置short类型参数.
+	 * 
+	 * @param fieldName 参数名
+	 * @param value 参数值
+	 */
+	public void setShort(String fieldName, Short value) {
+		if (value == null) {
+			throw new IllegalArgumentException("参数值[" + fieldName + "]不能为NULL.");
+		}
+		fieldList.add(fieldName);
+		statementParameter.setShort(value);
+	}
+
+	/**
 	 * 设置Date类型参数.
 	 * 
 	 * @param fieldName 参数名
