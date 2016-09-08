@@ -14,7 +14,6 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.JdbcUtils;
 import org.springframework.util.Assert;
-import org.springframework.util.StringUtils;
 
 import io.leopard.json.Json;
 import io.leopard.json.JsonException;
@@ -37,7 +36,7 @@ public class LeopardBeanPropertyRowMapper<T> implements RowMapper<T> {
 
 			for (Field field : fields) {
 				String key = field.getName().toLowerCase();
-				System.out.println("key:" + key);
+				// System.out.println("key:" + key);
 				mappedFields.put(key, field);
 			}
 			clazz = clazz.getSuperclass();
