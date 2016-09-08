@@ -37,7 +37,7 @@ public class LeopardBeanPropertyRowMapper<T> implements RowMapper<T> {
 
 			for (Field field : fields) {
 				String key = field.getName().toLowerCase();
-				// System.out.println("key:" + key);
+				System.out.println("key:" + key);
 				mappedFields.put(key, field);
 			}
 			clazz = clazz.getSuperclass();
@@ -56,12 +56,15 @@ public class LeopardBeanPropertyRowMapper<T> implements RowMapper<T> {
 		int columnCount = rsmd.getColumnCount();
 		for (int index = 1; index <= columnCount; index++) {
 			String column = JdbcUtils.lookupColumnName(rsmd, index);
+			// System.err.println("column:" + column);
 			column = column.replaceAll(" ", "").toLowerCase();
+			column = column.replace("_", "");
+
 			Field field = this.mappedFields.get(column);
 
-			if (field == null) {
-				this.mappedFields.get(underscoreName(column));
-			}
+			// if (field == null) {
+			// this.mappedFields.get(underscoreName(column));
+			// }
 			// System.out.println("column:" + column + " field:" + field);
 
 			if (field == null && column.endsWith("s")) {
@@ -98,22 +101,9 @@ public class LeopardBeanPropertyRowMapper<T> implements RowMapper<T> {
 	 * @see #lowerCaseName
 	 */
 	protected String underscoreName(String name) {
-		if (!StringUtils.hasLength(name)) {
-			return "";
-		}
-		StringBuilder result = new StringBuilder();
-		result.append(lowerCaseName(name.substring(0, 1)));
-		for (int i = 1; i < name.length(); i++) {
-			String s = name.substring(i, i + 1);
-			String slc = lowerCaseName(s);
-			if (!s.equals(slc)) {
-				result.append("_").append(slc);
-			}
-			else {
-				result.append(s);
-			}
-		}
-		return result.toString();
+		name = name.replace("_", "");
+		System.err.println("name:" + name);
+		return name;
 	}
 
 	/**
