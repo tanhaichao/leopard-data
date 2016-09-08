@@ -148,6 +148,16 @@ public class JdbcWrapper implements Jdbc {
 	}
 
 	@Override
+	public Double queryForDouble(String sql, StatementParameter param) {
+		return this.getJdbc().queryForDouble(sql, param);
+	}
+
+	@Override
+	public Float queryForFloat(String sql, StatementParameter param) {
+		return this.getJdbc().queryForFloat(sql, param);
+	}
+
+	@Override
 	public Long queryForLong(String sql, StatementParameter param) {
 		return this.getJdbc().queryForLong(sql, param);
 	}

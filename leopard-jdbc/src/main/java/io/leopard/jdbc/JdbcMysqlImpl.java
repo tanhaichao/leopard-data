@@ -296,6 +296,32 @@ public class JdbcMysqlImpl implements Jdbc {
 	}
 
 	@Override
+	public Float queryForFloat(String sql, StatementParameter param) {
+		Object[] args = param.getArgs();
+		int[] argTypes = param.getArgTypes();
+		try {
+			Number number = this.getJdbcTemplate().queryForObject(sql, args, argTypes, Float.class);
+			return (number != null ? number.floatValue() : 0);
+		}
+		catch (EmptyResultDataAccessException e) {
+			return null;
+		}
+	}
+
+	@Override
+	public Double queryForDouble(String sql, StatementParameter param) {
+		Object[] args = param.getArgs();
+		int[] argTypes = param.getArgTypes();
+		try {
+			Number number = this.getJdbcTemplate().queryForObject(sql, args, argTypes, Double.class);
+			return (number != null ? number.doubleValue() : 0);
+		}
+		catch (EmptyResultDataAccessException e) {
+			return null;
+		}
+	}
+
+	@Override
 	public java.util.Date queryForDate(String sql) {
 		try {
 			java.util.Date result = this.getJdbcTemplate().queryForObject(sql, java.util.Date.class);

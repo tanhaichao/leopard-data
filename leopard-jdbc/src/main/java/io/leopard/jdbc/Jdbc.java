@@ -326,6 +326,24 @@ public interface Jdbc {
 	Integer queryForInt(String sql, StatementParameter param);
 
 	/**
+	 * 根据sql查询数据，返回double值.
+	 * 
+	 * @param sql sql
+	 * @param param params 参数列表
+	 * @return 查询的数据
+	 */
+	Double queryForDouble(String sql, StatementParameter param);
+
+	/**
+	 * 根据sql查询数据，返回float值.
+	 * 
+	 * @param sql sql
+	 * @param param params 参数列表
+	 * @return 查询的数据
+	 */
+	Float queryForFloat(String sql, StatementParameter param);
+
+	/**
 	 * 根据sql查询数据，返回int值.
 	 * 
 	 * @param sql sql
