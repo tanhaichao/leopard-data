@@ -7,12 +7,14 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.support.JdbcUtils;
 import org.springframework.util.Assert;
+import org.springframework.util.StringUtils;
 
 import io.leopard.json.Json;
 import io.leopard.json.JsonException;
@@ -56,6 +58,10 @@ public class LeopardBeanPropertyRowMapper<T> implements RowMapper<T> {
 			String column = JdbcUtils.lookupColumnName(rsmd, index);
 			column = column.replaceAll(" ", "").toLowerCase();
 			Field field = this.mappedFields.get(column);
+
+			if (field == null) {
+				this.mappedFields.get(underscoreName(column));
+			}
 			// System.out.println("column:" + column + " field:" + field);
 
 			if (field == null && column.endsWith("s")) {
@@ -81,6 +87,44 @@ public class LeopardBeanPropertyRowMapper<T> implements RowMapper<T> {
 			}
 		}
 		return bean;
+	}
+
+	/**
+	 * Convert a name in camelCase to an underscored name in lower case. Any upper case letters are converted to lower case with a preceding underscore.
+	 * 
+	 * @param name the original name
+	 * @return the converted name
+	 * @since 4.2
+	 * @see #lowerCaseName
+	 */
+	protected String underscoreName(String name) {
+		if (!StringUtils.hasLength(name)) {
+			return "";
+		}
+		StringBuilder result = new StringBuilder();
+		result.append(lowerCaseName(name.substring(0, 1)));
+		for (int i = 1; i < name.length(); i++) {
+			String s = name.substring(i, i + 1);
+			String slc = lowerCaseName(s);
+			if (!s.equals(slc)) {
+				result.append("_").append(slc);
+			}
+			else {
+				result.append(s);
+			}
+		}
+		return result.toString();
+	}
+
+	/**
+	 * Convert the given name to lower case. By default, conversions will happen within the US locale.
+	 * 
+	 * @param name the original name
+	 * @return the converted name
+	 * @since 4.2
+	 */
+	protected String lowerCaseName(String name) {
+		return name.toLowerCase(Locale.US);
 	}
 
 	protected Object getColumnValue(ResultSet rs, int index, Field field) throws SQLException {
