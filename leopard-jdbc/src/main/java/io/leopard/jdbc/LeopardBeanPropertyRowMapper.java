@@ -7,7 +7,6 @@ import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 
 import org.springframework.beans.BeanUtils;
@@ -89,31 +88,6 @@ public class LeopardBeanPropertyRowMapper<T> implements RowMapper<T> {
 			}
 		}
 		return bean;
-	}
-
-	/**
-	 * Convert a name in camelCase to an underscored name in lower case. Any upper case letters are converted to lower case with a preceding underscore.
-	 * 
-	 * @param name the original name
-	 * @return the converted name
-	 * @since 4.2
-	 * @see #lowerCaseName
-	 */
-	protected String underscoreName(String name) {
-		name = name.replace("_", "");
-		System.err.println("name:" + name);
-		return name;
-	}
-
-	/**
-	 * Convert the given name to lower case. By default, conversions will happen within the US locale.
-	 * 
-	 * @param name the original name
-	 * @return the converted name
-	 * @since 4.2
-	 */
-	protected String lowerCaseName(String name) {
-		return name.toLowerCase(Locale.US);
 	}
 
 	protected Object getColumnValue(ResultSet rs, int index, Field field) throws SQLException {
