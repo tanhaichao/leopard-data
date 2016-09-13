@@ -68,6 +68,13 @@ public class QueryBuilder {
 		return this;
 	}
 
+	public QueryBuilder addLong(String fieldName, long value) {
+		if (value > 0) {
+			this.addWhere(fieldName, value);
+		}
+		return this;
+	}
+
 	public QueryBuilder addWhere(String fieldName, Object value) {
 		whereMap.put(fieldName, value);
 		return this;
