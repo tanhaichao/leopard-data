@@ -49,6 +49,13 @@ public class QueryBuilder {
 		return this;
 	}
 
+	public QueryBuilder addString(String fieldName, String value) {
+		if (StringUtils.hasLength(value)) {
+			this.addWhere(fieldName, value);
+		}
+		return this;
+	}
+
 	public QueryBuilder addWhere(String fieldName, Object value) {
 		whereMap.put(fieldName, value);
 		return this;
