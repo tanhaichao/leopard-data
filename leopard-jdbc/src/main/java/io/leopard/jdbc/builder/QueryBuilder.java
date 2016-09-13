@@ -50,8 +50,17 @@ public class QueryBuilder {
 	}
 
 	public QueryBuilder addString(String fieldName, String value) {
+		return this.addString(fieldName, value, false);
+	}
+
+	public QueryBuilder addString(String fieldName, String value, boolean like) {
 		if (StringUtils.hasLength(value)) {
-			this.addWhere(fieldName, value);
+			if (like) {
+				this.addLike(fieldName, value);
+			}
+			else {
+				this.addWhere(fieldName, value);
+			}
 		}
 		return this;
 	}
