@@ -32,6 +32,11 @@
 			</dependency>
 			<dependency>
 				<groupId>io.leopard</groupId>
+				<artifactId>leopard-httpnb</artifactId>
+				<version>${leopard.unified.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>io.leopard</groupId>
 				<artifactId>leopard-exception</artifactId>
 				<version>${leopard.unified.version}</version>
 			</dependency>
