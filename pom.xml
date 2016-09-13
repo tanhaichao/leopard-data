@@ -58,6 +58,7 @@
 		<module>leopard-queue</module>
 		<module>leopard-dfs</module>
 		<module>leopard-kit</module>
+		<module>leopard-rpc</module>
 	</modules>
 
 </project>
