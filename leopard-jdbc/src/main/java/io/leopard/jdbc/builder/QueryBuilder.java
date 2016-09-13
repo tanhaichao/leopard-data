@@ -39,6 +39,9 @@ public class QueryBuilder {
 	}
 
 	public QueryBuilder range(String fieldName, TimeRange range) {
+		if (range == null) {
+			return this;
+		}
 		this.rangeFieldName = fieldName;
 		this.range = range;
 		return this;
