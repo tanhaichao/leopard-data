@@ -9,13 +9,18 @@ import io.leopard.json.Json;
 public class RpcBuilder {
 
 	private String domain;
-
 	private String uri;
 	private String url;
+
+	private long timeout;
 
 	private Map<String, Object> params = new LinkedHashMap<String, Object>();
 
 	public RpcBuilder(String domain, String uri) {
+		this(domain, uri, 10000);
+	}
+
+	public RpcBuilder(String domain, String uri, long timeout) {
 		this.domain = domain;
 		this.uri = uri;
 		this.url = domain + uri;
@@ -23,11 +28,13 @@ public class RpcBuilder {
 
 	public RpcBuilder setDomain(String domain) {
 		this.domain = domain;
+		this.url = domain + uri;
 		return this;
 	}
 
 	public RpcBuilder setUri(String uri) {
 		this.uri = uri;
+		this.url = domain + uri;
 		return this;
 	}
 
@@ -44,19 +51,19 @@ public class RpcBuilder {
 	}
 
 	public Boolean getForBoolean() {
-		return (Boolean) RpcClient.doPost(url, params, 10000L);
+		return (Boolean) RpcClient.doPost(url, params, timeout);
 	}
 
 	public Long getForLong() {
-		return (Long) RpcClient.doPost(url, params, 10000L);
+		return (Long) RpcClient.doPost(url, params, timeout);
 	}
 
 	public <T> T doPost(Class<T> clazz) {
-		String data = RpcClient.doPostForData(url, params, 10000L);
+		String data = RpcClient.doPostForData(url, params, timeout);
 		return Json.toObject(data, clazz);
 	}
 
 	public <T> List<T> doPostForList(Class<T> clazz) {
-		return (List<T>) RpcClient.doPostForList(url, params, clazz, 10000L);
+		return (List<T>) RpcClient.doPostForList(url, params, clazz, timeout);
 	}
 }
