@@ -12,7 +12,6 @@ import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
-import io.leopard.core.exception.ClassNotFoundRuntimeException;
 import io.leopard.core.exception.StatusCodeException;
 //import io.leopard.burrow.util.DateTime;
 //import io.leopard.core.exception.StatusCodeException;
@@ -25,18 +24,18 @@ import io.leopard.json.JsonException;
 public class RpcClient {
 	private static Log logger = LogFactory.getLog(RpcClient.class);
 
-	public static Object doGet(String url, long timeout) {
-		return doPost(url, timeout);
+	// public static String doGet(String url, long timeout) {
+	// return doPost(url, timeout);
+	// }
+
+	public static Object doPostForObject(String url, long timeout) {
+		return doPostForObject(url, (Map<String, Object>) null, timeout);
 	}
 
-	public static Object doPost(String url, long timeout) {
-		return RpcClient.doPost(url, (Map<String, Object>) null, timeout);
-	}
-
-	public static Object doPost(String url, String json, long timeout) {
+	public static Object doPostForObject(String url, String json, long timeout) {
 		Map<String, Object> params = new HashMap<String, Object>();
 		params.put("json", json);
-		return doPost(url, params, timeout);
+		return doPostForObject(url, params, timeout);
 	}
 
 	public static Object doPostForData(String url, Map<String, Object> params, long timeout) {
@@ -50,28 +49,11 @@ public class RpcClient {
 		return Json.toListObject(data, clazz);
 	}
 
-	public static Object doPost(String url, Map<String, Object> params, long timeout) {
+	public static Object doPostForObject(String url, Map<String, Object> params, long timeout) {
 		Map<String, Object> map = doPostForMap(url, params, timeout);
-
-		String className = (String) map.get("clazz");
-
-		// AssertUtil.assertNotEmpty(className, "怎么clazz为空?");
-		if (className == null || className.length() == 0) {
-			logger.error("url:" + url);
-			// logger.error("json:" + json);
-			throw new IllegalArgumentException("怎么clazz为空?");
-		}
-		Class<?> clazz;
-		try {
-			clazz = Class.forName(className);
-		}
-		catch (ClassNotFoundException e) {
-			throw new ClassNotFoundRuntimeException(e.getMessage(), e);
-		}
-		// Class<?> clazz = ClassUtil.forName(className);
-		String data = (String) map.get("data");
-		Object result = Json.toObject(data, clazz);
-		return result;
+		Object obj = map.get("data");
+		// System.out.println("obj:" + obj + " type:" + obj.getClass().getName());
+		return obj;
 	}
 
 	@SuppressWarnings("unchecked")

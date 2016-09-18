@@ -51,15 +51,15 @@ public class RpcBuilder {
 	}
 
 	public Boolean getForBoolean() {
-		return (Boolean) RpcClient.doPost(url, params, timeout);
+		return (Boolean) RpcClient.doPostForObject(url, params, timeout);
 	}
 
 	public Long getForLong() {
-		return (Long) RpcClient.doPost(url, params, timeout);
+		return (Long) RpcClient.doPostForObject(url, params, timeout);
 	}
 
 	public Double getForDouble() {
-		return (Double) RpcClient.doPost(url, params, timeout);
+		return (Double) RpcClient.doPostForObject(url, params, timeout);
 	}
 
 	public <T> T doPost(Class<T> clazz) {
