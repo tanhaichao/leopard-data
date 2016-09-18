@@ -345,6 +345,11 @@ public class RedisAllImpl implements Redis {
 	}
 
 	@Override
+	public Double zincrby(String key, double score, long member) {
+		throw new UnsupportedOperationException("Not Implemented");
+	}
+
+	@Override
 	public Double zincrby(String key, double score, String member) {
 		throw new UnsupportedOperationException("Not Implemented");
 	}

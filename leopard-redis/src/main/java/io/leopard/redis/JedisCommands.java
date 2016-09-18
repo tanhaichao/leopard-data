@@ -18,8 +18,7 @@ public interface JedisCommands extends redis.clients.jedis.JedisCommands {
 
 	@Override
 	/**
-	 * 如果 key 已经存在并且是一个字符串，将 value 追加到 key 原来的值的末尾，
-	 * 如果 key 不存在，将给定 key 设为 value.
+	 * 如果 key 已经存在并且是一个字符串，将 value 追加到 key 原来的值的末尾， 如果 key 不存在，将给定 key 设为 value.
 	 */
 	public Long append(final String key, final String value);
 
@@ -43,8 +42,7 @@ public interface JedisCommands extends redis.clients.jedis.JedisCommands {
 
 	@Override
 	/**
-	 * 将 key 中储存的数字值增一，
-	 * 如果 key 不存在，那么 key 的值会先被初始化为 0 ，然后再执行 INCR 操作.
+	 * 将 key 中储存的数字值增一， 如果 key 不存在，那么 key 的值会先被初始化为 0 ，然后再执行 INCR 操作.
 	 */
 	public Long incr(String key);
 
@@ -284,8 +282,7 @@ public interface JedisCommands extends redis.clients.jedis.JedisCommands {
 
 	@Override
 	/**
-	 * 返回列表 key 中，下标为 index 的元素，
-	 * 0表示第一个元素，1表示第二个元素，-1表示最后一个元素，-2表示倒数第二个元素，以此类推.
+	 * 返回列表 key 中，下标为 index 的元素， 0表示第一个元素，1表示第二个元素，-1表示最后一个元素，-2表示倒数第二个元素，以此类推.
 	 */
 	public String lindex(String key, long index);
 
@@ -297,10 +294,7 @@ public interface JedisCommands extends redis.clients.jedis.JedisCommands {
 
 	@Override
 	/**
-	 * 根据参数 count 的值，移除列表中与参数 value 相等的元素，
-	 * count > 0 : 从表头开始向表尾搜索，移除与 value 相等的元素，数量为 count
-	 * count < 0 : 从表尾开始向表头搜索，移除与 value 相等的元素，数量为 count 的绝对值
-	 * count = 0 : 移除表中所有与 value 相等的值.
+	 * 根据参数 count 的值，移除列表中与参数 value 相等的元素， count > 0 : 从表头开始向表尾搜索，移除与 value 相等的元素，数量为 count count < 0 : 从表尾开始向表头搜索，移除与 value 相等的元素，数量为 count 的绝对值 count = 0 : 移除表中所有与 value 相等的值.
 	 */
 	public Long lrem(String key, long count, String value);
 
@@ -414,113 +408,97 @@ public interface JedisCommands extends redis.clients.jedis.JedisCommands {
 
 	@Override
 	/**
-	 * 返回有序集 key 中，所有 score 值介于 min 和 max 之间的成员，
-	 * 有序集成员按 score 值递增(从小到大)次序排列.
+	 * 返回有序集 key 中，所有 score 值介于 min 和 max 之间的成员， 有序集成员按 score 值递增(从小到大)次序排列.
 	 */
 	public Set<String> zrangeByScore(String key, double min, double max);
 
 	@Override
 	/**
-	 * 返回有序集 key 中，所有 score 值介于 min 和 max 之间的成员，
-	 * 有序集成员按 score 值递增(从小到大)次序排列.
+	 * 返回有序集 key 中，所有 score 值介于 min 和 max 之间的成员， 有序集成员按 score 值递增(从小到大)次序排列.
 	 */
 	public Set<String> zrangeByScore(String key, String min, String max);
 
 	@Override
 	/**
-	 * 返回有序集 key指定范围区间内 score 值介于 min 和 max 之间的成员，
-	 * 有序集成员按 score 值递增(从小到大)次序排列.
+	 * 返回有序集 key指定范围区间内 score 值介于 min 和 max 之间的成员， 有序集成员按 score 值递增(从小到大)次序排列.
 	 */
 	public Set<String> zrangeByScore(String key, String min, String max, int offset, int count);
 
 	@Override
 	/**
-	 * 返回有序集 key 中，所有 score 值介于 min 和 max 之间的成员，
-	 * 有序集成员按 score 值递减(从大到小)次序排列.
+	 * 返回有序集 key 中，所有 score 值介于 min 和 max 之间的成员， 有序集成员按 score 值递减(从大到小)次序排列.
 	 */
 	public Set<String> zrevrangeByScore(String key, double max, double min);
 
 	@Override
 	/**
-	 * 返回有序集 key指定范围区间内 score 值介于 min 和 max 之间的成员，
-	 * 有序集成员按 score 值递减(从大到小)次序排列.
+	 * 返回有序集 key指定范围区间内 score 值介于 min 和 max 之间的成员， 有序集成员按 score 值递减(从大到小)次序排列.
 	 */
 	public Set<String> zrevrangeByScore(String key, String max, String min, int offset, int count);
 
 	@Override
 	/**
-	 * 返回有序集 key 中，所有 score 值介于 min 和 max 之间的成员，
-	 * 有序集成员按 score 值递减(从大到小)次序排列.
+	 * 返回有序集 key 中，所有 score 值介于 min 和 max 之间的成员， 有序集成员按 score 值递减(从大到小)次序排列.
 	 */
 	public Set<String> zrevrangeByScore(String key, String max, String min);
 
 	@Override
 	/**
-	 * 返回有序集 key指定范围区间内 score 值介于 min 和 max 之间的成员，
-	 * 有序集成员按 score 值递增(从小到大)次序排列.
+	 * 返回有序集 key指定范围区间内 score 值介于 min 和 max 之间的成员， 有序集成员按 score 值递增(从小到大)次序排列.
 	 */
 	public Set<String> zrangeByScore(String key, double min, double max, int offset, int count);
 
 	@Override
 	/**
-	 * 返回有序集 key指定范围区间内 score 值介于 min 和 max 之间(包括等于 min 或 max )的成员，
-	 * 有序集成员按 score 值递减(从大到小)次序排列.
+	 * 返回有序集 key指定范围区间内 score 值介于 min 和 max 之间(包括等于 min 或 max )的成员， 有序集成员按 score 值递减(从大到小)次序排列.
 	 */
 	public Set<String> zrevrangeByScore(String key, double max, double min, int offset, int count);
 
 	@Override
 	/**
-	 * 返回有序集 key 中，所有 score 值介于 min 和 max 之间的成员和对应的score值，
-	 * 有序集成员按 score 值递增(从小到大)次序排列.
+	 * 返回有序集 key 中，所有 score 值介于 min 和 max 之间的成员和对应的score值， 有序集成员按 score 值递增(从小到大)次序排列.
 	 */
 	public Set<Tuple> zrangeByScoreWithScores(String key, double min, double max);
 
 	@Override
 	/**
-	 * 返回有序集 key指定范围区间内 score 值介于 min 和 max 之间的成员和对应的score值，
-	 * 有序集成员按 score 值递增(从小到大)次序排列.
+	 * 返回有序集 key指定范围区间内 score 值介于 min 和 max 之间的成员和对应的score值， 有序集成员按 score 值递增(从小到大)次序排列.
 	 */
 	public Set<Tuple> zrangeByScoreWithScores(String key, String min, String max, int offset, int count);
 
 	@Override
 	/**
-	 * 返回有序集 key 中，所有 score 值介于 min 和 max 之间的成员和对应的score值，
-	 * 有序集成员按 score 值递增(从小到大)次序排列.
+	 * 返回有序集 key 中，所有 score 值介于 min 和 max 之间的成员和对应的score值， 有序集成员按 score 值递增(从小到大)次序排列.
 	 */
 	public Set<Tuple> zrangeByScoreWithScores(String key, String min, String max);
 
 	@Override
 	/**
-	 * 返回有序集 key 中，所有 score 值介于 min 和 max 之间的成员和对应的score值，
-	 * 有序集成员按 score 值递减(从大到小)次序排列.
+	 * 返回有序集 key 中，所有 score 值介于 min 和 max 之间的成员和对应的score值， 有序集成员按 score 值递减(从大到小)次序排列.
 	 */
 	public Set<Tuple> zrevrangeByScoreWithScores(String key, double max, double min);
 
 	@Override
 	/**
-	 * 返回有序集 key指定范围区间内 score 值介于 min 和 max 之间的成员和对应的score值，
-	 * 有序集成员按 score 值递减(从大到小)次序排列.
+	 * 返回有序集 key指定范围区间内 score 值介于 min 和 max 之间的成员和对应的score值， 有序集成员按 score 值递减(从大到小)次序排列.
 	 */
 	public Set<Tuple> zrevrangeByScoreWithScores(String key, String max, String min, int offset, int count);
 
 	@Override
 	/**
-	 * 返回有序集 key 中，所有 score 值介于 min 和 max 之间的成员和对应的score值，
-	 * 有序集成员按 score 值递减(从大到小)次序排列.
+	 * 返回有序集 key 中，所有 score 值介于 min 和 max 之间的成员和对应的score值， 有序集成员按 score 值递减(从大到小)次序排列.
 	 */
 	public Set<Tuple> zrevrangeByScoreWithScores(String key, String max, String min);
 
 	@Override
 	/**
-	 * 返回有序集 key指定范围区间内 score 值介于 min 和 max 之间的成员和对应的score值，
-	 * 有序集成员按 score 值递增(从小到大)次序排列.
+	 * 返回有序集 key指定范围区间内 score 值介于 min 和 max 之间的成员和对应的score值， 有序集成员按 score 值递增(从小到大)次序排列.
 	 */
 	public Set<Tuple> zrangeByScoreWithScores(String key, double min, double max, int offset, int count);
 
 	@Override
 	/**
-	 * 返回有序集 key指定范围区间内 score 值介于 min 和 max 之间的成员和对应的score值，
-	 * 有序集成员按 score 值递减(从大到小)次序排列.
+	 * 返回有序集 key指定范围区间内 score 值介于 min 和 max 之间的成员和对应的score值， 有序集成员按 score 值递减(从大到小)次序排列.
 	 */
 	public Set<Tuple> zrevrangeByScoreWithScores(String key, double max, double min, int offset, int count);
 

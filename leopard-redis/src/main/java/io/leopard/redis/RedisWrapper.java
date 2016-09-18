@@ -365,6 +365,12 @@ public class RedisWrapper implements Redis {
 	}
 
 	@Override
+	public Double zincrby(String key, double score, long member) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
 	public Double zincrby(String key, double score, String member) {
 		// TODO Auto-generated method stub
 		return null;

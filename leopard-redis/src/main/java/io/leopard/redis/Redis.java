@@ -482,4 +482,9 @@ public interface Redis extends JedisCommands {
 	List<String> blpop(int timeout, String key);
 
 	List<String> brpop(int timeout, String key);
+
+	/**
+	 * 为有序集 key 的成员 member 的 score 值加上增量.
+	 */
+	Double zincrby(String key, double score, long member);
 }

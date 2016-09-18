@@ -397,6 +397,11 @@ public class RedisMemoryImpl implements Redis {
 	}
 
 	@Override
+	public Double zincrby(String key, double score, long member) {
+		return this.zincrby(key, score, Long.toString(member));
+	}
+
+	@Override
 	public Double zincrby(String key, double score, String member) {
 		return redisSortedSet.zincrby(key, score, member);
 	}

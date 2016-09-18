@@ -1146,6 +1146,11 @@ public class RedisImpl extends AbstractRedis implements Redis {
 	}
 
 	@Override
+	public Double zincrby(final String key, final double score, final long member) {
+		return this.zincrby(key, score, Long.toString(member));
+	}
+
+	@Override
 	public Double zincrby(final String key, final double score, final String member) {
 		return (Double) this.execute(new Invoker() {
 			@Override
