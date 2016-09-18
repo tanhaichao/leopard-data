@@ -59,8 +59,10 @@ public class RpcBuilder {
 	}
 
 	public <T> T doPost(Class<T> clazz) {
-		String data = RpcClient.doPostForData(url, params, timeout);
-		return Json.toObject(data, clazz);
+		@SuppressWarnings("unchecked")
+		Map<String, Object> map = (Map<String, Object>) RpcClient.doPostForData(url, params, timeout);
+		String json = Json.toJson(map);
+		return Json.toObject(json, clazz);
 	}
 
 	public <T> List<T> doPostForList(Class<T> clazz) {
