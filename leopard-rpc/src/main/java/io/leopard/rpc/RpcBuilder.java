@@ -58,6 +58,10 @@ public class RpcBuilder {
 		return (Long) RpcClient.doPost(url, params, timeout);
 	}
 
+	public Double getForDouble() {
+		return (Double) RpcClient.doPost(url, params, timeout);
+	}
+
 	public <T> T doPost(Class<T> clazz) {
 		@SuppressWarnings("unchecked")
 		Map<String, Object> map = (Map<String, Object>) RpcClient.doPostForData(url, params, timeout);
