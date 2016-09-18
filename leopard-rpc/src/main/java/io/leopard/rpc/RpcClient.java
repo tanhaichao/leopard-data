@@ -39,10 +39,9 @@ public class RpcClient {
 		return doPost(url, params, timeout);
 	}
 
-	public static String doPostForData(String url, Map<String, Object> params, long timeout) {
+	public static Object doPostForData(String url, Map<String, Object> params, long timeout) {
 		Map<String, Object> map = doPostForMap(url, params, timeout);
-		String data = (String) map.get("data");
-		return data;
+		return map.get("data");
 	}
 
 	public static <T> List<T> doPostForList(String url, Map<String, Object> params, Class<T> clazz, long timeout) {
