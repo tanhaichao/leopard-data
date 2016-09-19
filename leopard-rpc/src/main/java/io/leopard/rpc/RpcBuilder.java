@@ -54,6 +54,7 @@ public class RpcBuilder {
 		return (Boolean) RpcClient.doPostForObject(url, params, timeout);
 	}
 
+	
 	public Long getForLong() {
 		return (Long) RpcClient.doPostForObject(url, params, timeout);
 	}
