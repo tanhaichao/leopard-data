@@ -648,7 +648,9 @@ public class JdbcMysqlImpl implements Jdbc {
 	public <T> Paging<T> queryForPaging(String sql, Class<T> elementType, StatementParameter param) {
 		List<T> list = this.queryForList(sql, elementType, param);
 		CountSqlParser parser = new CountSqlParser(sql, param);
-		int totalCount = this.queryForInt(parser.getCountSql(), parser.getCountParam());
+		String countSql = parser.getCountSql();
+		// System.err.println("countSql:" + countSql);
+		int totalCount = this.queryForInt(countSql, parser.getCountParam());
 
 		PagingImpl<T> paging = new PagingImpl<T>();
 		paging.setTotalCount(totalCount);
