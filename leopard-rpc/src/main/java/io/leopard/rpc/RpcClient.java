@@ -2,6 +2,7 @@ package io.leopard.rpc;
 
 import java.lang.reflect.Field;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -44,9 +45,17 @@ public class RpcClient {
 	}
 
 	public static <T> List<T> doPostForList(String url, Map<String, Object> params, Class<T> clazz, long timeout) {
-		Map<String, Object> map = doPostForMap(url, params, timeout);
-		String data = (String) map.get("data");
-		return Json.toListObject(data, clazz, true);
+		@SuppressWarnings("unchecked")
+		List<Map<String, Object>> list = (List<Map<String, Object>>) doPostForObject(url, params, timeout);
+
+		List<T> result = new ArrayList<T>();
+		for (Map<String, Object> map : list) {
+			String json = Json.toJson(map);
+			T bean = Json.toObject(json, clazz, true);
+			result.add(bean);
+		}
+		// return Json.toListObject(data, clazz, true);
+		return result;
 	}
 
 	public static Object doPostForObject(String url, Map<String, Object> params, long timeout) {
@@ -80,6 +89,7 @@ public class RpcClient {
 		if (!status.equals("success")) {
 			String message = (String) map.get("message");
 			// logger.error("json:"+json);
+			logger.error("url:" + url + " params:" + params);
 			throw new StatusCodeException(status, "调用远程接口出错.[" + status + "." + message + "]", message);
 			// throw new RuntimeException("调用远程接口出错.[" + message + "]");
 		}
