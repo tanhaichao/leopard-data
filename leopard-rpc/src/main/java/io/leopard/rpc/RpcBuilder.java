@@ -54,7 +54,6 @@ public class RpcBuilder {
 		return (Boolean) RpcClient.doPostForObject(url, params, timeout);
 	}
 
-	
 	public Long getForLong() {
 		return (Long) RpcClient.doPostForObject(url, params, timeout);
 	}
@@ -72,5 +71,12 @@ public class RpcBuilder {
 
 	public <T> List<T> doPostForList(Class<T> clazz) {
 		return (List<T>) RpcClient.doPostForList(url, params, clazz, timeout);
+	}
+
+	public List<Long> queryForLongs() {
+		RpcClient.doPostForData(url, params, timeout);
+		// String json = Json.toJson(map);
+		// return Json.toObject(json, clazz, true);
+		return null;
 	}
 }
