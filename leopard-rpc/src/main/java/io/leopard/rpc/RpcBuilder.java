@@ -74,9 +74,12 @@ public class RpcBuilder {
 	}
 
 	public List<Long> queryForLongs() {
-		RpcClient.doPostForData(url, params, timeout);
+		@SuppressWarnings("unchecked")
+		List<Long> list = (List<Long>) RpcClient.doPostForData(url, params, timeout);
+		// System.out.println("list:" + list);
+		// Json.toListObject(json, clazz)
 		// String json = Json.toJson(map);
 		// return Json.toObject(json, clazz, true);
-		return null;
+		return list;
 	}
 }
