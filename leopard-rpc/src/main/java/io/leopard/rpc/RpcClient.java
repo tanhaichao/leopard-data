@@ -88,7 +88,7 @@ public class RpcClient {
 		}
 		if (!status.equals("success")) {
 			String message = (String) map.get("message");
-			// logger.error("json:"+json);
+			logger.error("json:" + json);
 			logger.error("url:" + url + " params:" + params);
 			throw new StatusCodeException(status, "调用远程接口出错.[" + status + "." + message + "]", message);
 			// throw new RuntimeException("调用远程接口出错.[" + message + "]");
