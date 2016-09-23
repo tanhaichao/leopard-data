@@ -73,6 +73,10 @@ public class RpcBuilder {
 		return (List<T>) RpcClient.doPostForList(url, params, clazz, timeout);
 	}
 
+	public String queryForString() {
+		return (String) RpcClient.doPostForData(url, params, timeout);
+	}
+
 	public List<Long> queryForLongs() {
 		@SuppressWarnings("unchecked")
 		List<Long> list = (List<Long>) RpcClient.doPostForData(url, params, timeout);
