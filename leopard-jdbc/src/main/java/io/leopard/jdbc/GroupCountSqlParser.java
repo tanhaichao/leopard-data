@@ -32,6 +32,10 @@ public class GroupCountSqlParser extends CountSqlParser {
 
 	protected void parse() {
 		String sql = this.sql;
+		if (sql.indexOf("count(") == -1) {
+			super.parse();
+			return;
+		}
 		this.parsePostfix(sql);
 	}
 
