@@ -26,8 +26,13 @@ public class GroupCountSqlParser extends CountSqlParser {
 		sql = sql.replaceAll("select .*? from", "select count(distinct(" + fieldName + ")) from");
 		sql = sql.replaceAll("SELECT .*? FROM", "SELECT count(distinct(" + fieldName + ")) FROM");
 
-		System.out.println("fieldName:" + fieldName + " sql:" + sql);
+		// System.out.println("fieldName:" + fieldName + " sql:" + sql);
 		return sql;
+	}
+
+	protected void parse() {
+		String sql = this.sql;
+		this.parsePostfix(sql);
 	}
 
 }

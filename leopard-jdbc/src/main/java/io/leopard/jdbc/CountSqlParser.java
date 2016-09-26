@@ -7,16 +7,17 @@ import org.springframework.util.StringUtils;
 
 public class CountSqlParser {
 
-	private final String sql;
+	protected final String sql;
 	private final StatementParameter param;
 
-	private String countSql;
+	protected String countSql;
 
 	private Integer start;
 	private Integer size;
 
 	public CountSqlParser(String sql, StatementParameter param) {
 		this.sql = sql;
+		// System.err.println("sql:" + sql);
 		this.param = param;
 		this.parse();
 	}
@@ -28,6 +29,10 @@ public class CountSqlParser {
 		String sql = this.sql;
 		sql = sql.replaceAll("select .*? from", "select count(*) from");
 		sql = sql.replaceAll("SELECT .*? FROM", "SELECT count(*) FROM");
+		this.parsePostfix(sql);
+	}
+
+	protected void parsePostfix(String sql) {
 		{
 			Matcher m = ORDERBY_PATTERN.matcher(sql);
 			if (m.find()) {
@@ -46,6 +51,7 @@ public class CountSqlParser {
 		}
 		parseLimitValue();
 		this.countSql = sql;
+		// System.err.println("countSql2:" + countSql);
 	}
 
 	/**
@@ -58,7 +64,7 @@ public class CountSqlParser {
 		}
 		int index = m.start();
 		String limitSql = sql.substring(index);
-//		System.out.println("limitSql:" + limitSql);
+		// System.out.println("limitSql:" + limitSql);
 		int count = StringUtils.countOccurrencesOf(limitSql, "?");
 
 		int paramCount = param.size();
