@@ -35,18 +35,13 @@ public class PagingImpl<E> implements Paging<E> {
 		}
 	}
 
-	// public PagingImpl(List<?> list, int size) {
-	//
-	// }
-
-	// TODO
-	public PagingImpl(int modelListSize, int size) {
+	public PagingImpl(List<?> list, int size) {
 		boolean nextPage;
-		if (modelListSize <= 0) {
+		if (list == null) {
 			nextPage = false;
 		}
 		else {
-			nextPage = modelListSize >= size;
+			nextPage = list.size() >= size;
 		}
 		this.setNextPage(nextPage);
 
