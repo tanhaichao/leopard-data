@@ -81,6 +81,22 @@ public class RpcBuilder {
 		return (String) RpcClient.doPostForData(url, params, timeout);
 	}
 
+	public Long queryForLong() {
+		String str = this.queryForString();
+		if (str == null) {
+			return null;
+		}
+		return Long.parseLong(str);
+	}
+
+	public Integer queryForInteger() {
+		String str = this.queryForString();
+		if (str == null) {
+			return null;
+		}
+		return Integer.parseInt(str);
+	}
+
 	public List<Long> queryForLongs() {
 		@SuppressWarnings("unchecked")
 		List<Long> list = (List<Long>) RpcClient.doPostForData(url, params, timeout);
