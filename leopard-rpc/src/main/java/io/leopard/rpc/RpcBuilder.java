@@ -50,6 +50,10 @@ public class RpcBuilder {
 		this.params.put(name, value);
 	}
 
+	public void setList(String name, List<?> list) {
+		this.params.put(name, Json.toJson(list));
+	}
+
 	public Boolean getForBoolean() {
 		return (Boolean) RpcClient.doPostForObject(url, params, timeout);
 	}
