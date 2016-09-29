@@ -97,13 +97,21 @@ public class RpcBuilder {
 		return Integer.parseInt(str);
 	}
 
+	public List<Integer> queryForInts() {
+		@SuppressWarnings("unchecked")
+		List<Integer> list = (List<Integer>) RpcClient.doPostForData(url, params, timeout);
+		return list;
+	}
+
+	public List<String> queryForStrings() {
+		@SuppressWarnings("unchecked")
+		List<String> list = (List<String>) RpcClient.doPostForData(url, params, timeout);
+		return list;
+	}
+
 	public List<Long> queryForLongs() {
 		@SuppressWarnings("unchecked")
 		List<Long> list = (List<Long>) RpcClient.doPostForData(url, params, timeout);
-		// System.out.println("list:" + list);
-		// Json.toListObject(json, clazz)
-		// String json = Json.toJson(map);
-		// return Json.toObject(json, clazz, true);
 		return list;
 	}
 }
