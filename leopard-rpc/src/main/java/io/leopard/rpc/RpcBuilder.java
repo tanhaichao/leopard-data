@@ -39,6 +39,9 @@ public class RpcBuilder {
 	}
 
 	public void setString(String name, String value) {
+		if (value == null) {
+			return;
+		}
 		this.params.put(name, value);
 	}
 
@@ -74,7 +77,7 @@ public class RpcBuilder {
 	}
 
 	public <T> List<T> doPostForList(Class<T> clazz) {
-		return (List<T>) RpcClient.doPostForList(url, params, clazz, timeout);
+		return RpcClient.doPostForList(url, params, clazz, timeout);
 	}
 
 	public String queryForString() {
