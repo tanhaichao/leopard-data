@@ -58,7 +58,7 @@ public class RpcBuilder {
 		this.params.put(name, value);
 	}
 
-	public void setLong(String name, Date date) {
+	public void setDate(String name, Date date) {
 		if (date == null) {
 			return;
 		}
