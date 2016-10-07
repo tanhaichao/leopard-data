@@ -45,6 +45,14 @@ public class RpcBuilder {
 		this.params.put(name, value);
 	}
 
+	public void setFloat(String name, float value) {
+		this.params.put(name, value);
+	}
+
+	public void setDouble(String name, double value) {
+		this.params.put(name, value);
+	}
+
 	public void setLong(String name, long value) {
 		this.params.put(name, value);
 	}
