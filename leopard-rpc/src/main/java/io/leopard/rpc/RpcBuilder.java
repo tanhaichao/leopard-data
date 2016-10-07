@@ -1,5 +1,6 @@
 package io.leopard.rpc;
 
+import java.util.Date;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -55,6 +56,13 @@ public class RpcBuilder {
 
 	public void setLong(String name, long value) {
 		this.params.put(name, value);
+	}
+
+	public void setLong(String name, Date date) {
+		if (date == null) {
+			return;
+		}
+		this.params.put(name, date.getTime());
 	}
 
 	public void setInt(String name, int value) {
