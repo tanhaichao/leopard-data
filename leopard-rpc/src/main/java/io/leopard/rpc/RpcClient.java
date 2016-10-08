@@ -1,22 +1,29 @@
 package io.leopard.rpc;
 
+import java.io.IOException;
 import java.lang.reflect.Field;
+import java.net.HttpURLConnection;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.logging.Log;
 import org.apache.commons.logging.LogFactory;
 
 import io.leopard.core.exception.StatusCodeException;
+import io.leopard.httpnb.HttpException;
+import io.leopard.httpnb.HttpHeader;
 //import io.leopard.burrow.util.DateTime;
 //import io.leopard.core.exception.StatusCodeException;
 import io.leopard.httpnb.Httpnb;
+import io.leopard.httpnb.Param;
 import io.leopard.json.Json;
 import io.leopard.json.JsonException;
 //import io.leopard.commons.utility.HttpUtils;
@@ -65,9 +72,25 @@ public class RpcClient {
 		return obj;
 	}
 
+	public static String doPost(String url, long timeout, Map<String, Object> map) {
+		HttpHeader header = new RpcHttpHeader(timeout);
+		Iterator<Entry<String, Object>> iterator = map.entrySet().iterator();
+		while (iterator.hasNext()) {
+			Entry<String, Object> entry = iterator.next();
+			header.addParam(new Param(entry.getKey(), entry.getValue()));
+		}
+		try {
+			HttpURLConnection conn = header.openConnection(url);
+			return Httpnb.execute(conn, null);
+		}
+		catch (IOException e) {
+			throw new HttpException(e, header);
+		}
+	}
+
 	@SuppressWarnings("unchecked")
 	protected static Map<String, Object> doPostForMap(String url, Map<String, Object> params, long timeout) {
-		String json = Httpnb.doPost(url, timeout, params);
+		String json = doPost(url, timeout, params);
 		if (StringUtils.isEmpty(json)) {
 			throw new RuntimeException("调用远程接口出错，没有返回json.");
 		}
