@@ -6,6 +6,8 @@ public class RpcHttpHeader extends HttpHeaderPostImpl {
 
 	public RpcHttpHeader(long timeout) {
 		super(timeout);
+
+		super.setUserAgent("Leopard-Rpc");
 	}
 
 }
