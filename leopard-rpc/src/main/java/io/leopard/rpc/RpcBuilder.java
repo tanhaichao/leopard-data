@@ -73,18 +73,6 @@ public class RpcBuilder {
 		this.params.put(name, Json.toJson(list));
 	}
 
-	public Boolean getForBoolean() {
-		return (Boolean) RpcClient.doPostForObject(url, params, timeout);
-	}
-
-	public Long getForLong() {
-		return (Long) RpcClient.doPostForObject(url, params, timeout);
-	}
-
-	public Double getForDouble() {
-		return (Double) RpcClient.doPostForObject(url, params, timeout);
-	}
-
 	public <T> T doPost(Class<T> clazz) {
 		@SuppressWarnings("unchecked")
 		Map<String, Object> map = (Map<String, Object>) RpcClient.doPostForData(url, params, timeout);
@@ -96,24 +84,43 @@ public class RpcBuilder {
 		return RpcClient.doPostForList(url, params, clazz, timeout);
 	}
 
+	@Deprecated
+	public Boolean getForBoolean() {
+		return (Boolean) RpcClient.doPostForObject(url, params, timeout);
+	}
+
+	@Deprecated
+	public Long getForLong() {
+		return (Long) RpcClient.doPostForObject(url, params, timeout);
+	}
+
+	@Deprecated
+	public Double getForDouble() {
+		return (Double) RpcClient.doPostForObject(url, params, timeout);
+	}
+
 	public String queryForString() {
 		return (String) RpcClient.doPostForData(url, params, timeout);
 	}
 
+	public Boolean queryForBoolean() {
+		return (Boolean) RpcClient.doPostForObject(url, params, timeout);
+	}
+
 	public Long queryForLong() {
-		String str = this.queryForString();
-		if (str == null) {
-			return null;
-		}
-		return Long.parseLong(str);
+		return (Long) RpcClient.doPostForData(url, params, timeout);
 	}
 
 	public Integer queryForInteger() {
-		String str = this.queryForString();
-		if (str == null) {
-			return null;
-		}
-		return Integer.parseInt(str);
+		return (Integer) RpcClient.doPostForData(url, params, timeout);
+	}
+
+	public Float queryForFloat() {
+		return (Float) RpcClient.doPostForObject(url, params, timeout);
+	}
+
+	public Double queryForDouble() {
+		return (Double) RpcClient.doPostForObject(url, params, timeout);
 	}
 
 	public List<Integer> queryForInts() {
