@@ -108,7 +108,11 @@ public class RpcBuilder {
 	}
 
 	public Long queryForLong() {
-		return (Long) RpcClient.doPostForData(url, params, timeout);
+		Number number = (Number) RpcClient.doPostForData(url, params, timeout);
+		if (number == null) {
+			return null;
+		}
+		return number.longValue();
 	}
 
 	public Integer queryForInteger() {
