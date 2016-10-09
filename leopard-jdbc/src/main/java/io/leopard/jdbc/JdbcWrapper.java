@@ -327,4 +327,9 @@ public class JdbcWrapper implements Jdbc {
 		return this.getJdbc().queryForMaps(sql, params);
 	}
 
+	@Override
+	public Double queryForDouble(String sql, Object... params) {
+		return this.getJdbc().queryForDouble(sql, params);
+	}
+
 }

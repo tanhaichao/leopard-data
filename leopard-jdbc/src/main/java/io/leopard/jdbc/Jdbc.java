@@ -353,6 +353,15 @@ public interface Jdbc {
 	Integer queryForInt(String sql, Object... params);
 
 	/**
+	 * 根据sql查询数据，返回double值.
+	 * 
+	 * @param sql sql
+	 * @param params 参数列表
+	 * @return 查询的数据
+	 */
+	Double queryForDouble(String sql, Object... params);
+
+	/**
 	 * 根据sql查询数据，返回Date对象.
 	 * 
 	 * @param sql sql

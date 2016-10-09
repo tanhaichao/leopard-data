@@ -309,6 +309,11 @@ public class JdbcMysqlImpl implements Jdbc {
 	}
 
 	@Override
+	public Double queryForDouble(String sql, Object... params) {
+		return this.queryForDouble(sql, this.toStatementParameter(sql, params));
+	}
+
+	@Override
 	public Double queryForDouble(String sql, StatementParameter param) {
 		Object[] args = param.getArgs();
 		int[] argTypes = param.getArgTypes();
