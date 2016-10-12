@@ -8,7 +8,7 @@
 	<artifactId>leopard-memdb</artifactId>
 	<name>Leopard-Memdb</name>
 	<description>内存KV数据库、PubSub。内存KV数据库基于Java Map实现，支持单JVM、跨JVM同步。PubSub基于Redis实现，非常方便实现当前项目所有JVM通讯。</description>
-	
+
 	<dependencies>
 		<!-- pubsub使用 -->
 		<dependency>
@@ -29,7 +29,10 @@
 			<groupId>org.mockito</groupId>
 			<artifactId>mockito-all</artifactId>
 		</dependency>
-
+		<dependency>
+			<groupId>commons-collections</groupId>
+			<artifactId>commons-collections</artifactId>
+		</dependency>
 
 		<dependency>
 			<groupId>junit</groupId>
